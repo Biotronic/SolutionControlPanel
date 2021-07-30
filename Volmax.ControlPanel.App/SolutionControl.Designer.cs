@@ -1,0 +1,225 @@
+﻿
+using System.Windows.Forms;
+
+namespace Volmax.ControlPanel.App
+{
+    partial class SolutionControl
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblSelected = new System.Windows.Forms.Label();
+            this.lblSolutionName = new System.Windows.Forms.Label();
+            this.lblStatusText = new System.Windows.Forms.Label();
+            this.lblStatusIcon = new System.Windows.Forms.Label();
+            this.cmbProfiles = new System.Windows.Forms.ComboBox();
+            this.btnStop = new System.Windows.Forms.Button();
+            this.btnRestart = new System.Windows.Forms.Button();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itmHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.itmShowAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 8;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.lblSelected, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblSolutionName, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblStatusText, 4, 0);
+            this.tableLayoutPanel1.Controls.Add(this.lblStatusIcon, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.cmbProfiles, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnStop, 7, 0);
+            this.tableLayoutPanel1.Controls.Add(this.btnRestart, 6, 0);
+            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(701, 28);
+            this.tableLayoutPanel1.TabIndex = 0;
+            this.tableLayoutPanel1.Click += new System.EventHandler(this.ClickOutside);
+            // 
+            // lblSelected
+            // 
+            this.lblSelected.AutoSize = true;
+            this.lblSelected.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblSelected.Location = new System.Drawing.Point(23, 0);
+            this.lblSelected.Name = "lblSelected";
+            this.lblSelected.Size = new System.Drawing.Size(10, 28);
+            this.lblSelected.TabIndex = 7;
+            this.lblSelected.Text = " ";
+            this.lblSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblSelected.Click += new System.EventHandler(this.ClickOutside);
+            // 
+            // lblSolutionName
+            // 
+            this.lblSolutionName.AutoSize = true;
+            this.lblSolutionName.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblSolutionName.Location = new System.Drawing.Point(43, 0);
+            this.lblSolutionName.Name = "lblSolutionName";
+            this.lblSolutionName.Size = new System.Drawing.Size(10, 28);
+            this.lblSolutionName.TabIndex = 0;
+            this.lblSolutionName.Text = " ";
+            this.lblSolutionName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblSolutionName.Click += new System.EventHandler(this.ClickOutside);
+            // 
+            // lblStatusText
+            // 
+            this.lblStatusText.AutoSize = true;
+            this.lblStatusText.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblStatusText.Location = new System.Drawing.Point(442, 0);
+            this.lblStatusText.Name = "lblStatusText";
+            this.lblStatusText.Size = new System.Drawing.Size(78, 28);
+            this.lblStatusText.TabIndex = 1;
+            this.lblStatusText.Text = "Unresponsive";
+            this.lblStatusText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblStatusText.Click += new System.EventHandler(this.ClickOutside);
+            this.lblStatusText.MouseHover += new System.EventHandler(this.lblStatusText_MouseHover);
+            // 
+            // lblStatusIcon
+            // 
+            this.lblStatusIcon.AutoSize = true;
+            this.lblStatusIcon.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblStatusIcon.Image = global::Volmax.ControlPanel.App.Properties.Resources.StatusOffline_16x;
+            this.lblStatusIcon.Location = new System.Drawing.Point(426, 0);
+            this.lblStatusIcon.Name = "lblStatusIcon";
+            this.lblStatusIcon.Size = new System.Drawing.Size(10, 28);
+            this.lblStatusIcon.TabIndex = 5;
+            this.lblStatusIcon.Text = " ";
+            this.lblStatusIcon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblStatusIcon.Click += new System.EventHandler(this.ClickOutside);
+            // 
+            // cmbProfiles
+            // 
+            this.cmbProfiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbProfiles.FormattingEnabled = true;
+            this.cmbProfiles.Location = new System.Drawing.Point(140, 3);
+            this.cmbProfiles.Name = "cmbProfiles";
+            this.cmbProfiles.Size = new System.Drawing.Size(280, 23);
+            this.cmbProfiles.TabIndex = 0;
+            // 
+            // btnStop
+            // 
+            this.btnStop.Location = new System.Drawing.Point(623, 3);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(75, 22);
+            this.btnStop.TabIndex = 2;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            // 
+            // btnRestart
+            // 
+            this.btnRestart.Location = new System.Drawing.Point(542, 3);
+            this.btnRestart.Name = "btnRestart";
+            this.btnRestart.Size = new System.Drawing.Size(75, 22);
+            this.btnRestart.TabIndex = 1;
+            this.btnRestart.Text = "Start";
+            this.btnRestart.UseVisualStyleBackColor = true;
+            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.checkBox1.Location = new System.Drawing.Point(3, 3);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(14, 22);
+            this.checkBox1.TabIndex = 8;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            this.checkBox1.Click += new System.EventHandler(this.ClickOutside);
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itmHide,
+            this.itmShowAll});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(119, 48);
+            // 
+            // itmHide
+            // 
+            this.itmHide.Name = "itmHide";
+            this.itmHide.Size = new System.Drawing.Size(118, 22);
+            this.itmHide.Text = "&Hide";
+            this.itmHide.Click += new System.EventHandler(this.itmHide_Click);
+            // 
+            // itmShowAll
+            // 
+            this.itmShowAll.Name = "itmShowAll";
+            this.itmShowAll.Size = new System.Drawing.Size(118, 22);
+            this.itmShowAll.Text = "Show &all";
+            this.itmShowAll.Click += new System.EventHandler(this.itmShowAll_Click);
+            // 
+            // SolutionControl
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tableLayoutPanel1);
+            this.Name = "SolutionControl";
+            this.Size = new System.Drawing.Size(701, 28);
+            this.VisibleChanged += new System.EventHandler(this.SolutionControl_VisibleChanged);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
+            this.ResumeLayout(false);
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label lblSolutionName;
+        private System.Windows.Forms.Label lblStatusText;
+        private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Button btnRestart;
+        private System.Windows.Forms.Label lblStatusIcon;
+        private System.Windows.Forms.ComboBox cmbProfiles;
+        private System.Windows.Forms.Label lblSelected;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private ToolTip toolTip1;
+        private CheckBox checkBox1;
+        private ToolStripMenuItem itmHide;
+        private ToolStripMenuItem itmShowAll;
+    }
+}
