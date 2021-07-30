@@ -14,7 +14,7 @@ namespace Volmax.ControlPanel.App
         {
             InitializeComponent();
 
-            var config = new Config("config.json");
+            var config = new Config.Config("config.json");
 
             Solutions = Solution.GetSolutions(config).ToList();
             tableLayoutPanel1.RowCount = Solutions.Count + 1;

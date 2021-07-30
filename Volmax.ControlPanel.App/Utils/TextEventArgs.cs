@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Volmax.ControlPanel.App
+namespace Volmax.ControlPanel.App.Utils
 {
     public class TextEventArgs : EventArgs
     {

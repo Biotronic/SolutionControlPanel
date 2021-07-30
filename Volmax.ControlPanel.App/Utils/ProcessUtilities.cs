@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Volmax.ControlPanel.App
+namespace Volmax.ControlPanel.App.Utils
 {
     // ref: http://www.microsoft.com/whdc/system/Sysinternals/MoreThan64proc.mspx
     public enum PROCESSINFOCLASS : int

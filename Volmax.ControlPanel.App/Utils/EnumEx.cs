@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Volmax.ControlPanel.App
+namespace Volmax.ControlPanel.App.Utils
 {
     public static class EnumEx
     {

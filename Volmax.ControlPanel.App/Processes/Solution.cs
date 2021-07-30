@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using System.Text;
+using Volmax.ControlPanel.App.Config;
+using Volmax.ControlPanel.App.Utils;
 
 namespace Volmax.ControlPanel.App.Processes
 {
@@ -110,7 +112,7 @@ namespace Volmax.ControlPanel.App.Processes
         protected string ProjectPath { get; set; }
         private readonly List<Process> _processes = new List<Process>();
         private readonly List<ProcessPorts.UsedPort> _ports = new List<ProcessPorts.UsedPort>();
-        protected readonly Config Config;
+        protected readonly Config.Config Config;
         protected readonly SolutionConfig SolutionConfig;
 
         private static readonly ManagementEventWatcher StartListener;
@@ -182,7 +184,7 @@ namespace Volmax.ControlPanel.App.Processes
         }
 
 
-        protected Solution(string path, string projectPath, Dictionary<string, LaunchProfile> profiles, Config config)
+        protected Solution(string path, string projectPath, Dictionary<string, LaunchProfile> profiles, Config.Config config)
         {
             Path = path;
             ProjectPath = projectPath;
@@ -420,7 +422,7 @@ namespace Volmax.ControlPanel.App.Processes
             }
         }
 
-        public static IEnumerable<Solution> GetSolutions(Config config)
+        public static IEnumerable<Solution> GetSolutions(Config.Config config)
         {
             foreach (var solution in DotnetSolution.GetDotnetSolutions(config))
             {

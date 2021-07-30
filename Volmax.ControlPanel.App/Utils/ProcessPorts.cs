@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Volmax.ControlPanel.App
+namespace Volmax.ControlPanel.App.Utils
 {
     /// <summary>
     /// Static class that returns the list of processes and the ports those processes use.

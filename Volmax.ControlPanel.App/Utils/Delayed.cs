@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace Volmax.ControlPanel.App
+namespace Volmax.ControlPanel.App.Utils
 {
     public class Delayed
     {

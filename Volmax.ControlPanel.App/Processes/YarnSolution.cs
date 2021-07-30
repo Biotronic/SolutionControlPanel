@@ -7,7 +7,7 @@ namespace Volmax.ControlPanel.App.Processes
 {
     internal class YarnSolution : Solution
     {
-        public YarnSolution(string path, string projectPath, Dictionary<string, LaunchProfile> profiles, Config config)
+        public YarnSolution(string path, string projectPath, Dictionary<string, LaunchProfile> profiles, Config.Config config)
             : base(path, projectPath, profiles, config)
         {
             ExpectedProcessCount = 8;
@@ -39,7 +39,7 @@ namespace Volmax.ControlPanel.App.Processes
             StartProcess("cmd", "/c yarn start");
         }
 
-        public static IEnumerable<Solution> GetYarnSolutions(Config config)
+        public static IEnumerable<Solution> GetYarnSolutions(Config.Config config)
         {
             var paths = Directory.EnumerateFiles(config.Basepath, ".npmrc", SearchOption.AllDirectories);
 

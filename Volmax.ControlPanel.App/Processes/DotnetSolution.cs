@@ -10,7 +10,7 @@ namespace Volmax.ControlPanel.App.Processes
     internal class DotnetSolution : Solution
     {
         public DotnetSolution(string path, string projectPath, Dictionary<string, LaunchProfile> profiles,
-            Config config) : base(path, projectPath, profiles, config)
+            Config.Config config) : base(path, projectPath, profiles, config)
         {
             ExpectedProcessCount = 3;
             Profile = SolutionConfig.Profile;
@@ -39,7 +39,7 @@ namespace Volmax.ControlPanel.App.Processes
             StartProcess("dotnet", $"run -p {Name}.csproj --launch-profile {profile}");
         }
 
-        public static IEnumerable<Solution> GetDotnetSolutions(Config config)
+        public static IEnumerable<Solution> GetDotnetSolutions(Config.Config config)
         {
             var solutions = Directory.EnumerateFiles(config.Basepath, "*.sln", SearchOption.AllDirectories);
 
