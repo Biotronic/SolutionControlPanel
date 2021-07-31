@@ -47,12 +47,8 @@ namespace Volmax.ControlPanel.App
                 else
                 {
                     var profiles = Solution.Profiles.Keys.ToList();
-                    cmbProfiles.Items.AddRange(profiles.ToArray());
-                    cmbProfiles.SelectedIndex = profiles.IndexOf(Solution.Profile);
-                    if (cmbProfiles.SelectedIndex == -1)
-                    {
-                        cmbProfiles.SelectedIndex = 0;
-                    }
+                    cmbProfiles.Items.AddRange(profiles.OfType<object>().ToArray());
+                    cmbProfiles.SelectedIndex = Math.Max(0, profiles.IndexOf(Solution.Profile));
                 }
 
                 UpdateSolution(Solution, EventArgs.Empty);
