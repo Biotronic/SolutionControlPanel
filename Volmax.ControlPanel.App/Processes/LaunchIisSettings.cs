@@ -1,4 +1,5 @@
-﻿namespace Volmax.ControlPanel.App.Processes
+﻿// ReSharper disable UnusedMember.Global
+namespace Volmax.ControlPanel.App.Processes
 {
     public class LaunchIisSettings
     {

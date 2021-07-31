@@ -61,7 +61,7 @@ namespace Volmax.ControlPanel.App.Processes
             }
         }
 
-        public IEnumerable<ProcessPorts.UsedPort> Ports
+        public IEnumerable<UsedPort> Ports
         {
             get
             {
@@ -111,7 +111,7 @@ namespace Volmax.ControlPanel.App.Processes
 
         protected string ProjectPath { get; set; }
         private readonly List<Process> _processes = new List<Process>();
-        private readonly List<ProcessPorts.UsedPort> _ports = new List<ProcessPorts.UsedPort>();
+        private readonly List<UsedPort> _ports = new List<UsedPort>();
         protected readonly Config.Config Config;
         protected readonly SolutionConfig SolutionConfig;
 
@@ -190,6 +190,7 @@ namespace Volmax.ControlPanel.App.Processes
             ProjectPath = projectPath;
             Profiles = profiles;
             Config = config;
+            // ReSharper disable once VirtualMemberCallInConstructor
             SetName();
             SolutionConfig = Config.GetSolution(Name);
             Hidden = SolutionConfig.Hidden;
@@ -418,7 +419,7 @@ namespace Volmax.ControlPanel.App.Processes
             lock (_ports)
             {
                 _ports.Clear();
-                _ports.AddRange(ProcessPorts.GetPortUsage().Where(a => pids.Contains(a.ProcessId)));
+                _ports.AddRange(ProcessUtilities.GetPortUsage().Where(a => pids.Contains(a.ProcessId)));
             }
         }
 

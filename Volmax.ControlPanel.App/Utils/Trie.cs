@@ -172,25 +172,23 @@ namespace Volmax.ControlPanel.App.Utils
 
         public bool ContainsKey(IEnumerable<TKey> key)
         {
-            using (var enumerator = key.GetEnumerator())
-                return _root.Get(enumerator)?.HasValue == true;
+            using var enumerator = key.GetEnumerator();
+            return _root.Get(enumerator)?.HasValue == true;
         }
 
         public bool Remove(IEnumerable<TKey> key)
         {
-            using (var enumerator = key.GetEnumerator())
-                return _root.Remove(enumerator);
+            using var enumerator = key.GetEnumerator();
+            return _root.Remove(enumerator);
         }
 
         public bool TryGetValue(IEnumerable<TKey> key, out TValue value)
         {
-            using (var enumerator = key.GetEnumerator())
-            {
-                var node = _root.Get(enumerator);
+            using var enumerator = key.GetEnumerator();
+            var node = _root.Get(enumerator);
 
-                value = node?.HasValue == true ? node.Value : default;
-                return node?.HasValue == true;
-            }
+            value = node?.HasValue == true ? node.Value : default;
+            return node?.HasValue == true;
         }
 
         public TValue this[IEnumerable<TKey> key]
@@ -202,26 +200,10 @@ namespace Volmax.ControlPanel.App.Utils
         public ICollection<IEnumerable<TKey>> Keys => _root.Enumerate(new TKey[0]).Select(a => a.Key).ToList();
         public ICollection<TValue> Values => _root.Enumerate(new TKey[0]).Select(a => a.Value).ToList();
 
-        public IEnumerable<KeyValuePair<IEnumerable<TKey>, TValue>> ByPrefix(IEnumerable<TKey> prefix)
-        {
-            using (var enumerator = prefix.GetEnumerator())
-            {
-                var node = _root.Get(enumerator);
-                return node?.Enumerate(new TKey[0]) ?? new KeyValuePair<IEnumerable<TKey>, TValue>[0];
-            }
-        }
-
         public IEnumerable<TKey> LongestPrefix(IEnumerable<TKey> key)
         {
-            using (var enumerator = key.GetEnumerator())
-            {
-                return _root.GetPrefix(new TKey[0], enumerator) ?? new TKey[0];
-            }
-        }
-
-        public IEnumerable<TKey> LongestPrefix(IEnumerator<TKey> key)
-        {
-            return _root.GetPrefix(new TKey[0], key) ?? new TKey[0];
+            using var enumerator = key.GetEnumerator();
+            return _root.GetPrefix(new TKey[0], enumerator) ?? new TKey[0];
         }
     }
 }

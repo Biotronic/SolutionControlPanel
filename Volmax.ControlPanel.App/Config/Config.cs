@@ -11,7 +11,7 @@ namespace Volmax.ControlPanel.App.Config
         {
             _source = source;
             JsonConvert.PopulateObject(File.ReadAllText(source), this);
-            foreach (var (key, value) in Solutions)
+            foreach (var (_, value) in Solutions)
             {
                 value.Config = this;
             }
@@ -27,8 +27,8 @@ namespace Volmax.ControlPanel.App.Config
 
         public SolutionConfig GetSolution(string name)
         {
-            if (Solutions.TryGetValue(name, out var _existing))
-                return _existing;
+            if (Solutions.TryGetValue(name, out var existing))
+                return existing;
             return Solutions[name] = new SolutionConfig(this);
         }
     }

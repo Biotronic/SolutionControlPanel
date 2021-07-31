@@ -27,12 +27,12 @@ namespace Volmax.ControlPanel.App
         public event EventHandler Start;
         public event EventHandler Stop;
 
-        private void btnRestart_Click(object sender, System.EventArgs e)
+        private void btnRestart_Click(object sender, EventArgs e)
         {
             Start?.Invoke(this, EventArgs.Empty);
         }
 
-        private void btnStop_Click(object sender, System.EventArgs e)
+        private void btnStop_Click(object sender, EventArgs e)
         {
             Stop?.Invoke(this, EventArgs.Empty);
         }

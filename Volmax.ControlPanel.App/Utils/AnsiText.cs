@@ -122,31 +122,31 @@ namespace Volmax.ControlPanel.App.Utils
                             i = ControlSequence(s, i);
                             break;
                         case 'N':
-                            Trace.WriteLine($"Unsupported escape sequence SS2");
+                            Trace.WriteLine("Unsupported escape sequence SS2");
                             break;
                         case 'O':
-                            Trace.WriteLine($"Unsupported escape sequence SS3");
+                            Trace.WriteLine("Unsupported escape sequence SS3");
                             break;
                         case 'P':
-                            Trace.WriteLine($"Unsupported escape sequence DCS");
+                            Trace.WriteLine("Unsupported escape sequence DCS");
                             break;
                         case ']':
-                            Trace.WriteLine($"Unsupported escape sequence OSC");
+                            Trace.WriteLine("Unsupported escape sequence OSC");
                             ++i;
                             i = ReadUntilSt(s, i);
                             break;
                         case 'X':
-                            Trace.WriteLine($"Unsupported escape sequence SOS");
+                            Trace.WriteLine("Unsupported escape sequence SOS");
                             ++i;
                             i = ReadUntilSt(s, i);
                             break;
                         case '^':
-                            Trace.WriteLine($"Unsupported escape sequence PM");
+                            Trace.WriteLine("Unsupported escape sequence PM");
                             ++i;
                             i = ReadUntilSt(s, i);
                             break;
                         case '_':
-                            Trace.WriteLine($"Unsupported escape sequence APC");
+                            Trace.WriteLine("Unsupported escape sequence APC");
                             ++i;
                             i = ReadUntilSt(s, i);
                             break;

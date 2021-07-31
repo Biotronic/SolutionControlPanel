@@ -3,12 +3,12 @@ using System.Threading;
 
 namespace Volmax.ControlPanel.App.Utils
 {
-    public class Delayed
+    public class Delayed : IDisposable
     {
         private readonly Thread _thread;
         private readonly Action _action;
         private readonly TimeSpan _delay;
-        private bool _aborted = false;
+        private bool _aborted;
 
         public static Delayed Call(TimeSpan delay, Action action)
         {
@@ -38,6 +38,12 @@ namespace Volmax.ControlPanel.App.Utils
         public void Abort()
         {
             _aborted = true;
+        }
+
+        public void Dispose()
+        {
+            Abort();
+            _thread.Join();
         }
     }
 }

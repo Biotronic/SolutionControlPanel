@@ -22,39 +22,6 @@ namespace Volmax.ControlPanel.App.Processes
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
-        public static string GetSolutionForVisualStudio(Process visualStudioProcess)
-        {
-            if (!TryGetVsInstance(visualStudioProcess.Id, out var visualStudioInstance)) return null;
-
-            try
-            {
-                return visualStudioInstance.Solution.FullName;
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
-        public static Process GetAttachedVisualStudio(Process applicationProcess)
-        {
-            var visualStudios = GetVisualStudioProcesses();
-
-            foreach (var visualStudio in visualStudios)
-            {
-                if (!TryGetVsInstance(visualStudio.Id, out var visualStudioInstance)) continue;
-
-                var debuggedProcess = visualStudioInstance.Debugger.DebuggedProcesses.OfType<Process>()
-                    .FirstOrDefault(a => a.Id == applicationProcess.Id);
-                if (debuggedProcess != null)
-                {
-                    return debuggedProcess;
-                }
-            }
-
-            return null;
-        }
-
         /// <summary>
         /// The method to use to attach visual studio to a specified process.
         /// </summary>
@@ -161,7 +128,7 @@ namespace Volmax.ControlPanel.App.Processes
 
                 runningObjectTable.GetObject(monikers[0], out var runningObjectVal);
 
-                if (!(runningObjectVal is _DTE) || !runningObjectName.StartsWith("!VisualStudio")) continue;
+                if (!(runningObjectVal is _DTE dte) || !runningObjectName.StartsWith("!VisualStudio")) continue;
 
 
                 var currentProcessId = int.Parse(runningObjectName.Split(':')[1]);
@@ -169,7 +136,7 @@ namespace Volmax.ControlPanel.App.Processes
                 if (currentProcessId != processId) continue;
 
 
-                instance = (_DTE)runningObjectVal;
+                instance = dte;
                 return true;
             }
 
@@ -181,7 +148,7 @@ namespace Volmax.ControlPanel.App.Processes
         {
             if (Debugger.IsAttached) return;
 
-            var vsProcess = VisualStudioAttacher.GetVisualStudioForSolutions("AudioAnalysis.sln");
+            var vsProcess = GetVisualStudioForSolutions("AudioAnalysis.sln");
 
             if (vsProcess != null)
             {

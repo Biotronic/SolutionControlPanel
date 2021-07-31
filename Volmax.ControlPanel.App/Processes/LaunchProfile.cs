@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+// ReSharper disable UnusedMember.Global
 
 namespace Volmax.ControlPanel.App.Processes
 {
@@ -9,6 +10,6 @@ namespace Volmax.ControlPanel.App.Processes
         public bool LaunchBrowser { get; set; }
         public string LaunchUrl { get; set; }
         public string ApplicationUrl { get; set; }
-        public Dictionary<string, string> EnvironmentVariables { get; private set; }
+        public Dictionary<string, string> EnvironmentVariables { get; set; }
     }
 }
