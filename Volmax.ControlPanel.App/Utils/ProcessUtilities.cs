@@ -19,7 +19,7 @@ namespace Volmax.ControlPanel.App.Utils
 
         public override string ToString()
         {
-            return $"{Protocol} {Port}";
+            return $"{ProcessId}: {Protocol} {Port}";
         }
     }
 
@@ -298,7 +298,7 @@ namespace Volmax.ControlPanel.App.Utils
         public static IReadOnlyCollection<UsedPort> GetPortUsage()
         {
             var now = DateTime.UtcNow;
-            if (((now - _dataTime) ?? TimeSpan.MaxValue) > DataValidAge)
+            if (((now - _dataTime) ?? TimeSpan.MaxValue) < DataValidAge)
             {
                 return Data;
             }
@@ -345,7 +345,7 @@ namespace Volmax.ControlPanel.App.Utils
                     {
                         Data.Add(new UsedPort
                         {
-                            ProcessId = tokens[1] == "UDP" ? Convert.ToInt16(tokens[4]) : Convert.ToInt16(tokens[5]),
+                            ProcessId = tokens[1] == "UDP" ? Convert.ToInt32(tokens[4]) : Convert.ToInt32(tokens[5]),
                             Protocol = ipAddress.Contains("1.1.1.1") ? $"{tokens[1]}v6" : $"{tokens[1]}v4",
                             Port = Convert.ToInt32(ipAddress.Split(':')[1])
                         });

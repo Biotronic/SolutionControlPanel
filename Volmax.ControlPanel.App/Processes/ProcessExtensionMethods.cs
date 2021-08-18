@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace Volmax.ControlPanel.App.Processes
@@ -12,9 +13,16 @@ namespace Volmax.ControlPanel.App.Processes
         public static bool HasDebuggerAttached(this Process process)
         {
             var attached = false;
-            if (CheckRemoteDebuggerPresent(process.SafeHandle, ref attached))
+            try
             {
-                return attached;
+                if (CheckRemoteDebuggerPresent(process.SafeHandle, ref attached))
+                {
+                    return attached;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                return false;
             }
             return false;
         }

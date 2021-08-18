@@ -12,7 +12,7 @@ namespace Volmax.ControlPanel.App.Processes
         public DotnetSolution(string path, string projectPath, Dictionary<string, LaunchProfile> profiles,
             Config.Config config) : base(path, projectPath, profiles, config)
         {
-            ExpectedProcessCount = 3;
+            ExpectedProcessCount = 2;
             Profile = SolutionConfig.Profile;
         }
 

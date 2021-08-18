@@ -20,6 +20,7 @@ namespace Volmax.ControlPanel.App.Processes
 
         protected override ProcessKind IsRelevantProcess(ProcessInfo processInfo)
         {
+            if (processInfo.CommandLine == null) return ProcessKind.Irrelevant;
             if (Regex.IsMatch(processInfo.CommandLine, "\"cmd\" /c yarn start"))
             {
                 if (System.IO.Path.GetRelativePath(ProjectPath, processInfo.WorkingDirectory) == ".")
