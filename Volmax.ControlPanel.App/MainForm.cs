@@ -9,12 +9,18 @@ namespace Volmax.ControlPanel.App
     public partial class MainForm : Form
     {
         private readonly GroupControl _groupControl;
+        private bool _exitEarly = false;
 
         public MainForm()
         {
             InitializeComponent();
 
             var config = new Config.Config("config.json");
+            if (config.Basepath == null)
+            {
+                _exitEarly = true;
+                return;
+            }
 
             Solutions = Solution.GetSolutions(config).ToList();
             tableLayoutPanel1.RowCount = Solutions.Count + 1;
@@ -40,6 +46,15 @@ namespace Volmax.ControlPanel.App
             _groupControl.Start += _groupControl_Start;
             _groupControl.Stop += _groupControl_Stop;
             Solution_CheckedChanged(this, EventArgs.Empty);
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            if (_exitEarly)
+            {
+                Close();
+            }
         }
 
         private void Solution_ShowAll(object sender, EventArgs e)

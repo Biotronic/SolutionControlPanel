@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 
 namespace Volmax.ControlPanel.App.Config
@@ -10,6 +11,24 @@ namespace Volmax.ControlPanel.App.Config
         public Config(string source)
         {
             _source = source;
+
+            if (!File.Exists(_source))
+            {
+                var dlg = new FolderBrowserDialog
+                {
+                    Description = "Please select the base folder containing your projects",
+                    UseDescriptionForTitle = true
+                };
+                var r = dlg.ShowDialog();
+                if (r == DialogResult.Cancel)
+                {
+                    Application.Exit();
+                    return;
+                }
+                var basePath = dlg.SelectedPath;
+                File.WriteAllText(_source, JsonConvert.SerializeObject(new { Basepath = basePath }));
+            }
+
             JsonConvert.PopulateObject(File.ReadAllText(source), this);
             foreach (var (_, value) in Solutions)
             {
@@ -18,7 +37,7 @@ namespace Volmax.ControlPanel.App.Config
         }
 
         public string Basepath { get; set; }
-        public Dictionary<string, SolutionConfig> Solutions { get; set; }
+        public Dictionary<string, SolutionConfig> Solutions { get; set; } = new Dictionary<string, SolutionConfig>();
 
         public void Update()
         {
