@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 
 namespace Volmax.ControlPanel.App.Utils
@@ -32,7 +33,12 @@ namespace Volmax.ControlPanel.App.Utils
                 _action.Invoke();
             }
             catch (ThreadAbortException)
-            { }
+            {
+            }
+            catch (Exception ex)
+            {
+                Trace.WriteLine(ex);
+            }
         }
 
         public void Abort()
