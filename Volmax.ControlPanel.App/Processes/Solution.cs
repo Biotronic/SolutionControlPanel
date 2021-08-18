@@ -224,6 +224,13 @@ namespace Volmax.ControlPanel.App.Processes
         }
         protected abstract ProcessKind IsRelevantProcess(ProcessInfo processInfo);
 
+        private static bool IsFrameworkProcess(ProcessInfo processInfo)
+        {
+            if (processInfo.Name == "conhost.exe") return true;
+            if (processInfo.Name == "dotnet.exe" && processInfo.CommandLine.Contains("\\MSBuild.dll\"")) return true;
+            return false;
+        }
+
         protected void NewProcess(ProcessInfo processInfo)
         {
             try
@@ -237,7 +244,7 @@ namespace Volmax.ControlPanel.App.Processes
                 {
                     AddProcess(processInfo.Process);
                 }
-                else if (Processes.Any(a => a.Id == processInfo.ParentProcessId))
+                else if (Processes.Any(a => a.Id == processInfo.ParentProcessId) && !IsFrameworkProcess(processInfo))
                 {
                     AddProcess(processInfo.Process);
                 }
@@ -415,11 +422,14 @@ namespace Volmax.ControlPanel.App.Processes
 
         protected void UpdatePorts()
         {
-            var pids = Processes.Select(a => a.Id);
+            var pids = Processes.Select(a => a.Id).ToList();
             lock (_ports)
             {
+                var usage = ProcessUtilities.GetPortUsage();
+                var relevant = usage.Where(a => pids.Contains(a.ProcessId)).ToList();
                 _ports.Clear();
-                _ports.AddRange(ProcessUtilities.GetPortUsage().Where(a => pids.Contains(a.ProcessId)));
+                _ports.AddRange(relevant);
+                Trace.WriteLine($"{Name}: {pids.Count} pids, {relevant.Count} port usages");
             }
         }
 
