@@ -54,7 +54,10 @@ namespace Volmax.ControlPanel.App
         {
             foreach (var control in tableLayoutPanel1.Controls.OfType<SolutionControl>().Where(a => a.Checked))
             {
-                control.Solution.Restart(control.Profile);
+                if (control.Solution.Status == SolutionStatus.Stopped)
+                {
+                    control.Solution.Start(control.Profile);
+                }
             }
         }
 
