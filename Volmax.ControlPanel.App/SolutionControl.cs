@@ -31,6 +31,7 @@ namespace Volmax.ControlPanel.App
             set
             {
                 _solution = value;
+                itmName.Text = Solution.Name;
                 Checked = Solution.Checked;
                 Visible = !Solution.Hidden;
                 Solution.Update += UpdateSolution;
@@ -160,11 +161,39 @@ namespace Volmax.ControlPanel.App
             ShowAll?.Invoke(this, e);
         }
 
+        private void itmStart_Click(object sender, EventArgs e)
+        {
+            Solution.Start(cmbProfiles.Text);
+        }
+
+        private void itmRestart_Click(object sender, EventArgs e)
+        {
+            Solution.Restart(cmbProfiles.Text);
+        }
+
+        private void itmStop_Click(object sender, EventArgs e)
+        {
+            Solution.Stop();
+        }
+
+        private void itmDebug_Click(object sender, EventArgs e)
+        {
+            Solution.AttachDebugger();
+        }
+
         private void SolutionControl_VisibleChanged(object sender, EventArgs e)
         {
             Solution.Hidden = !Visible;
             HiddenChanged?.Invoke(this, e);
             CheckedChanged?.Invoke(this, e);
+        }
+
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            itmStart.Visible = Solution.Status == SolutionStatus.Stopped;
+            itmRestart.Visible = Solution.Status != SolutionStatus.Stopped;
+            itmStop.Visible = Solution.Status != SolutionStatus.Stopped;
+            itmDebug.Visible = Solution.Status != SolutionStatus.Debugged && Solution.Status != SolutionStatus.Stopped;
         }
     }
 }
