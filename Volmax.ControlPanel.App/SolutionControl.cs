@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using Volmax.ControlPanel.App.Processes;
@@ -58,11 +59,38 @@ namespace Volmax.ControlPanel.App
 
         public string Profile => cmbProfiles.Text;
 
+        private bool _current;
+        public bool Current
+        {
+            get => _current;
+            set
+            {
+                if (_current == value) return;
+                _current = value;
+                if (value)
+                {
+                    lblSelected.Text = @">";
+                    BackColor = SystemColors.ControlDark;
+                    var siblings = TopLevelControl?.Controls.Find(Name, true).Where(a => a != this).OfType<SolutionControl>() ?? Enumerable.Empty<SolutionControl>();
+                    foreach (var sibling in siblings)
+                    {
+                        sibling.Current = false;
+                    }
+                    Solution_OutputAdded(this, new TextEventArgs("", ""));
+                }
+                else
+                {
+                    lblSelected.Text = @" ";
+                    BackColor = SystemColors.Control;
+                }
+            }
+        }
+
         private void Solution_OutputAdded(object sender, TextEventArgs e)
         {
             Invoke((Action)(() =>
                {
-                   if (Textbox != null && ContainsFocus)
+                   if (Textbox != null && Current)
                    {
                        Textbox.Rtf = Solution.RichText;
                    }
@@ -79,7 +107,6 @@ namespace Volmax.ControlPanel.App
         {
             e.Control.ControlAdded += Control_ControlAdded;
             e.Control.GotFocus += Control_GotFocus;
-            e.Control.LostFocus += Control_LostFocus;
             e.Control.ContextMenuStrip = contextMenuStrip1;
             foreach (Control child in e.Control.Controls)
             {
@@ -87,15 +114,9 @@ namespace Volmax.ControlPanel.App
             }
         }
 
-        private void Control_LostFocus(object sender, EventArgs e)
-        {
-            lblSelected.Text = @" ";
-        }
-
         private void Control_GotFocus(object sender, EventArgs e)
         {
-            lblSelected.Text = @">";
-            Solution_OutputAdded(this, new TextEventArgs("", ""));
+            Current = true;
         }
 
         private void btnRestart_Click(object sender, EventArgs e)
@@ -113,6 +134,11 @@ namespace Volmax.ControlPanel.App
             toolTip1.SetToolTip(lblStatusText, Solution.Hint);
         }
 
+        private void lblSolutionName_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(lblSolutionName, Solution.Path);
+        }
+
         private void UpdateSolution(object sender, EventArgs args)
         {
             void Action()
@@ -121,8 +147,6 @@ namespace Volmax.ControlPanel.App
                 lblStatusIcon.Text = @"    ";
                 lblStatusIcon.Image = attr.Image;
                 lblStatusText.Text = $@"{attr.Text} ({Solution.Processes.Count()}/{Solution.ExpectedProcessCount})";
-
-                lblSelected.Text = @" ";
 
                 lblSolutionName.Text = Solution.Name;
 
@@ -194,6 +218,18 @@ namespace Volmax.ControlPanel.App
             itmRestart.Visible = Solution.Status != SolutionStatus.Stopped;
             itmStop.Visible = Solution.Status != SolutionStatus.Stopped;
             itmDebug.Visible = Solution.Status != SolutionStatus.Debugged && Solution.Status != SolutionStatus.Stopped;
+        }
+
+        public void ClearOutput()
+        {
+            Solution.ClearOutput();
+            Solution_OutputAdded(this, new TextEventArgs("", ""));
+        }
+
+        public void RestoreOutput()
+        {
+            Solution.RestoreOutput();
+            Solution_OutputAdded(this, new TextEventArgs("", ""));
         }
     }
 }

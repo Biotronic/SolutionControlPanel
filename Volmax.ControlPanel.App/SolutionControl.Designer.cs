@@ -107,6 +107,7 @@ namespace Volmax.ControlPanel.App
             this.lblSolutionName.Text = " ";
             this.lblSolutionName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblSolutionName.Click += new System.EventHandler(this.ClickOutside);
+            this.lblSolutionName.MouseHover += new System.EventHandler(this.lblSolutionName_MouseHover);
             // 
             // lblStatusText
             // 

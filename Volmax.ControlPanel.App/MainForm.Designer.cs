@@ -29,16 +29,21 @@ namespace Volmax.ControlPanel.App
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.itmClearOutput = new System.Windows.Forms.ToolStripMenuItem();
+            this.itmRestoreOutput = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -85,6 +90,7 @@ namespace Volmax.ControlPanel.App
             // 
             // richTextBox1
             // 
+            this.richTextBox1.ContextMenuStrip = this.contextMenuStrip1;
             this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
@@ -92,6 +98,30 @@ namespace Volmax.ControlPanel.App
             this.richTextBox1.Size = new System.Drawing.Size(800, 180);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.itmClearOutput,
+            this.itmRestoreOutput});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(153, 48);
+            // 
+            // itmClearOutput
+            // 
+            this.itmClearOutput.Image = global::Volmax.ControlPanel.App.Properties.Resources.StatusOffline_16x;
+            this.itmClearOutput.Name = "itmClearOutput";
+            this.itmClearOutput.Size = new System.Drawing.Size(152, 22);
+            this.itmClearOutput.Text = "&Clear output";
+            this.itmClearOutput.Click += ItmClearOutput_Click;
+            // 
+            // itmRestoreOutput
+            // 
+            this.itmRestoreOutput.Image = global::Volmax.ControlPanel.App.Properties.Resources.Restart_16x;
+            this.itmRestoreOutput.Name = "itmRestoreOutput";
+            this.itmRestoreOutput.Size = new System.Drawing.Size(152, 22);
+            this.itmRestoreOutput.Text = "&Restore output";
+            this.itmRestoreOutput.Click += ItmRestoreOutput_Click;
             // 
             // MainForm
             // 
@@ -108,6 +138,7 @@ namespace Volmax.ControlPanel.App
             this.splitContainer1.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -118,6 +149,9 @@ namespace Volmax.ControlPanel.App
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem itmClearOutput;
+        private System.Windows.Forms.ToolStripMenuItem itmRestoreOutput;
     }
 }
 

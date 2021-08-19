@@ -9,7 +9,7 @@ namespace Volmax.ControlPanel.App
     public partial class MainForm : Form
     {
         private readonly GroupControl _groupControl;
-        private bool _exitEarly = false;
+        private readonly bool _exitEarly;
 
         public MainForm()
         {
@@ -57,9 +57,13 @@ namespace Volmax.ControlPanel.App
             }
         }
 
+        private IEnumerable<SolutionControl> SolutionControls => tableLayoutPanel1.Controls.OfType<SolutionControl>();
+        private IEnumerable<SolutionControl> SelectedSolutionControls => SolutionControls.Where(a => a.Checked);
+        private SolutionControl CurrentSolutionControl => SolutionControls.FirstOrDefault(a => a.Current);
+
         private void Solution_ShowAll(object sender, EventArgs e)
         {
-            foreach (var control in tableLayoutPanel1.Controls.OfType<SolutionControl>())
+            foreach (var control in SolutionControls)
             {
                 control.Visible = true;
             }
@@ -67,7 +71,7 @@ namespace Volmax.ControlPanel.App
 
         private void _groupControl_Start(object sender, EventArgs e)
         {
-            foreach (var control in tableLayoutPanel1.Controls.OfType<SolutionControl>().Where(a => a.Checked))
+            foreach (var control in SelectedSolutionControls)
             {
                 if (control.Solution.Status == SolutionStatus.Stopped)
                 {
@@ -78,7 +82,7 @@ namespace Volmax.ControlPanel.App
 
         private void _groupControl_Stop(object sender, EventArgs e)
         {
-            foreach (var control in tableLayoutPanel1.Controls.OfType<SolutionControl>().Where(a => a.Checked))
+            foreach (var control in SelectedSolutionControls)
             {
                 control.Solution.Stop();
             }
@@ -88,8 +92,18 @@ namespace Volmax.ControlPanel.App
         {
             if (_groupControl != null)
             {
-                _groupControl.SelectedCount = tableLayoutPanel1.Controls.OfType<SolutionControl>().Count(a => a.Checked);
+                _groupControl.SelectedCount = SelectedSolutionControls.Count();
             }
+        }
+
+        private void ItmClearOutput_Click(object sender, EventArgs e)
+        {
+            CurrentSolutionControl?.ClearOutput();
+        }
+
+        private void ItmRestoreOutput_Click(object sender, EventArgs e)
+        {
+            CurrentSolutionControl?.RestoreOutput();
         }
 
         internal List<Solution> Solutions { get; set; }
