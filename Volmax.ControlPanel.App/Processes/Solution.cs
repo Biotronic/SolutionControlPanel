@@ -18,6 +18,10 @@ namespace Volmax.ControlPanel.App.Processes
             get => _profile;
             protected set
             {
+                if (value == null)
+                {
+                    value = Profiles.Keys.FirstOrDefault(a => a.Contains(".DevDb"));
+                }
                 _profile = value;
                 SolutionConfig.Profile = value;
             }
@@ -263,12 +267,21 @@ namespace Volmax.ControlPanel.App.Processes
         {
             if (Processes.Any(a => a.Id == process.Id)) return;
 
+            try
+            {
+                process.EnableRaisingEvents = true;
+                process.Exited += RemoveProcess;
+            }
+            catch
+            {
+                return;
+            }
+
             lock (_processes)
             {
                 _processes.Add(process);
             }
-            process.EnableRaisingEvents = true;
-            process.Exited += RemoveProcess;
+
             DoUpdate();
             DelayedUpdatePorts();
         }
@@ -344,6 +357,7 @@ namespace Volmax.ControlPanel.App.Processes
             _outputBuilder.Clear();
             _errorBuilder.Clear();
             _richText.Clear();
+            _richText.Clear();
             DoStart(profile);
             DelayedUpdatePorts();
         }
@@ -383,6 +397,7 @@ namespace Volmax.ControlPanel.App.Processes
 
 
         private readonly AnsiText _richText = new AnsiText();
+        private readonly AnsiText _fullRichText = new AnsiText();
         public string RichText => RedirectedOutput && _outputBuilder.Length != 0 ? _richText.ToString() : "{\\rtf1\\ansi\\pard\n[No output redirected for this process]\\par\n}";
         private readonly StringBuilder _outputBuilder = new StringBuilder();
         private readonly StringBuilder _errorBuilder = new StringBuilder();
@@ -397,6 +412,8 @@ namespace Volmax.ControlPanel.App.Processes
 
             _richText.Newline();
             _richText.Append(outputDelta);
+            _fullRichText.Newline();
+            _fullRichText.Append(outputDelta);
             _outputBuilder.AppendLine(outputDelta);
             OutputAdded?.Invoke(this, new TextEventArgs(Output, outputDelta));
         }
@@ -409,6 +426,10 @@ namespace Volmax.ControlPanel.App.Processes
             _richText.Red();
             _richText.Append(errorDelta);
             _richText.Black();
+            _fullRichText.Newline();
+            _fullRichText.Red();
+            _fullRichText.Append(errorDelta);
+            _fullRichText.Black();
             _errorBuilder.AppendLine(errorDelta);
             ErrorAdded?.Invoke(this, new TextEventArgs(Error, errorDelta));
         }
@@ -447,5 +468,15 @@ namespace Volmax.ControlPanel.App.Processes
         }
 
         protected abstract void SetName();
+
+        public void ClearOutput()
+        {
+            _richText.Clear();
+        }
+
+        public void RestoreOutput()
+        {
+            _fullRichText.CopyTo(_richText);
+        }
     }
 }
