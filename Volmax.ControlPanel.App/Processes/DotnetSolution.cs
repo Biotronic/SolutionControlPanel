@@ -18,12 +18,16 @@ namespace Volmax.ControlPanel.App.Processes
 
         protected override void SetName()
         {
-            Name = IoPath.GetFileNameWithoutExtension(Path);
+            Name = IoPath.GetFileName(ProjectPath);
         }
 
         protected override ProcessKind IsRelevantProcess(ProcessInfo processInfo)
         {
-            if (processInfo.Name != "dotnet.exe") return ProcessKind.Irrelevant;
+            if (processInfo.Name != "dotnet.exe")
+            {
+                if (processInfo.CommandLine?.ToLowerInvariant().Contains(ProjectPath.ToLowerInvariant()) ?? false) return ProcessKind.Relevant;
+                return ProcessKind.Irrelevant;
+            }
 
             if (!Regex.IsMatch(processInfo.CommandLine, $"^\"dotnet\" run -p {Name}\\.csproj")) return ProcessKind.Irrelevant;
 
@@ -36,7 +40,7 @@ namespace Volmax.ControlPanel.App.Processes
 
         protected override void DoStart(string profile)
         {
-            StartProcess("dotnet", $"run -p {Name}.csproj --launch-profile {profile}");
+            StartProcess("dotnet", $"run -p {IoPath.GetFileNameWithoutExtension(Path)}.csproj --launch-profile {profile}");
         }
 
         public static IEnumerable<Solution> GetDotnetSolutions(Config.Config config)
@@ -52,7 +56,7 @@ namespace Volmax.ControlPanel.App.Processes
 
                 foreach (var project in projects)
                 {
-                    var projectDir = System.IO.Path.GetDirectoryName(project) ?? "";
+                    var projectDir = IoPath.GetDirectoryName(project) ?? "";
                     var launchSettings = IoPath.Combine(projectDir, @"Properties\launchSettings.json");
                     if (!File.Exists(launchSettings)) continue;
 

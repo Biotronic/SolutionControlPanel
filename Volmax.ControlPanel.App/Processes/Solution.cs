@@ -113,7 +113,7 @@ namespace Volmax.ControlPanel.App.Processes
 
         public event EventHandler<EventArgs> Update;
 
-        protected string ProjectPath { get; set; }
+        public string ProjectPath { get; protected set; }
         private readonly List<Process> _processes = new List<Process>();
         private readonly List<UsedPort> _ports = new List<UsedPort>();
         protected readonly Config.Config Config;

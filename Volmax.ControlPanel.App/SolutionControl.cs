@@ -136,7 +136,7 @@ namespace Volmax.ControlPanel.App
 
         private void lblSolutionName_MouseHover(object sender, EventArgs e)
         {
-            toolTip1.SetToolTip(lblSolutionName, Solution.Path);
+            toolTip1.SetToolTip(lblSolutionName, Solution.ProjectPath);
         }
 
         private void UpdateSolution(object sender, EventArgs args)
