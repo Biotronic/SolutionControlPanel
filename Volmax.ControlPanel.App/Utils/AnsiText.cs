@@ -472,5 +472,18 @@ namespace Volmax.ControlPanel.App.Utils
                 Builder.Clear();
             }
         }
+
+        public void CopyTo(AnsiText richText)
+        {
+            richText.Colors.Clear();
+            richText.Colors.AddRange(Colors);
+            richText.Fonts.Clear();
+            richText.Fonts.AddRange(Fonts);
+            lock (richText.Builder)
+            {
+                richText.Builder.Clear();
+                richText.Builder.Append(Builder.ToString());
+            }
+        }
     }
 }
