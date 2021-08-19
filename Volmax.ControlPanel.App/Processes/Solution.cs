@@ -472,11 +472,13 @@ namespace Volmax.ControlPanel.App.Processes
         public void ClearOutput()
         {
             _richText.Clear();
+            Update?.Invoke(this, EventArgs.Empty);
         }
 
         public void RestoreOutput()
         {
             _fullRichText.CopyTo(_richText);
+            Update?.Invoke(this, EventArgs.Empty);
         }
     }
 }
