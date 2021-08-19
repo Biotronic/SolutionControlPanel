@@ -45,22 +45,24 @@ namespace Volmax.ControlPanel.App.Processes
 
             foreach (var solution in solutions)
             {
-                var solutionName = IoPath.GetFileNameWithoutExtension(solution);
-
                 var solutionDir = IoPath.GetDirectoryName(solution);
                 if (string.IsNullOrWhiteSpace(solutionDir)) continue;
 
-                var projectPath = IoPath.Combine(solutionDir, "src", solutionName);
+                var projects = Directory.EnumerateFiles(solutionDir, "*.csproj", SearchOption.AllDirectories).ToList();
 
-                var launchSettings = IoPath.Combine(projectPath, @"Properties\launchSettings.json");
-                if (!File.Exists(launchSettings)) continue;
+                foreach (var project in projects)
+                {
+                    var projectDir = System.IO.Path.GetDirectoryName(project) ?? "";
+                    var launchSettings = IoPath.Combine(projectDir, @"Properties\launchSettings.json");
+                    if (!File.Exists(launchSettings)) continue;
 
-                var settings = JsonConvert.DeserializeObject<LaunchSettings>(File.ReadAllText(launchSettings));
-                if (settings == null) continue;
+                    var settings = JsonConvert.DeserializeObject<LaunchSettings>(File.ReadAllText(launchSettings));
+                    if (settings == null) continue;
 
-                if (settings.Profiles.Any(a => !string.IsNullOrWhiteSpace(a.Value.CommandLineArgs))) continue;
+                    if (settings.Profiles.Any(a => !string.IsNullOrWhiteSpace(a.Value.CommandLineArgs))) continue;
 
-                yield return new DotnetSolution(solution, projectPath, settings.Profiles, config);
+                    yield return new DotnetSolution(solution, projectDir, settings.Profiles, config);
+                }
             }
         }
     }
