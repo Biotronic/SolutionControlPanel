@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using IWshRuntimeLibrary;
 using Volmax.ControlPanel.App.Processes;
+using Volmax.ControlPanel.App.Properties;
 
 namespace Volmax.ControlPanel.App
 {
@@ -32,7 +33,7 @@ namespace Volmax.ControlPanel.App
 
         private void UpdateLists()
         {
-            Text = @$"Volmax Control Panel - {Config.Basepath}";
+            Text = @$"{Resources.AppName} - {Config.Basepath}";
             if (_groupControl != null)
             {
                 tableLayoutPanel1.Controls.Remove(_groupControl);
@@ -73,7 +74,7 @@ namespace Volmax.ControlPanel.App
                 Close();
                 return;
             }
-            if (_first && Environment.GetCommandLineArgs().Contains("-atstartup"))
+            if (_first && Environment.GetCommandLineArgs().Contains(Resources.AtStartup))
             {
                 Hide();
             }
@@ -159,7 +160,7 @@ namespace Volmax.ControlPanel.App
 
             var lnkPath = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.Startup),
-                "Volmax Control Panel.lnk");
+                $"{Resources.AppName}.lnk");
 
             if (Config.StartWithWindows)
             {
@@ -168,9 +169,9 @@ namespace Volmax.ControlPanel.App
 
                 var exePath = Path.ChangeExtension(Application.ExecutablePath, "exe");
                 shortcut.TargetPath = exePath;
-                shortcut.Arguments = "-atstartup";
+                shortcut.Arguments = Resources.AtStartup;
                 shortcut.WorkingDirectory = Application.StartupPath;
-                shortcut.Description = "Volmax Control Panel";
+                shortcut.Description = Resources.AppName;
                 shortcut.IconLocation = exePath + ",0";
                 shortcut.Save();
             }

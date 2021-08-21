@@ -61,6 +61,24 @@ namespace Volmax.ControlPanel.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Volmax Control Panel.
+        /// </summary>
+        internal static string AppName {
+            get {
+                return ResourceManager.GetString("AppName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to -atstartup.
+        /// </summary>
+        internal static string AtStartup {
+            get {
+                return ResourceManager.GetString("AtStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] Cascadia {
