@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
+using System.Windows.Forms;
 using EnvDTE;
 using DTEProcess = EnvDTE.Process;
 using Process = System.Diagnostics.Process;
@@ -134,8 +136,26 @@ namespace Volmax.ControlPanel.App.Processes
             var vsProcess = GetVisualStudioForSolution(solutionName);
             if (vsProcess == null || !TryGetVsInstance(vsProcess.Id, out var vsInstance))
             {
-                var type = Type.GetTypeFromProgID("VisualStudio.DTE.16.0");
+                var version = 19;
+                Type type = null;
+                while (type == null && version >= 15)
+                {
+                    type = Type.GetTypeFromProgID($"VisualStudio.DTE.{version}.0");
+                    --version;
+                }
+
+                if (type == null)
+                {
+                    MessageBox.Show(@"Visual Studio not found. Are you sure it's installed?", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 vsInstance = (DTE)Activator.CreateInstance(type, true);
+                if (vsInstance == null)
+                {
+
+                    MessageBox.Show(@"Couldn't instantiate Visual Studio", @"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 vsInstance.Solution.Open(solutionName);
             }
 
