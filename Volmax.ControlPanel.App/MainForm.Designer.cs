@@ -1,5 +1,5 @@
 ﻿
-namespace Volmax.ControlPanel.App
+namespace Biotronic.SolutionControlPanel.App
 {
     partial class MainForm
     {
@@ -123,7 +123,7 @@ namespace Volmax.ControlPanel.App
             // 
             // itmClearOutput
             // 
-            this.itmClearOutput.Image = global::Volmax.ControlPanel.App.Properties.Resources.StatusOffline_16x;
+            this.itmClearOutput.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.StatusOffline_16x;
             this.itmClearOutput.Name = "itmClearOutput";
             this.itmClearOutput.Size = new System.Drawing.Size(152, 22);
             this.itmClearOutput.Text = "&Clear output";
@@ -131,7 +131,7 @@ namespace Volmax.ControlPanel.App
             // 
             // itmRestoreOutput
             // 
-            this.itmRestoreOutput.Image = global::Volmax.ControlPanel.App.Properties.Resources.Restart_16x;
+            this.itmRestoreOutput.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.Restart_16x;
             this.itmRestoreOutput.Name = "itmRestoreOutput";
             this.itmRestoreOutput.Size = new System.Drawing.Size(152, 22);
             this.itmRestoreOutput.Text = "&Restore output";
@@ -139,9 +139,8 @@ namespace Volmax.ControlPanel.App
             // 
             // notifyIcon1
             // 
-            this.notifyIcon1.BalloonTipTitle = "Volmax Control Panel";
+            this.notifyIcon1.BalloonTipTitle = null;
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "Volmax Control Panel";
             this.notifyIcon1.Visible = true;
             this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
@@ -243,7 +242,7 @@ namespace Volmax.ControlPanel.App
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
-            this.Text = "Volmax Control Panel";
+            this.Text = "Solution Control Panel";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();

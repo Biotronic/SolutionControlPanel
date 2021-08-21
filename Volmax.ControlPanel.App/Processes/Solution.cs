@@ -7,10 +7,10 @@ using System.Management;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using Volmax.ControlPanel.App.Config;
-using Volmax.ControlPanel.App.Utils;
+using Biotronic.SolutionControlPanel.App.Config;
+using Biotronic.SolutionControlPanel.App.Utils;
 
-namespace Volmax.ControlPanel.App.Processes
+namespace Biotronic.SolutionControlPanel.App.Processes
 {
     internal abstract class Solution
     {

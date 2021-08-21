@@ -1,5 +1,5 @@
 ﻿
-namespace Volmax.ControlPanel.App
+namespace Biotronic.SolutionControlPanel.App
 {
     partial class GroupControl
     {

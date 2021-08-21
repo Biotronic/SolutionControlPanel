@@ -1,4 +1,4 @@
-﻿namespace Volmax.ControlPanel.App.Config
+﻿namespace Biotronic.SolutionControlPanel.App.Config
 {
     internal class SolutionConfig
     {

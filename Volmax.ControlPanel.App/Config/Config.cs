@@ -3,7 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-namespace Volmax.ControlPanel.App.Config
+namespace Biotronic.SolutionControlPanel.App.Config
 {
     internal class Config
     {

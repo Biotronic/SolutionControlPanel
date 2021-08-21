@@ -1,4 +1,4 @@
-﻿namespace Volmax.ControlPanel.App.Processes
+﻿namespace Biotronic.SolutionControlPanel.App.Processes
 {
     public enum SolutionStatus
     {

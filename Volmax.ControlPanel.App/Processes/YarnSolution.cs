@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Volmax.ControlPanel.App.Processes
+namespace Biotronic.SolutionControlPanel.App.Processes
 {
     internal class YarnSolution : Solution
     {

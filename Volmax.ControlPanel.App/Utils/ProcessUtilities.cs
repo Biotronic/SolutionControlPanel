@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 // ReSharper disable InconsistentNaming
 
-namespace Volmax.ControlPanel.App.Utils
+namespace Biotronic.SolutionControlPanel.App.Utils
 {
     public class UsedPort
     {

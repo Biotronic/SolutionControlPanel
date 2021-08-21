@@ -9,7 +9,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using IoPath = System.IO.Path;
 
-namespace Volmax.ControlPanel.App.Processes
+namespace Biotronic.SolutionControlPanel.App.Processes
 {
     internal class DotnetSolution : Solution
     {

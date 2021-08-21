@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Volmax.ControlPanel.App.Utils
+namespace Biotronic.SolutionControlPanel.App.Utils
 {
     public class TextEventArgs : EventArgs
     {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -10,7 +9,7 @@ using EnvDTE;
 using DTEProcess = EnvDTE.Process;
 using Process = System.Diagnostics.Process;
 
-namespace Volmax.ControlPanel.App.Processes
+namespace Biotronic.SolutionControlPanel.App.Processes
 {
     internal static class VisualStudioAttacher
     {

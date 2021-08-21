@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
-using Volmax.ControlPanel.App.Properties;
+using Biotronic.SolutionControlPanel.App.Properties;
 
-namespace Volmax.ControlPanel.App.Processes
+namespace Biotronic.SolutionControlPanel.App.Processes
 {
     public class MarkAttribute : Attribute
     {

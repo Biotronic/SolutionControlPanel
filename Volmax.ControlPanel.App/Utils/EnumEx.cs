@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Volmax.ControlPanel.App.Utils
+namespace Biotronic.SolutionControlPanel.App.Utils
 {
     public static class EnumEx
     {

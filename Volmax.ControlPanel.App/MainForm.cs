@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using Biotronic.SolutionControlPanel.App.Processes;
+using Biotronic.SolutionControlPanel.App.Properties;
 using IWshRuntimeLibrary;
-using Volmax.ControlPanel.App.Processes;
-using Volmax.ControlPanel.App.Properties;
 
-namespace Volmax.ControlPanel.App
+namespace Biotronic.SolutionControlPanel.App
 {
     public partial class MainForm : Form
     {

@@ -1,7 +1,7 @@
 ﻿
 using System.Windows.Forms;
 
-namespace Volmax.ControlPanel.App
+namespace Biotronic.SolutionControlPanel.App
 {
     partial class SolutionControl
     {
@@ -126,7 +126,7 @@ namespace Volmax.ControlPanel.App
             // 
             this.lblStatusIcon.AutoSize = true;
             this.lblStatusIcon.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblStatusIcon.Image = global::Volmax.ControlPanel.App.Properties.Resources.StatusOffline_16x;
+            this.lblStatusIcon.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.StatusOffline_16x;
             this.lblStatusIcon.Location = new System.Drawing.Point(426, 0);
             this.lblStatusIcon.Name = "lblStatusIcon";
             this.lblStatusIcon.Size = new System.Drawing.Size(10, 28);
@@ -207,7 +207,7 @@ namespace Volmax.ControlPanel.App
             // 
             // itmStart
             // 
-            this.itmStart.Image = global::Volmax.ControlPanel.App.Properties.Resources.StatusRunOutline_16x;
+            this.itmStart.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.StatusRunOutline_16x;
             this.itmStart.Name = "itmStart";
             this.itmStart.Size = new System.Drawing.Size(149, 22);
             this.itmStart.Text = "&Start";
@@ -215,7 +215,7 @@ namespace Volmax.ControlPanel.App
             // 
             // itmStop
             // 
-            this.itmStop.Image = global::Volmax.ControlPanel.App.Properties.Resources.StatusStopOutline_16x;
+            this.itmStop.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.StatusStopOutline_16x;
             this.itmStop.Name = "itmStop";
             this.itmStop.Size = new System.Drawing.Size(149, 22);
             this.itmStop.Text = "&Stop";
@@ -223,7 +223,7 @@ namespace Volmax.ControlPanel.App
             // 
             // itmDebug
             // 
-            this.itmDebug.Image = global::Volmax.ControlPanel.App.Properties.Resources.StatusDebug_16x;
+            this.itmDebug.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.StatusDebug_16x;
             this.itmDebug.Name = "itmDebug";
             this.itmDebug.Size = new System.Drawing.Size(149, 22);
             this.itmDebug.Text = "&Debug";
@@ -231,7 +231,7 @@ namespace Volmax.ControlPanel.App
             // 
             // itmRestart
             // 
-            this.itmRestart.Image = global::Volmax.ControlPanel.App.Properties.Resources.Restart_16x;
+            this.itmRestart.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.Restart_16x;
             this.itmRestart.Name = "itmRestart";
             this.itmRestart.Size = new System.Drawing.Size(149, 22);
             this.itmRestart.Text = "&Restart";
@@ -251,7 +251,7 @@ namespace Volmax.ControlPanel.App
             // 
             // itmHide
             // 
-            this.itmHide.Image = global::Volmax.ControlPanel.App.Properties.Resources.Hide_16x;
+            this.itmHide.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.Hide_16x;
             this.itmHide.Name = "itmHide";
             this.itmHide.Size = new System.Drawing.Size(149, 22);
             this.itmHide.Text = "&Hide";

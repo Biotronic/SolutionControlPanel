@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Volmax.ControlPanel.App
+namespace Biotronic.SolutionControlPanel.App
 {
     public partial class GroupControl : UserControl
     {

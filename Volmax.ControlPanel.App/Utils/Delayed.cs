@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 
-namespace Volmax.ControlPanel.App.Utils
+namespace Biotronic.SolutionControlPanel.App.Utils
 {
     public class Delayed : IDisposable
     {

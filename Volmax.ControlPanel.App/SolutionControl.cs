@@ -2,10 +2,10 @@
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Volmax.ControlPanel.App.Processes;
-using Volmax.ControlPanel.App.Utils;
+using Biotronic.SolutionControlPanel.App.Processes;
+using Biotronic.SolutionControlPanel.App.Utils;
 
-namespace Volmax.ControlPanel.App
+namespace Biotronic.SolutionControlPanel.App
 {
     public partial class SolutionControl : UserControl
     {

@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace Volmax.ControlPanel.App.Utils
+namespace Biotronic.SolutionControlPanel.App.Utils
 {
     public class Trie<TKey, TValue> : IDictionary<IEnumerable<TKey>, TValue>
     {

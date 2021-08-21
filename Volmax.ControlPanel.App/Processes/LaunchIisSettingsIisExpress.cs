@@ -1,5 +1,5 @@
 ﻿// ReSharper disable UnusedMember.Global
-namespace Volmax.ControlPanel.App.Processes
+namespace Biotronic.SolutionControlPanel.App.Processes
 {
     public class LaunchIisSettingsIisExpress
     {

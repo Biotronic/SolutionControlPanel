@@ -7,6 +7,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <PublishTrimmed>true</PublishTrimmed>
     <ApplicationIcon>Resources\Linx.ico</ApplicationIcon>
+    <AssemblyName>Biotronic.SolutionControlPanel.App</AssemblyName>
+    <RootNamespace>Biotronic.SolutionControlPanel.App</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
