@@ -73,9 +73,29 @@ namespace Volmax.ControlPanel.App.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Hide_16x {
+            get {
+                object obj = ResourceManager.GetObject("Hide_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Restart_16x {
             get {
                 object obj = ResourceManager.GetObject("Restart_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap showall_16x {
+            get {
+                object obj = ResourceManager.GetObject("showall_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -146,6 +166,16 @@ namespace Volmax.ControlPanel.App.Properties {
         internal static System.Drawing.Bitmap StatusWarning_16x {
             get {
                 object obj = ResourceManager.GetObject("StatusWarning_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Yarn_16x {
+            get {
+                object obj = ResourceManager.GetObject("Yarn_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

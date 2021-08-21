@@ -121,8 +121,14 @@
   <data name="Cascadia" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Cascadia.ttf;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="Hide_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Hide_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Restart_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Restart_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="showall_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\showall_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="StatusAlert_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StatusAlert_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -144,5 +150,8 @@
   </data>
   <data name="StatusWarning_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\StatusWarning_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Yarn_16x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Yarn_16x.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
