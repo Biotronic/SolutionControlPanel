@@ -77,6 +77,7 @@ namespace Biotronic.SolutionControlPanel.App
                     {
                         sibling.Current = false;
                     }
+                    itmOpenInBrowser.Image = SystemDefaults.DefaultBrowserIcon;
                     Solution_OutputAdded(this, new TextEventArgs("", ""));
                 }
                 else
@@ -231,6 +232,11 @@ namespace Biotronic.SolutionControlPanel.App
         private void itmOpenSolution_Click(object sender, EventArgs e)
         {
             Solution.Open();
+        }
+
+        private void itmOpenInBrowser_Click(object sender, EventArgs e)
+        {
+            Solution.OpenInBrowser();
         }
     }
 }

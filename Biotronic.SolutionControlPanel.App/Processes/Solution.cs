@@ -10,6 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Biotronic.SolutionControlPanel.App.Config;
 using Biotronic.SolutionControlPanel.App.Utils;
+using Microsoft.Win32;
 
 namespace Biotronic.SolutionControlPanel.App.Processes
 {
@@ -495,5 +496,7 @@ namespace Biotronic.SolutionControlPanel.App.Processes
         }
 
         public abstract void Open();
+
+        public abstract void OpenInBrowser();
     }
 }

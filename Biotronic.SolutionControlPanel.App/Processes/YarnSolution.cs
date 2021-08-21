@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 
 namespace Biotronic.SolutionControlPanel.App.Processes
 {
@@ -39,6 +40,19 @@ namespace Biotronic.SolutionControlPanel.App.Processes
                 }
             };
             codeProcess.Start();
+        }
+
+        public override void OpenInBrowser()
+        {
+            var port = Ports.SingleOrDefault()?.Port;
+            if (!port.HasValue)
+            {
+                MessageBox.Show(@"No unambiguous port number found.", @"Failed to open", MessageBoxButtons.OK);
+                return;
+            }
+
+            var url = $"http://localhost:{port}";
+            Process.Start("explorer.exe", $"\"{url}\"");
         }
 
         protected override ProcessKind IsRelevantProcess(ProcessInfo processInfo)

@@ -50,6 +50,7 @@ namespace Biotronic.SolutionControlPanel.App
             this.itmDebug = new System.Windows.Forms.ToolStripMenuItem();
             this.itmRestart = new System.Windows.Forms.ToolStripMenuItem();
             this.itmOpenSolution = new System.Windows.Forms.ToolStripMenuItem();
+            this.itmOpenInBrowser = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.itmHide = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
@@ -187,29 +188,30 @@ namespace Biotronic.SolutionControlPanel.App
             this.itmDebug,
             this.itmRestart,
             this.itmOpenSolution,
+            this.itmOpenInBrowser,
             this.toolStripSeparator2,
             this.itmHide});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(150, 170);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 192);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // itmName
             // 
             this.itmName.Enabled = false;
             this.itmName.Name = "itmName";
-            this.itmName.Size = new System.Drawing.Size(149, 22);
+            this.itmName.Size = new System.Drawing.Size(161, 22);
             this.itmName.Text = "Name";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(158, 6);
             // 
             // itmStart
             // 
             this.itmStart.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.StatusRunOutline_16x;
             this.itmStart.Name = "itmStart";
-            this.itmStart.Size = new System.Drawing.Size(149, 22);
+            this.itmStart.Size = new System.Drawing.Size(161, 22);
             this.itmStart.Text = "&Start";
             this.itmStart.Click += new System.EventHandler(this.itmStart_Click);
             // 
@@ -217,7 +219,7 @@ namespace Biotronic.SolutionControlPanel.App
             // 
             this.itmStop.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.StatusStopOutline_16x;
             this.itmStop.Name = "itmStop";
-            this.itmStop.Size = new System.Drawing.Size(149, 22);
+            this.itmStop.Size = new System.Drawing.Size(161, 22);
             this.itmStop.Text = "&Stop";
             this.itmStop.Click += new System.EventHandler(this.itmStop_Click);
             // 
@@ -225,7 +227,7 @@ namespace Biotronic.SolutionControlPanel.App
             // 
             this.itmDebug.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.StatusDebug_16x;
             this.itmDebug.Name = "itmDebug";
-            this.itmDebug.Size = new System.Drawing.Size(149, 22);
+            this.itmDebug.Size = new System.Drawing.Size(161, 22);
             this.itmDebug.Text = "&Debug";
             this.itmDebug.Click += new System.EventHandler(this.itmDebug_Click);
             // 
@@ -233,27 +235,34 @@ namespace Biotronic.SolutionControlPanel.App
             // 
             this.itmRestart.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.Restart_16x;
             this.itmRestart.Name = "itmRestart";
-            this.itmRestart.Size = new System.Drawing.Size(149, 22);
+            this.itmRestart.Size = new System.Drawing.Size(161, 22);
             this.itmRestart.Text = "&Restart";
             this.itmRestart.Click += new System.EventHandler(this.itmRestart_Click);
             // 
             // itmOpenSolution
             // 
             this.itmOpenSolution.Name = "itmOpenSolution";
-            this.itmOpenSolution.Size = new System.Drawing.Size(149, 22);
+            this.itmOpenSolution.Size = new System.Drawing.Size(161, 22);
             this.itmOpenSolution.Text = "&Open solution";
             this.itmOpenSolution.Click += new System.EventHandler(this.itmOpenSolution_Click);
+            // 
+            // itmOpenInBrowser
+            // 
+            this.itmOpenInBrowser.Name = "itmOpenInBrowser";
+            this.itmOpenInBrowser.Size = new System.Drawing.Size(161, 22);
+            this.itmOpenInBrowser.Text = "Open in &browser";
+            this.itmOpenInBrowser.Click += new System.EventHandler(this.itmOpenInBrowser_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(146, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(158, 6);
             // 
             // itmHide
             // 
             this.itmHide.Image = global::Biotronic.SolutionControlPanel.App.Properties.Resources.Hide_16x;
             this.itmHide.Name = "itmHide";
-            this.itmHide.Size = new System.Drawing.Size(149, 22);
+            this.itmHide.Size = new System.Drawing.Size(161, 22);
             this.itmHide.Text = "&Hide";
             this.itmHide.Click += new System.EventHandler(this.itmHide_Click);
             // 
@@ -294,5 +303,6 @@ namespace Biotronic.SolutionControlPanel.App
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripMenuItem itmOpenSolution;
+        private ToolStripMenuItem itmOpenInBrowser;
     }
 }

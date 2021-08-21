@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
 using Newtonsoft.Json;
 using IoPath = System.IO.Path;
 
@@ -37,6 +38,19 @@ namespace Biotronic.SolutionControlPanel.App.Processes
                 }
             };
             fileopener.Start();
+        }
+
+        public override void OpenInBrowser()
+        {
+            var port = Ports.GroupBy(a => a.ProcessId).SingleOrDefault(a => a.Count() > 1)?.First().Port;
+            if (!port.HasValue)
+            {
+                MessageBox.Show(@"No unambiguous port number found.", @"Failed to open", MessageBoxButtons.OK);
+                return;
+            }
+
+            var url = $"http://localhost:{port}/swagger/index.html";
+            Process.Start("explorer.exe", $"\"{url}\"");
         }
 
         protected override ProcessKind IsRelevantProcess(ProcessInfo processInfo)
