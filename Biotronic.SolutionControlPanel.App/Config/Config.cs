@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace Biotronic.SolutionControlPanel.App.Config
 {
@@ -32,10 +34,15 @@ namespace Biotronic.SolutionControlPanel.App.Config
         public Dictionary<string, SolutionConfig> Solutions { get; set; } = new Dictionary<string, SolutionConfig>();
         public bool StartProjectsAutomatically { get; set; }
         public string DefaultProfilePattern { get; set; } = "\\.DevDb$";
+        public MainFormConfig MainForm { get; set; }
 
         public void Update()
         {
-            File.WriteAllText(_source, JsonConvert.SerializeObject(this, Formatting.Indented));
+            File.WriteAllText(_source, JsonConvert.SerializeObject(this, new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                Converters = { new StringEnumConverter() }
+            }));
         }
 
         public SolutionConfig GetSolution(string name)
@@ -63,5 +70,12 @@ namespace Biotronic.SolutionControlPanel.App.Config
             Update();
             return true;
         }
+    }
+
+    internal class MainFormConfig
+    {
+        public Size Size { get; set; }
+        public Point Location { get; set; }
+        public FormWindowState WindowState { get; set; }
     }
 }

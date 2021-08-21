@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using Biotronic.SolutionControlPanel.App.Config;
 using Biotronic.SolutionControlPanel.App.Processes;
 using Biotronic.SolutionControlPanel.App.Properties;
 using Biotronic.SolutionControlPanel.App.Utils;
@@ -23,6 +24,16 @@ namespace Biotronic.SolutionControlPanel.App
             {
                 _exitEarly = true;
                 return;
+            }
+
+            if (Config.MainForm == null)
+            {
+                Config.MainForm = new MainFormConfig
+                {
+                    Location = Location,
+                    Size = Size,
+                    WindowState = WindowState
+                };
             }
 
             itmStartAtBoot.Checked = RunAtStartup.Registered;
@@ -74,6 +85,16 @@ namespace Biotronic.SolutionControlPanel.App
                 Close();
                 return;
             }
+
+            if (_first)
+            {
+                var tmpLocation = Config.MainForm.Location;
+                var tmpSize = Config.MainForm.Size;
+                Location = tmpLocation;
+                Size = tmpSize;
+                WindowState = Config.MainForm.WindowState;
+            }
+
             if (_first && Environment.GetCommandLineArgs().Contains(Resources.AtStartup))
             {
                 Hide();
@@ -191,6 +212,45 @@ namespace Biotronic.SolutionControlPanel.App
         private void itmFile_DropDownOpening(object sender, EventArgs e)
         {
             itmStartAtBoot.Checked = RunAtStartup.Registered;
+        }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            base.OnResizeEnd(e);
+            if (_first) return;
+            Config.MainForm.Size = Size;
+            Config.Update();
+        }
+
+        protected override void OnMove(EventArgs e)
+        {
+            base.OnMove(e);
+            if (_first) return;
+            Config.MainForm.Location = Location;
+            Config.Update();
+        }
+
+        const int WM_SYSCOMMAND = 0x0112;
+        const int SC_MAXIMIZE = 0xF030;
+        const int SC_RESTORE = 0xF120;
+        const int SC_MINIMIZE = 0xF020;
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == WM_SYSCOMMAND)
+            {
+                switch ((int)m.WParam)
+                {
+                    case SC_MINIMIZE:
+                        break;
+                    case SC_RESTORE:
+                        Config.MainForm.WindowState = FormWindowState.Normal;
+                        break;
+                    case SC_MAXIMIZE:
+                        Config.MainForm.WindowState = FormWindowState.Maximized;
+                        break;
+                }
+            }
+            base.WndProc(ref m);
         }
     }
 }
