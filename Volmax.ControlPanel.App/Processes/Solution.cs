@@ -5,6 +5,8 @@ using System.Drawing;
 using System.Linq;
 using System.Management;
 using System.Text;
+using System.Threading;
+using System.Windows.Forms;
 using Volmax.ControlPanel.App.Config;
 using Volmax.ControlPanel.App.Utils;
 
@@ -12,6 +14,8 @@ namespace Volmax.ControlPanel.App.Processes
 {
     internal abstract class Solution
     {
+        private static readonly WeakList<Solution> _allSolutions = new WeakList<Solution>();
+
         public bool RedirectedOutput { get; private set; }
         private string _profile;
         public string Profile
@@ -183,6 +187,23 @@ namespace Volmax.ControlPanel.App.Processes
 
             StartListener.Start();
             StopListener.Start();
+
+            var updateThread = new Thread(UpdateFunction);
+            updateThread.Start();
+            Application.ApplicationExit += (o, e) => _exited = true;
+        }
+
+        private static bool _exited = false;
+        private static void UpdateFunction()
+        {
+            while (!_exited)
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(3));
+                foreach (var solution in _allSolutions)
+                {
+                    solution.DoUpdate();
+                }
+            }
         }
 
 
@@ -200,6 +221,7 @@ namespace Volmax.ControlPanel.App.Processes
 
             GetExistingProcesses();
             StartListener.EventArrived += StartListenerOnEventArrived;
+            _allSolutions.Add(this);
         }
 
         private void StartListenerOnEventArrived(object sender, EventArrivedEventArgs e)
@@ -281,7 +303,7 @@ namespace Volmax.ControlPanel.App.Processes
             }
 
             DoUpdate();
-            DelayedUpdatePorts();
+            //DelayedUpdatePorts();
         }
 
         protected void AddMainProcess(Process process)
@@ -295,7 +317,7 @@ namespace Volmax.ControlPanel.App.Processes
             process.EnableRaisingEvents = true;
             process.Exited += RemoveProcess;
             DoUpdate();
-            DelayedUpdatePorts();
+            //DelayedUpdatePorts();
         }
 
         private void RemoveProcess(object sender, EventArgs e)
@@ -357,7 +379,7 @@ namespace Volmax.ControlPanel.App.Processes
             _richText.Clear();
             _richText.Clear();
             DoStart(profile);
-            DelayedUpdatePorts();
+            //DelayedUpdatePorts();
         }
 
         protected abstract void DoStart(string profile);
@@ -390,6 +412,7 @@ namespace Volmax.ControlPanel.App.Processes
                 Processes.Any(a => a.HasDebuggerAttached()) ? SolutionStatus.Debugged :
                 Processes.Count() < ExpectedProcessCount ? SolutionStatus.Partial :
                 SolutionStatus.Running;
+            UpdatePorts();
             Update?.Invoke(this, EventArgs.Empty);
         }
 
@@ -433,12 +456,14 @@ namespace Volmax.ControlPanel.App.Processes
             ErrorAdded?.Invoke(this, new TextEventArgs(Error, errorDelta));
         }
 
+        /*
         private Delayed _delayed;
         private void DelayedUpdatePorts()
         {
             _delayed?.Abort();
             _delayed = Delayed.Call(TimeSpan.FromSeconds(StartDelay), UpdatePorts);
         }
+        */
 
         protected void UpdatePorts()
         {
