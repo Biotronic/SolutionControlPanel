@@ -38,6 +38,7 @@ namespace Volmax.ControlPanel.App
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itmClearOutput = new System.Windows.Forms.ToolStripMenuItem();
             this.itmRestoreOutput = new System.Windows.Forms.ToolStripMenuItem();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -113,7 +114,6 @@ namespace Volmax.ControlPanel.App
             this.itmClearOutput.Name = "itmClearOutput";
             this.itmClearOutput.Size = new System.Drawing.Size(152, 22);
             this.itmClearOutput.Text = "&Clear output";
-            this.itmClearOutput.Click += ItmClearOutput_Click;
             // 
             // itmRestoreOutput
             // 
@@ -121,7 +121,14 @@ namespace Volmax.ControlPanel.App
             this.itmRestoreOutput.Name = "itmRestoreOutput";
             this.itmRestoreOutput.Size = new System.Drawing.Size(152, 22);
             this.itmRestoreOutput.Text = "&Restore output";
-            this.itmRestoreOutput.Click += ItmRestoreOutput_Click;
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipTitle = "Volmax Control Panel";
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "Volmax Control Panel";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_MouseDoubleClick);
             // 
             // MainForm
             // 
@@ -152,6 +159,7 @@ namespace Volmax.ControlPanel.App
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem itmClearOutput;
         private System.Windows.Forms.ToolStripMenuItem itmRestoreOutput;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 

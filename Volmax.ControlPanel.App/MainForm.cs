@@ -107,5 +107,20 @@ namespace Volmax.ControlPanel.App
         }
 
         internal List<Solution> Solutions { get; set; }
+
+        private void notifyIcon1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Show();
+            WindowState = FormWindowState.Normal;
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            if (WindowState == FormWindowState.Minimized)
+            {
+                Hide();
+            }
+        }
     }
 }
