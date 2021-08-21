@@ -24,7 +24,6 @@ namespace Volmax.ControlPanel.App
 
         public event EventHandler CheckedChanged;
         public event EventHandler HiddenChanged;
-        public event EventHandler ShowAll;
 
         internal Solution Solution
         {
@@ -180,11 +179,6 @@ namespace Volmax.ControlPanel.App
         private void itmHide_Click(object sender, EventArgs e)
         {
             Visible = false;
-        }
-
-        private void itmShowAll_Click(object sender, EventArgs e)
-        {
-            ShowAll?.Invoke(this, e);
         }
 
         private void itmStart_Click(object sender, EventArgs e)

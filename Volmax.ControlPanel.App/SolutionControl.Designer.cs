@@ -52,7 +52,6 @@ namespace Volmax.ControlPanel.App
             this.itmOpenSolution = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.itmHide = new System.Windows.Forms.ToolStripMenuItem();
-            this.itmShowAll = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -189,10 +188,9 @@ namespace Volmax.ControlPanel.App
             this.itmRestart,
             this.itmOpenSolution,
             this.toolStripSeparator2,
-            this.itmHide,
-            this.itmShowAll});
+            this.itmHide});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(150, 192);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(150, 170);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // itmName
@@ -259,14 +257,6 @@ namespace Volmax.ControlPanel.App
             this.itmHide.Text = "&Hide";
             this.itmHide.Click += new System.EventHandler(this.itmHide_Click);
             // 
-            // itmShowAll
-            // 
-            this.itmShowAll.Image = global::Volmax.ControlPanel.App.Properties.Resources.showall_16x;
-            this.itmShowAll.Name = "itmShowAll";
-            this.itmShowAll.Size = new System.Drawing.Size(149, 22);
-            this.itmShowAll.Text = "Show &all";
-            this.itmShowAll.Click += new System.EventHandler(this.itmShowAll_Click);
-            // 
             // SolutionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -296,7 +286,6 @@ namespace Volmax.ControlPanel.App
         private ToolTip toolTip1;
         private CheckBox checkBox1;
         private ToolStripMenuItem itmHide;
-        private ToolStripMenuItem itmShowAll;
         private ToolStripMenuItem itmStart;
         private ToolStripMenuItem itmStop;
         private ToolStripMenuItem itmDebug;

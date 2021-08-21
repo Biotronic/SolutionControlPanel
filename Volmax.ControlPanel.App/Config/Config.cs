@@ -14,19 +14,11 @@ namespace Volmax.ControlPanel.App.Config
 
             if (!File.Exists(_source))
             {
-                var dlg = new FolderBrowserDialog
-                {
-                    Description = "Please select the base folder containing your projects",
-                    UseDescriptionForTitle = true
-                };
-                var r = dlg.ShowDialog();
-                if (r == DialogResult.Cancel)
+                if (!SetBasePath())
                 {
                     Application.Exit();
                     return;
                 }
-                var basePath = dlg.SelectedPath;
-                File.WriteAllText(_source, JsonConvert.SerializeObject(new { Basepath = basePath }));
             }
 
             JsonConvert.PopulateObject(File.ReadAllText(source), this);
@@ -38,6 +30,8 @@ namespace Volmax.ControlPanel.App.Config
 
         public string Basepath { get; set; }
         public Dictionary<string, SolutionConfig> Solutions { get; set; } = new Dictionary<string, SolutionConfig>();
+        public bool StartWithWindows { get; set; }
+        public bool StartProjectsAutomatically { get; set; }
 
         public void Update()
         {
@@ -49,6 +43,25 @@ namespace Volmax.ControlPanel.App.Config
             if (Solutions.TryGetValue(name, out var existing))
                 return existing;
             return Solutions[name] = new SolutionConfig(this);
+        }
+
+        public bool SetBasePath()
+        {
+            var dlg = new FolderBrowserDialog
+            {
+                Description = @"Please select the base folder containing your projects",
+                UseDescriptionForTitle = true
+            };
+            var r = dlg.ShowDialog();
+            if (r == DialogResult.Cancel)
+            {
+                return false;
+            }
+
+            Solutions.Clear();
+            Basepath = dlg.SelectedPath;
+            Update();
+            return true;
         }
     }
 }

@@ -8,21 +8,37 @@ namespace Volmax.ControlPanel.App
 {
     public partial class MainForm : Form
     {
-        private readonly GroupControl _groupControl;
+        private GroupControl _groupControl;
         private readonly bool _exitEarly;
+        private Config.Config Config { get; }
 
         public MainForm()
         {
             InitializeComponent();
 
-            var config = new Config.Config("config.json");
-            if (config.Basepath == null)
+            Config = new Config.Config("config.json");
+            if (Config.Basepath == null)
             {
                 _exitEarly = true;
                 return;
             }
 
-            Solutions = Solution.GetSolutions(config).ToList();
+            itmStartAtBoot.Checked = Config.StartWithWindows;
+            itmStartProjects.Checked = Config.StartProjectsAutomatically;
+            UpdateLists();
+        }
+
+        private void UpdateLists()
+        {
+            Text = @$"Volmax Control Panel - {Config.Basepath}";
+            if (_groupControl != null)
+            {
+                tableLayoutPanel1.Controls.Remove(_groupControl);
+                _groupControl.Start -= _groupControl_Start;
+                _groupControl.Stop -= _groupControl_Stop;
+            }
+
+            Solutions = Solution.GetSolutions(Config).ToList();
             tableLayoutPanel1.RowCount = Solutions.Count + 1;
             foreach (var solution in Solutions)
             {
@@ -33,7 +49,6 @@ namespace Volmax.ControlPanel.App
                     Textbox = richTextBox1
                 };
                 c.CheckedChanged += Solution_CheckedChanged;
-                c.ShowAll += Solution_ShowAll;
                 tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                 tableLayoutPanel1.Controls.Add(c);
             }
@@ -60,14 +75,6 @@ namespace Volmax.ControlPanel.App
         private IEnumerable<SolutionControl> SolutionControls => tableLayoutPanel1.Controls.OfType<SolutionControl>();
         private IEnumerable<SolutionControl> SelectedSolutionControls => SolutionControls.Where(a => a.Checked);
         private SolutionControl CurrentSolutionControl => SolutionControls.FirstOrDefault(a => a.Current);
-
-        private void Solution_ShowAll(object sender, EventArgs e)
-        {
-            foreach (var control in SolutionControls)
-            {
-                control.Visible = true;
-            }
-        }
 
         private void _groupControl_Start(object sender, EventArgs e)
         {
@@ -120,6 +127,39 @@ namespace Volmax.ControlPanel.App
             if (WindowState == FormWindowState.Minimized)
             {
                 Hide();
+            }
+        }
+
+        private void itmChooseFolder_Click(object sender, EventArgs e)
+        {
+            if (Config.SetBasePath())
+            {
+                UpdateLists();
+            }
+        }
+
+        private void itmExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void itmStartAtBoot_Click(object sender, EventArgs e)
+        {
+            Config.StartWithWindows = itmStartAtBoot.Checked;
+            Config.Update();
+        }
+
+        private void itmStartProjects_Click(object sender, EventArgs e)
+        {
+            Config.StartProjectsAutomatically = itmStartProjects.Checked;
+            Config.Update();
+        }
+
+        private void itmShowAll_Click(object sender, EventArgs e)
+        {
+            foreach (var control in SolutionControls)
+            {
+                control.Visible = true;
             }
         }
     }
