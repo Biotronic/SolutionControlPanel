@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Biotronic.SolutionControlPanel.App.Processes;
 using Biotronic.SolutionControlPanel.App.Properties;
-using IWshRuntimeLibrary;
-using File = System.IO.File;
+using Biotronic.SolutionControlPanel.App.Utils;
 
 namespace Biotronic.SolutionControlPanel.App
 {
@@ -27,7 +25,7 @@ namespace Biotronic.SolutionControlPanel.App
                 return;
             }
 
-            itmStartAtBoot.Checked = File.Exists(StartupLinkPath);
+            itmStartAtBoot.Checked = RunAtStartup.Registered;
             itmStartProjects.Checked = Config.StartProjectsAutomatically;
             UpdateLists();
             timer1.Enabled = true;
@@ -156,27 +154,15 @@ namespace Biotronic.SolutionControlPanel.App
         }
 
 
-        private string StartupLinkPath => Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.Startup),
-            $"{Resources.AppName}.lnk");
         private void itmStartAtBoot_Click(object sender, EventArgs e)
         {
             if (itmStartAtBoot.Checked)
             {
-                var wshShell = new WshShell();
-                var shortcut = (IWshShortcut)wshShell.CreateShortcut(StartupLinkPath);
-
-                var exePath = Path.ChangeExtension(Application.ExecutablePath, "exe");
-                shortcut.TargetPath = exePath;
-                shortcut.Arguments = Resources.AtStartup;
-                shortcut.WorkingDirectory = Application.StartupPath;
-                shortcut.Description = Resources.AppName;
-                shortcut.IconLocation = exePath + ",0";
-                shortcut.Save();
+                RunAtStartup.Register();
             }
             else
             {
-                System.IO.File.Delete(StartupLinkPath);
+                RunAtStartup.Unregister();
             }
         }
 
@@ -204,7 +190,7 @@ namespace Biotronic.SolutionControlPanel.App
 
         private void itmFile_DropDownOpening(object sender, EventArgs e)
         {
-            itmStartAtBoot.Checked = File.Exists(StartupLinkPath);
+            itmStartAtBoot.Checked = RunAtStartup.Registered;
         }
     }
 }
