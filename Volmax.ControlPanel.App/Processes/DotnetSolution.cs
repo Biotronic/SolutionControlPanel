@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using IoPath = System.IO.Path;
@@ -9,16 +13,30 @@ namespace Volmax.ControlPanel.App.Processes
 {
     internal class DotnetSolution : Solution
     {
-        public DotnetSolution(string path, string projectPath, Dictionary<string, LaunchProfile> profiles,
-            Config.Config config) : base(path, projectPath, profiles, config)
+        public DotnetSolution(string solutionPath, string projectPath, Dictionary<string, LaunchProfile> profiles,
+            Config.Config config) : base(solutionPath, projectPath, profiles, config)
         {
             ExpectedProcessCount = 2;
             Profile = SolutionConfig.Profile;
         }
 
+        public override Image Image => GetFileIcon(".sln");
+
         protected override void SetName()
         {
             Name = IoPath.GetFileName(ProjectPath);
+        }
+
+        public override void Open()
+        {
+            using var fileopener = new Process
+            {
+                StartInfo =
+                {
+                    FileName = SolutionPath
+                }
+            };
+            fileopener.Start();
         }
 
         protected override ProcessKind IsRelevantProcess(ProcessInfo processInfo)
@@ -40,8 +58,41 @@ namespace Volmax.ControlPanel.App.Processes
 
         protected override void DoStart(string profile)
         {
-            StartProcess("dotnet", $"run -p {IoPath.GetFileNameWithoutExtension(Path)}.csproj --launch-profile {profile}");
+            StartProcess("dotnet", $"run -p {IoPath.GetFileNameWithoutExtension(SolutionPath)}.csproj --launch-profile {profile}");
         }
+
+        private static Image GetFileIcon(string name)
+        {
+            var shfi = new SHFILEINFO();
+            SHGetFileInfo(name, 0x80, ref shfi, (uint)Marshal.SizeOf(shfi), 0x111);
+            var icon = (Icon)Icon.FromHandle(shfi.hIcon).Clone();
+            DestroyIcon(shfi.hIcon);
+            return icon.ToBitmap();
+        }
+
+        [DllImport("Shell32.dll")]
+        public static extern IntPtr SHGetFileInfo(
+            string pszPath,
+            uint dwFileAttributes,
+            ref SHFILEINFO psfi,
+            uint cbFileInfo,
+            uint uFlags
+        );
+
+        [DllImport("User32.dll")]
+        public static extern int DestroyIcon(IntPtr hIcon);
+        [StructLayout(LayoutKind.Sequential)]
+        public struct SHFILEINFO
+        {
+            public const int NAMESIZE = 80;
+            public IntPtr hIcon;
+            public int iIcon;
+            public uint dwAttributes;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+            public string szDisplayName;
+            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = NAMESIZE)]
+            public string szTypeName;
+        };
 
         public static IEnumerable<Solution> GetDotnetSolutions(Config.Config config)
         {

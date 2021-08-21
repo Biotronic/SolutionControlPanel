@@ -5,7 +5,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using EnvDTE;
-using Debugger = System.Diagnostics.Debugger;
 using DTEProcess = EnvDTE.Process;
 using Process = System.Diagnostics.Process;
 
@@ -55,20 +54,6 @@ namespace Volmax.ControlPanel.App.Processes
             {
                 throw new InvalidOperationException("Visual Studio process cannot find specified application '" + applicationProcess.Id + "'");
             }
-        }
-
-        /// <summary>
-        /// The get visual studio for solutions.
-        /// </summary>
-        /// <param name="solutionNames">
-        /// The solution names.
-        /// </param>
-        /// <returns>
-        /// The <see cref="Process"/>.
-        /// </returns>
-        private static Process GetVisualStudioForSolutions(params string[] solutionNames)
-        {
-            return solutionNames.Select(GetVisualStudioForSolution).FirstOrDefault(process => process != null);
         }
 
         /// <summary>
@@ -144,21 +129,30 @@ namespace Volmax.ControlPanel.App.Processes
             return false;
         }
 
-        public static void AttachDebugger(this Process process, params string[] solutionNames)
+        public static void AttachDebugger(this Process process, string solutionName)
         {
-            if (Debugger.IsAttached) return;
-
-            var vsProcess = GetVisualStudioForSolutions("AudioAnalysis.sln");
-
-            if (vsProcess != null)
+            var vsProcess = GetVisualStudioForSolution(solutionName);
+            if (vsProcess == null || !TryGetVsInstance(vsProcess.Id, out var vsInstance))
             {
-                AttachVisualStudioToProcess(vsProcess, process);
+                var type = Type.GetTypeFromProgID("VisualStudio.DTE.16.0");
+                vsInstance = (DTE)Activator.CreateInstance(type, true);
+                vsInstance.Solution.Open(solutionName);
             }
-            else
+
+            var p = vsInstance.Debugger.LocalProcesses.OfType<EnvDTE.Process>().FirstOrDefault(a =>
             {
-                // try and attach the old fashioned way
-                Debugger.Launch();
-            }
+
+                try
+                {
+                    return a.ProcessID == process.Id;
+                }
+                catch
+                {
+                    return false;
+                }
+            });
+            p.Attach();
+            vsInstance.MainWindow.Visible = true;
         }
     }
 }

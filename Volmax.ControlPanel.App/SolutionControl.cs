@@ -39,19 +39,21 @@ namespace Volmax.ControlPanel.App
                 Solution.OutputAdded += Solution_OutputAdded;
 
                 cmbProfiles.Items.Clear();
-                if (!Solution.Profiles.Any())
+                if (Solution.Profiles.Any())
+                {
+                    var profiles = Solution.Profiles.Keys.ToList();
+                    cmbProfiles.Items.AddRange(profiles.OfType<object>().ToArray());
+                    cmbProfiles.SelectedIndex = Math.Max(0, profiles.IndexOf(Solution.Profile));
+                }
+                else
                 {
                     cmbProfiles.Items.Add("");
                     cmbProfiles.SelectedIndex = 0;
                     cmbProfiles.Enabled = false;
                     cmbProfiles.Width = 0;
                 }
-                else
-                {
-                    var profiles = Solution.Profiles.Keys.ToList();
-                    cmbProfiles.Items.AddRange(profiles.OfType<object>().ToArray());
-                    cmbProfiles.SelectedIndex = Math.Max(0, profiles.IndexOf(Solution.Profile));
-                }
+
+                itmOpenSolution.Image = Solution.Image;
 
                 UpdateSolution(Solution, EventArgs.Empty);
             }
@@ -230,6 +232,11 @@ namespace Volmax.ControlPanel.App
         {
             Solution.RestoreOutput();
             Solution_OutputAdded(this, new TextEventArgs("", ""));
+        }
+
+        private void itmOpenSolution_Click(object sender, EventArgs e)
+        {
+            Solution.Open();
         }
     }
 }

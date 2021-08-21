@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -7,15 +10,35 @@ namespace Volmax.ControlPanel.App.Processes
 {
     internal class YarnSolution : Solution
     {
-        public YarnSolution(string path, string projectPath, Dictionary<string, LaunchProfile> profiles, Config.Config config)
-            : base(path, projectPath, profiles, config)
+        public YarnSolution(string solutionPath, string projectPath, Dictionary<string, LaunchProfile> profiles, Config.Config config)
+            : base(solutionPath, projectPath, profiles, config)
         {
             ExpectedProcessCount = 8;
         }
 
+        public override Image Image => Properties.Resources.Yarn_16x;
+
         protected override void SetName()
         {
-            Name = System.IO.Path.GetRelativePath(Config.Basepath, Path).Split('\\', '/').First();
+            Name = Path.GetRelativePath(Config.Basepath, SolutionPath).Split('\\', '/').First();
+        }
+
+        public override void Open()
+        {
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            path = Path.Combine(path, "Programs\\Microsoft VS Code\\bin\\code.cmd");
+
+            using var codeProcess = new Process
+            {
+                StartInfo =
+                {
+                    FileName = path,
+                    ArgumentList = { SolutionPath },
+                    CreateNoWindow = true,
+                    UseShellExecute = false
+                }
+            };
+            codeProcess.Start();
         }
 
         protected override ProcessKind IsRelevantProcess(ProcessInfo processInfo)
@@ -23,7 +46,7 @@ namespace Volmax.ControlPanel.App.Processes
             if (processInfo.CommandLine == null) return ProcessKind.Irrelevant;
             if (Regex.IsMatch(processInfo.CommandLine, "\"cmd\" /c yarn start"))
             {
-                if (System.IO.Path.GetRelativePath(ProjectPath, processInfo.WorkingDirectory) == ".")
+                if (Path.GetRelativePath(ProjectPath, processInfo.WorkingDirectory) == ".")
                 {
                     return ProcessKind.Main;
                 }
@@ -46,8 +69,8 @@ namespace Volmax.ControlPanel.App.Processes
 
             foreach (var path in paths)
             {
-                yield return new YarnSolution(System.IO.Path.GetDirectoryName(path),
-                    System.IO.Path.GetDirectoryName(path), new Dictionary<string, LaunchProfile>(), config);
+                yield return new YarnSolution(Path.GetDirectoryName(path),
+                    Path.GetDirectoryName(path), new Dictionary<string, LaunchProfile>(), config);
             }
         }
     }

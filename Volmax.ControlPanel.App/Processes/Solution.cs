@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Management;
 using System.Text;
@@ -18,10 +19,7 @@ namespace Volmax.ControlPanel.App.Processes
             get => _profile;
             protected set
             {
-                if (value == null)
-                {
-                    value = Profiles.Keys.FirstOrDefault(a => a.Contains(".DevDb"));
-                }
+                value ??= Profiles.Keys.FirstOrDefault(a => a.Contains(".DevDb"));
                 _profile = value;
                 SolutionConfig.Profile = value;
             }
@@ -49,7 +47,7 @@ namespace Volmax.ControlPanel.App.Processes
                 SolutionConfig.Hidden = value;
             }
         }
-        public string Path { get; }
+        public string SolutionPath { get; }
         public string Name { get; protected set; }
         public Dictionary<string, LaunchProfile> Profiles { get; }
         protected int StartDelay { get; set; } = 10;
@@ -188,9 +186,9 @@ namespace Volmax.ControlPanel.App.Processes
         }
 
 
-        protected Solution(string path, string projectPath, Dictionary<string, LaunchProfile> profiles, Config.Config config)
+        protected Solution(string solutionPath, string projectPath, Dictionary<string, LaunchProfile> profiles, Config.Config config)
         {
-            Path = path;
+            SolutionPath = solutionPath;
             ProjectPath = projectPath;
             Profiles = profiles;
             Config = config;
@@ -381,7 +379,7 @@ namespace Volmax.ControlPanel.App.Processes
 
         public void AttachDebugger()
         {
-            MainProcess.AttachDebugger(Path);
+            MainProcess.AttachDebugger(SolutionPath);
             DoUpdate();
         }
 
@@ -405,6 +403,7 @@ namespace Volmax.ControlPanel.App.Processes
         public event EventHandler<TextEventArgs> ErrorAdded;
         public string Output => _outputBuilder.ToString();
         public string Error => _errorBuilder.ToString();
+        public abstract Image Image { get; }
 
         protected void OnOutput(string outputDelta)
         {
@@ -480,5 +479,7 @@ namespace Volmax.ControlPanel.App.Processes
             _fullRichText.CopyTo(_richText);
             Update?.Invoke(this, EventArgs.Empty);
         }
+
+        public abstract void Open();
     }
 }
