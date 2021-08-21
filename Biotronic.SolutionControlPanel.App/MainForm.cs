@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Biotronic.SolutionControlPanel.App.Processes;
 using Biotronic.SolutionControlPanel.App.Properties;
 using IWshRuntimeLibrary;
+using File = System.IO.File;
 
 namespace Biotronic.SolutionControlPanel.App
 {
@@ -26,9 +27,10 @@ namespace Biotronic.SolutionControlPanel.App
                 return;
             }
 
-            itmStartAtBoot.Checked = Config.StartWithWindows;
+            itmStartAtBoot.Checked = File.Exists(StartupLinkPath);
             itmStartProjects.Checked = Config.StartProjectsAutomatically;
             UpdateLists();
+            timer1.Enabled = true;
         }
 
         private void UpdateLists()
@@ -153,19 +155,16 @@ namespace Biotronic.SolutionControlPanel.App
             Close();
         }
 
+
+        private string StartupLinkPath => Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+            $"{Resources.AppName}.lnk");
         private void itmStartAtBoot_Click(object sender, EventArgs e)
         {
-            Config.StartWithWindows = itmStartAtBoot.Checked;
-            Config.Update();
-
-            var lnkPath = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.Startup),
-                $"{Resources.AppName}.lnk");
-
-            if (Config.StartWithWindows)
+            if (itmStartAtBoot.Checked)
             {
                 var wshShell = new WshShell();
-                var shortcut = (IWshShortcut)wshShell.CreateShortcut(lnkPath);
+                var shortcut = (IWshShortcut)wshShell.CreateShortcut(StartupLinkPath);
 
                 var exePath = Path.ChangeExtension(Application.ExecutablePath, "exe");
                 shortcut.TargetPath = exePath;
@@ -177,7 +176,7 @@ namespace Biotronic.SolutionControlPanel.App
             }
             else
             {
-                System.IO.File.Delete(lnkPath);
+                System.IO.File.Delete(StartupLinkPath);
             }
         }
 
@@ -201,6 +200,11 @@ namespace Biotronic.SolutionControlPanel.App
             if (!Config.StartProjectsAutomatically) return;
 
             _groupControl_Start(this, e);
+        }
+
+        private void itmFile_DropDownOpening(object sender, EventArgs e)
+        {
+            itmStartAtBoot.Checked = File.Exists(StartupLinkPath);
         }
     }
 }

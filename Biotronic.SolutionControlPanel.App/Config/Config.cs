@@ -30,8 +30,8 @@ namespace Biotronic.SolutionControlPanel.App.Config
 
         public string Basepath { get; set; }
         public Dictionary<string, SolutionConfig> Solutions { get; set; } = new Dictionary<string, SolutionConfig>();
-        public bool StartWithWindows { get; set; }
         public bool StartProjectsAutomatically { get; set; }
+        public string DefaultProfilePattern { get; set; } = "\\.DevDb$";
 
         public void Update()
         {

@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Management;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using Biotronic.SolutionControlPanel.App.Config;
@@ -14,7 +15,7 @@ namespace Biotronic.SolutionControlPanel.App.Processes
 {
     internal abstract class Solution
     {
-        private static readonly WeakList<Solution> _allSolutions = new WeakList<Solution>();
+        private static readonly WeakList<Solution> AllSolutions = new WeakList<Solution>();
 
         public bool RedirectedOutput { get; private set; }
         private string _profile;
@@ -23,7 +24,7 @@ namespace Biotronic.SolutionControlPanel.App.Processes
             get => _profile;
             protected set
             {
-                value ??= Profiles.Keys.FirstOrDefault(a => a.Contains(".DevDb"));
+                value ??= Profiles.Keys.FirstOrDefault(a => Regex.IsMatch(a, Config.DefaultProfilePattern));
                 _profile = value;
                 SolutionConfig.Profile = value;
             }
@@ -199,7 +200,7 @@ namespace Biotronic.SolutionControlPanel.App.Processes
             while (!_exited)
             {
                 Thread.Sleep(TimeSpan.FromSeconds(3));
-                foreach (var solution in _allSolutions)
+                foreach (var solution in AllSolutions)
                 {
                     solution.DoUpdate();
                 }
@@ -221,7 +222,7 @@ namespace Biotronic.SolutionControlPanel.App.Processes
 
             GetExistingProcesses();
             StartListener.EventArrived += StartListenerOnEventArrived;
-            _allSolutions.Add(this);
+            AllSolutions.Add(this);
         }
 
         private void StartListenerOnEventArrived(object sender, EventArrivedEventArgs e)
@@ -303,7 +304,6 @@ namespace Biotronic.SolutionControlPanel.App.Processes
             }
 
             DoUpdate();
-            //DelayedUpdatePorts();
         }
 
         protected void AddMainProcess(Process process)
@@ -317,7 +317,6 @@ namespace Biotronic.SolutionControlPanel.App.Processes
             process.EnableRaisingEvents = true;
             process.Exited += RemoveProcess;
             DoUpdate();
-            //DelayedUpdatePorts();
         }
 
         private void RemoveProcess(object sender, EventArgs e)
@@ -379,7 +378,6 @@ namespace Biotronic.SolutionControlPanel.App.Processes
             _richText.Clear();
             _richText.Clear();
             DoStart(profile);
-            //DelayedUpdatePorts();
         }
 
         protected abstract void DoStart(string profile);
@@ -455,15 +453,6 @@ namespace Biotronic.SolutionControlPanel.App.Processes
             _errorBuilder.AppendLine(errorDelta);
             ErrorAdded?.Invoke(this, new TextEventArgs(Error, errorDelta));
         }
-
-        /*
-        private Delayed _delayed;
-        private void DelayedUpdatePorts()
-        {
-            _delayed?.Abort();
-            _delayed = Delayed.Call(TimeSpan.FromSeconds(StartDelay), UpdatePorts);
-        }
-        */
 
         protected void UpdatePorts()
         {
