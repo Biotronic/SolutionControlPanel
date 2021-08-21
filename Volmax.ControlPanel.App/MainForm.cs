@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using IWshRuntimeLibrary;
 using Volmax.ControlPanel.App.Processes;
 
 namespace Volmax.ControlPanel.App
@@ -69,8 +71,15 @@ namespace Volmax.ControlPanel.App
             if (_exitEarly)
             {
                 Close();
+                return;
             }
+            if (_first && Environment.GetCommandLineArgs().Contains("-atstartup"))
+            {
+                Hide();
+            }
+            _first = false;
         }
+        private bool _first = true;
 
         private IEnumerable<SolutionControl> SolutionControls => tableLayoutPanel1.Controls.OfType<SolutionControl>();
         private IEnumerable<SolutionControl> SelectedSolutionControls => SolutionControls.Where(a => a.Checked);
@@ -147,6 +156,28 @@ namespace Volmax.ControlPanel.App
         {
             Config.StartWithWindows = itmStartAtBoot.Checked;
             Config.Update();
+
+            var lnkPath = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.Startup),
+                "Volmax Control Panel.lnk");
+
+            if (Config.StartWithWindows)
+            {
+                var wshShell = new WshShell();
+                var shortcut = (IWshShortcut)wshShell.CreateShortcut(lnkPath);
+
+                var exePath = Path.ChangeExtension(Application.ExecutablePath, "exe");
+                shortcut.TargetPath = exePath;
+                shortcut.Arguments = "-atstartup";
+                shortcut.WorkingDirectory = Application.StartupPath;
+                shortcut.Description = "Volmax Control Panel";
+                shortcut.IconLocation = exePath + ",0";
+                shortcut.Save();
+            }
+            else
+            {
+                System.IO.File.Delete(lnkPath);
+            }
         }
 
         private void itmStartProjects_Click(object sender, EventArgs e)
@@ -161,6 +192,14 @@ namespace Volmax.ControlPanel.App
             {
                 control.Visible = true;
             }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            if (!Config.StartProjectsAutomatically) return;
+
+            _groupControl_Start(this, e);
         }
     }
 }

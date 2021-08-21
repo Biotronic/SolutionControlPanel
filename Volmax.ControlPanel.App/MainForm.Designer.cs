@@ -49,6 +49,7 @@ namespace Volmax.ControlPanel.App
             this.itmStartProjects = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.itmExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -126,6 +127,7 @@ namespace Volmax.ControlPanel.App
             this.itmClearOutput.Name = "itmClearOutput";
             this.itmClearOutput.Size = new System.Drawing.Size(152, 22);
             this.itmClearOutput.Text = "&Clear output";
+            this.itmClearOutput.Click += new System.EventHandler(this.ItmClearOutput_Click);
             // 
             // itmRestoreOutput
             // 
@@ -133,6 +135,7 @@ namespace Volmax.ControlPanel.App
             this.itmRestoreOutput.Name = "itmRestoreOutput";
             this.itmRestoreOutput.Size = new System.Drawing.Size(152, 22);
             this.itmRestoreOutput.Text = "&Restore output";
+            this.itmRestoreOutput.Click += new System.EventHandler(this.ItmRestoreOutput_Click);
             // 
             // notifyIcon1
             // 
@@ -223,6 +226,12 @@ namespace Volmax.ControlPanel.App
             this.itmExit.Text = "E&xit";
             this.itmExit.Click += new System.EventHandler(this.itmExit_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 10000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -271,6 +280,7 @@ namespace Volmax.ControlPanel.App
         private System.Windows.Forms.ToolStripMenuItem itmExit;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem itmShowAll;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
