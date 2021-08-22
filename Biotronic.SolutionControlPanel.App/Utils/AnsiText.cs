@@ -51,13 +51,13 @@ namespace Biotronic.SolutionControlPanel.App.Utils
 
         private const string Reset = @"\plain ";
 
-        private Trie<char, string> Replacements { get; }
+        private Dictionary<string, string> Replacements { get; }
         private StringBuilder Builder { get; }
 
         public AnsiText()
         {
             Builder = new StringBuilder();
-            Replacements = new Trie<char, string>
+            Replacements = new Dictionary<string, string>
             {
                 {"ï½£", $"\\u{(int) '｣'}?"},
                 {"ï½¢", $"\\u{(int) '｢'}?"},
@@ -109,6 +109,7 @@ namespace Biotronic.SolutionControlPanel.App.Utils
 
         public void Append(string s)
         {
+            var builder = new StringBuilder();
             for (var i = 0; i < s.Length; ++i)
             {
                 if (s[i] == '\u001b')
@@ -119,7 +120,7 @@ namespace Biotronic.SolutionControlPanel.App.Utils
                     {
                         case '[':
                             ++i;
-                            i = ControlSequence(s, i);
+                            i = ControlSequence(s, i, builder);
                             break;
                         case 'N':
                             Trace.WriteLine("Unsupported escape sequence SS2");
@@ -151,7 +152,7 @@ namespace Biotronic.SolutionControlPanel.App.Utils
                             i = ReadUntilSt(s, i);
                             break;
                         case 'c':
-                            BuilderAppend(Reset);
+                            builder.Append(Reset);
                             break;
                         default:
                             Trace.WriteLine($"Unsupported escape sequence {s[next]}");
@@ -160,11 +161,11 @@ namespace Biotronic.SolutionControlPanel.App.Utils
                 }
                 else
                 {
-                    var prefix = string.Concat(Replacements.LongestPrefix(s.Skip(i)));
-                    if (Replacements.ContainsKey(prefix))
+                    var (key, value) = Replacements.FirstOrDefault(a => s[i..Math.Min(s.Length - 1, i + a.Key.Length)] == a.Key);
+                    if (!string.IsNullOrEmpty(key))
                     {
-                        BuilderAppend(Replacements[prefix]);
-                        i += prefix.Length - 1;
+                        builder.Append(value);
+                        i += key.Length - 1;
                         continue;
                     }
                     var c = s[i];
@@ -172,33 +173,34 @@ namespace Biotronic.SolutionControlPanel.App.Utils
                     {
                         if (@"\{}".Contains(c))
                         {
-                            BuilderAppend(@"\");
+                            builder.Append(@"\");
                         }
-                        BuilderAppend(c);
+                        builder.Append(c);
                     }
                     else if (c < 0x20 || c >= 0x80 && c <= 0xFF)
                     {
                         switch (c)
                         {
                             case '\t':
-                                BuilderAppend(@"\tab ");
+                                builder.Append(@"\tab ");
                                 break;
                             case '\r':
                                 break;
                             case '\n':
-                                BuilderAppend(@"\line ");
+                                builder.Append(@"\line ");
                                 break;
                             default:
-                                BuilderAppend($"\\'{(byte)c:X}");
+                                builder.Append($"\\'{(byte)c:X}");
                                 break;
                         }
                     }
                     else
                     {
-                        BuilderAppend($"\\u{(short)c}?");
+                        builder.Append($"\\u{(short)c}?");
                     }
                 }
             }
+            BuilderAppend(builder.ToString());
         }
 
         private static int ReadUntilSt(string s, int i)
@@ -206,7 +208,7 @@ namespace Biotronic.SolutionControlPanel.App.Utils
             return s.IndexOf("\u001b\\", i, StringComparison.Ordinal);
         }
 
-        private int ControlSequence(string s, int i)
+        private int ControlSequence(string s, int i, StringBuilder builder)
         {
             var args = "";
             while (i < s.Length && (char.IsNumber(s[i]) || s[i] == ';'))
@@ -227,7 +229,7 @@ namespace Biotronic.SolutionControlPanel.App.Utils
             switch (s[i])
             {
                 case 'm':
-                    BuilderAppend(SelectGraphicRendition(args.Split(';').Select(int.Parse).ToArray()));
+                    builder.Append(SelectGraphicRendition(args.Split(';').Select(int.Parse).ToArray()));
                     break;
                 case 'A':
                     Trace.WriteLine("Unsupported escape sequence CSI CUU");
