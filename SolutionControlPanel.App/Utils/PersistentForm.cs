@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using SolutionControlPanel.App.Win32;
+using SolutionControlPanel.App.Win32.Enums;
 
 namespace SolutionControlPanel.App.Utils
 {
