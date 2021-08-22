@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using Biotronic.SolutionControlPanel.App.Config;
@@ -9,7 +10,7 @@ using Biotronic.SolutionControlPanel.App.Utils;
 
 namespace Biotronic.SolutionControlPanel.App
 {
-    public partial class MainForm : Form
+    public partial class MainForm : PersistentForm
     {
         private GroupControl _groupControl;
         private readonly bool _exitEarly;
@@ -26,15 +27,12 @@ namespace Biotronic.SolutionControlPanel.App
                 return;
             }
 
-            if (Config.MainForm == null)
+            Config.MainForm ??= new MainFormConfig
             {
-                Config.MainForm = new MainFormConfig
-                {
-                    Location = Location,
-                    Size = Size,
-                    WindowState = WindowState
-                };
-            }
+                Location = Location,
+                Size = Size,
+                WindowState = WindowState
+            };
 
             itmStartAtBoot.Checked = RunAtStartup.Registered;
             itmStartProjects.Checked = Config.StartProjectsAutomatically;
@@ -77,6 +75,21 @@ namespace Biotronic.SolutionControlPanel.App
             Solution_CheckedChanged(this, EventArgs.Empty);
         }
 
+        protected override void LoadPersistent()
+        {
+            Location = Config.MainForm.Location;
+            Size = Config.MainForm.Size;
+            WindowState = Config.MainForm.WindowState;
+        }
+
+        protected override void OnPersistentChanged()
+        {
+            Config.MainForm.WindowState = WindowState;
+            Config.MainForm.Location = Location;
+            Config.MainForm.Size = Size;
+            Config.Update();
+        }
+
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
@@ -86,14 +99,6 @@ namespace Biotronic.SolutionControlPanel.App
                 return;
             }
 
-            if (_first)
-            {
-                var tmpLocation = Config.MainForm.Location;
-                var tmpSize = Config.MainForm.Size;
-                Location = tmpLocation;
-                Size = tmpSize;
-                WindowState = Config.MainForm.WindowState;
-            }
 
             if (_first && Environment.GetCommandLineArgs().Contains(Resources.AtStartup))
             {
@@ -107,7 +112,15 @@ namespace Biotronic.SolutionControlPanel.App
         private IEnumerable<SolutionControl> SelectedSolutionControls => SolutionControls.Where(a => a.Checked);
         private SolutionControl CurrentSolutionControl => SolutionControls.FirstOrDefault(a => a.Current);
 
-        private void _groupControl_Start(object sender, EventArgs e)
+        private void StopAllSolutions()
+        {
+            foreach (var control in SelectedSolutionControls)
+            {
+                control.Solution.Stop();
+            }
+        }
+
+        private void StartAllSolutions()
         {
             foreach (var control in SelectedSolutionControls)
             {
@@ -118,12 +131,22 @@ namespace Biotronic.SolutionControlPanel.App
             }
         }
 
+        private void ShowAllSolutions()
+        {
+            foreach (var control in SolutionControls)
+            {
+                control.Visible = true;
+            }
+        }
+
+        private void _groupControl_Start(object sender, EventArgs e)
+        {
+            StartAllSolutions();
+        }
+
         private void _groupControl_Stop(object sender, EventArgs e)
         {
-            foreach (var control in SelectedSolutionControls)
-            {
-                control.Solution.Stop();
-            }
+            StopAllSolutions();
         }
 
         private void Solution_CheckedChanged(object sender, EventArgs e)
@@ -173,18 +196,10 @@ namespace Biotronic.SolutionControlPanel.App
         {
             Close();
         }
-
-
+        
         private void itmStartAtBoot_Click(object sender, EventArgs e)
         {
-            if (itmStartAtBoot.Checked)
-            {
-                RunAtStartup.Register();
-            }
-            else
-            {
-                RunAtStartup.Unregister();
-            }
+            RunAtStartup.Registered = itmStartAtBoot.Checked;
         }
 
         private void itmStartProjects_Click(object sender, EventArgs e)
@@ -195,10 +210,7 @@ namespace Biotronic.SolutionControlPanel.App
 
         private void itmShowAll_Click(object sender, EventArgs e)
         {
-            foreach (var control in SolutionControls)
-            {
-                control.Visible = true;
-            }
+            ShowAllSolutions();
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -206,7 +218,7 @@ namespace Biotronic.SolutionControlPanel.App
             timer1.Enabled = false;
             if (!Config.StartProjectsAutomatically) return;
 
-            _groupControl_Start(this, e);
+            StartAllSolutions();
         }
 
         private void itmFile_DropDownOpening(object sender, EventArgs e)
@@ -214,43 +226,9 @@ namespace Biotronic.SolutionControlPanel.App
             itmStartAtBoot.Checked = RunAtStartup.Registered;
         }
 
-        protected override void OnResizeEnd(EventArgs e)
+        private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
         {
-            base.OnResizeEnd(e);
-            if (_first) return;
-            Config.MainForm.Size = Size;
-            Config.Update();
-        }
-
-        protected override void OnMove(EventArgs e)
-        {
-            base.OnMove(e);
-            if (_first) return;
-            Config.MainForm.Location = Location;
-            Config.Update();
-        }
-
-        const int WM_SYSCOMMAND = 0x0112;
-        const int SC_MAXIMIZE = 0xF030;
-        const int SC_RESTORE = 0xF120;
-        const int SC_MINIMIZE = 0xF020;
-        protected override void WndProc(ref Message m)
-        {
-            if (m.Msg == WM_SYSCOMMAND)
-            {
-                switch ((int)m.WParam)
-                {
-                    case SC_MINIMIZE:
-                        break;
-                    case SC_RESTORE:
-                        Config.MainForm.WindowState = FormWindowState.Normal;
-                        break;
-                    case SC_MAXIMIZE:
-                        Config.MainForm.WindowState = FormWindowState.Maximized;
-                        break;
-                }
-            }
-            base.WndProc(ref m);
+            Process.Start("explorer", e.LinkText);
         }
     }
 }

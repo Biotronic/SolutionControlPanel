@@ -112,6 +112,7 @@ namespace Biotronic.SolutionControlPanel.App
             this.richTextBox1.Size = new System.Drawing.Size(800, 162);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = "";
+            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
             // 
             // contextMenuStrip1
             // 

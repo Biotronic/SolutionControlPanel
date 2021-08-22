@@ -13,5 +13,10 @@ namespace Biotronic.SolutionControlPanel.App.Utils
             if (memberInfo == null) return new Attribute[] { };
             return memberInfo.GetCustomAttributes(typeof(Attribute), false).OfType<Attribute>();
         }
+
+        public static TEnum[] GetValues<TEnum>() where TEnum : Enum
+        {
+            return (TEnum[])Enum.GetValues(typeof(TEnum));
+        }
     }
 }

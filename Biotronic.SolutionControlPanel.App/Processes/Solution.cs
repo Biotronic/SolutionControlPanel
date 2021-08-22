@@ -487,7 +487,6 @@ namespace Biotronic.SolutionControlPanel.App.Processes
                 var relevant = usage.Where(a => pids.Contains(a.ProcessId)).ToList();
                 _ports.Clear();
                 _ports.AddRange(relevant);
-                Trace.WriteLine($"{Name}: {pids.Count} pids, {relevant.Count} port usages");
             }
         }
 

@@ -13,7 +13,14 @@ namespace Biotronic.SolutionControlPanel.App.Utils
             Environment.GetFolderPath(Environment.SpecialFolder.Startup),
             $"{Resources.AppName}.lnk");
 
-        public static bool Registered => File.Exists(StartupLinkPath);
+        public static bool Registered
+        {
+            get => File.Exists(StartupLinkPath);
+            set
+            {
+                if (value) Register(); else Unregister();
+            }
+        }
 
         public static void Register()
         {
