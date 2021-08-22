@@ -376,8 +376,11 @@ namespace Biotronic.SolutionControlPanel.App.Processes
             if (Processes.Any(p => !p.HasExited)) return;
             _outputBuilder.Clear();
             _errorBuilder.Clear();
-            _richText.Clear();
-            _richText.Clear();
+            lock (_richText)
+            {
+                _richText.Clear();
+                _fullRichText.Clear();
+            }
             DoStart(profile);
         }
 
@@ -418,7 +421,19 @@ namespace Biotronic.SolutionControlPanel.App.Processes
 
         private readonly AnsiText _richText = new AnsiText();
         private readonly AnsiText _fullRichText = new AnsiText();
-        public string RichText => RedirectedOutput && _outputBuilder.Length != 0 ? _richText.ToString() : "{\\rtf1\\ansi\\pard\n[No output redirected for this process]\\par\n}";
+        public string RichText
+        {
+            get
+            {
+                lock (_richText)
+                {
+                    return RedirectedOutput && _outputBuilder.Length != 0
+                        ? _richText.ToString()
+                        : "{\\rtf1\\ansi\\pard\n[No output redirected for this process]\\par\n}";
+                }
+            }
+        }
+
         private readonly StringBuilder _outputBuilder = new StringBuilder();
         private readonly StringBuilder _errorBuilder = new StringBuilder();
         public event EventHandler<TextEventArgs> OutputAdded;
@@ -431,10 +446,14 @@ namespace Biotronic.SolutionControlPanel.App.Processes
         {
             if (outputDelta == null) return;
 
-            _richText.Newline();
-            _richText.Append(outputDelta);
-            _fullRichText.Newline();
-            _fullRichText.Append(outputDelta);
+            lock (_richText)
+            {
+                _richText.Newline();
+                _richText.Append(outputDelta);
+                _fullRichText.Newline();
+                _fullRichText.Append(outputDelta);
+            }
+
             _outputBuilder.AppendLine(outputDelta);
             OutputAdded?.Invoke(this, new TextEventArgs(Output, outputDelta));
         }
@@ -443,14 +462,18 @@ namespace Biotronic.SolutionControlPanel.App.Processes
         {
             if (errorDelta == null) return;
 
-            _richText.Newline();
-            _richText.Red();
-            _richText.Append(errorDelta);
-            _richText.Black();
-            _fullRichText.Newline();
-            _fullRichText.Red();
-            _fullRichText.Append(errorDelta);
-            _fullRichText.Black();
+            lock (_richText)
+            {
+                _richText.Newline();
+                _richText.Red();
+                _richText.Append(errorDelta);
+                _richText.Black();
+                _fullRichText.Newline();
+                _fullRichText.Red();
+                _fullRichText.Append(errorDelta);
+                _fullRichText.Black();
+            }
+
             _errorBuilder.AppendLine(errorDelta);
             ErrorAdded?.Invoke(this, new TextEventArgs(Error, errorDelta));
         }
@@ -491,7 +514,11 @@ namespace Biotronic.SolutionControlPanel.App.Processes
 
         public void RestoreOutput()
         {
-            _fullRichText.CopyTo(_richText);
+            lock (_richText)
+            {
+                _fullRichText.CopyTo(_richText);
+            }
+
             Update?.Invoke(this, EventArgs.Empty);
         }
 
