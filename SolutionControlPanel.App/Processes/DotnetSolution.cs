@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using IoPath = System.IO.Path;
+using SolutionControlPanel.App.Win32;
 
 namespace SolutionControlPanel.App.Processes
 {
@@ -21,11 +19,11 @@ namespace SolutionControlPanel.App.Processes
             Profile = SolutionConfig.Profile;
         }
 
-        public override Image Image => GetFileIcon(".sln");
+        public override Image Image => Windows.GetIconForExtension(".sln");
 
         protected override void SetName()
         {
-            Name = IoPath.GetFileName(ProjectPath);
+            Name = Path.GetFileName(ProjectPath);
         }
 
         public override void Open()
@@ -72,41 +70,8 @@ namespace SolutionControlPanel.App.Processes
 
         protected override void DoStart(string profile)
         {
-            StartProcess("dotnet", $"run -p {IoPath.GetFileNameWithoutExtension(SolutionPath)}.csproj --launch-profile {profile}");
+            StartProcess("dotnet", $"run -p {Path.GetFileNameWithoutExtension(SolutionPath)}.csproj --launch-profile {profile}");
         }
-
-        private static Image GetFileIcon(string name)
-        {
-            var shfi = new SHFILEINFO();
-            SHGetFileInfo(name, 0x80, ref shfi, (uint)Marshal.SizeOf(shfi), 0x111);
-            var icon = (Icon)Icon.FromHandle(shfi.hIcon).Clone();
-            DestroyIcon(shfi.hIcon);
-            return icon.ToBitmap();
-        }
-
-        [DllImport("Shell32.dll")]
-        public static extern IntPtr SHGetFileInfo(
-            string pszPath,
-            uint dwFileAttributes,
-            ref SHFILEINFO psfi,
-            uint cbFileInfo,
-            uint uFlags
-        );
-
-        [DllImport("User32.dll")]
-        public static extern int DestroyIcon(IntPtr hIcon);
-        [StructLayout(LayoutKind.Sequential)]
-        public struct SHFILEINFO
-        {
-            public const int NAMESIZE = 80;
-            public IntPtr hIcon;
-            public int iIcon;
-            public uint dwAttributes;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
-            public string szDisplayName;
-            [MarshalAs(UnmanagedType.ByValTStr, SizeConst = NAMESIZE)]
-            public string szTypeName;
-        };
 
         public static IEnumerable<Solution> GetDotnetSolutions(Config.Config config)
         {
@@ -114,15 +79,15 @@ namespace SolutionControlPanel.App.Processes
 
             foreach (var solution in solutions)
             {
-                var solutionDir = IoPath.GetDirectoryName(solution);
+                var solutionDir = Path.GetDirectoryName(solution);
                 if (string.IsNullOrWhiteSpace(solutionDir)) continue;
 
                 var projects = Directory.EnumerateFiles(solutionDir, "*.csproj", SearchOption.AllDirectories).ToList();
 
                 foreach (var project in projects)
                 {
-                    var projectDir = IoPath.GetDirectoryName(project) ?? "";
-                    var launchSettings = IoPath.Combine(projectDir, @"Properties\launchSettings.json");
+                    var projectDir = Path.GetDirectoryName(project) ?? "";
+                    var launchSettings = Path.Combine(projectDir, @"Properties\launchSettings.json");
                     if (!File.Exists(launchSettings)) continue;
 
                     var settings = JsonConvert.DeserializeObject<LaunchSettings>(File.ReadAllText(launchSettings));

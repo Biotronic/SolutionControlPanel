@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Windows.Forms;
 using EnvDTE;
+using SolutionControlPanel.App.Win32;
 using DTEProcess = EnvDTE.Process;
 using Process = System.Diagnostics.Process;
 
@@ -13,15 +14,6 @@ namespace SolutionControlPanel.App.Processes
 {
     internal static class VisualStudioAttacher
     {
-        [DllImport("ole32.dll")]
-        public static extern int CreateBindCtx(int reserved, out IBindCtx ppbc);
-
-        [DllImport("ole32.dll")]
-        public static extern int GetRunningObjectTable(int reserved, out IRunningObjectTable prot);
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
-
         /// <summary>
         /// The method to use to attach visual studio to a specified process.
         /// </summary>
@@ -48,8 +40,8 @@ namespace SolutionControlPanel.App.Processes
             {
                 processToAttachTo.Attach();
 
-                ShowWindow((int)visualStudioProcess.MainWindowHandle, 3);
-                SetForegroundWindow(visualStudioProcess.MainWindowHandle);
+                User32.ShowWindow((int)visualStudioProcess.MainWindowHandle, 3);
+                User32.SetForegroundWindow(visualStudioProcess.MainWindowHandle);
             }
             else
             {
@@ -88,9 +80,6 @@ namespace SolutionControlPanel.App.Processes
             return null;
         }
 
-        [DllImport("User32")]
-        private static extern int ShowWindow(int hwnd, int nCmdShow);
-
         private static IEnumerable<Process> GetVisualStudioProcesses()
         {
             var processes = Process.GetProcesses();
@@ -102,13 +91,13 @@ namespace SolutionControlPanel.App.Processes
             var numFetched = IntPtr.Zero;
             var monikers = new IMoniker[1];
 
-            GetRunningObjectTable(0, out var runningObjectTable);
+            Ole32.GetRunningObjectTable(0, out var runningObjectTable);
             runningObjectTable.EnumRunning(out var monikerEnumerator);
             monikerEnumerator.Reset();
 
             while (monikerEnumerator.Next(1, monikers, numFetched) == 0)
             {
-                CreateBindCtx(0, out var ctx);
+                Ole32.CreateBindCtx(0, out var ctx);
 
                 monikers[0].GetDisplayName(ctx, null, out var runningObjectName);
 
