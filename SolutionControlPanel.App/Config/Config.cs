@@ -24,6 +24,16 @@ namespace SolutionControlPanel.App.Config
             }
 
             JsonConvert.PopulateObject(File.ReadAllText(source), this);
+            if (!Directory.Exists(Basepath))
+            {
+                MessageBox.Show($"The path {Basepath} does not appear to exists. Please choose a different path to your solutions.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!SetBasePath())
+                {
+                    Application.Exit();
+                    return;
+                }
+                JsonConvert.PopulateObject(File.ReadAllText(source), this);
+            }
             foreach (var (_, value) in Solutions)
             {
                 value.Config = this;
