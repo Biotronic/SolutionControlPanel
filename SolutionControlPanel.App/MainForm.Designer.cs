@@ -124,7 +124,6 @@ namespace SolutionControlPanel.App
             // 
             // itmClearOutput
             // 
-            this.itmClearOutput.Image = global::SolutionControlPanel.App.Properties.Resources.Offline_16x;
             this.itmClearOutput.Name = "itmClearOutput";
             this.itmClearOutput.Size = new System.Drawing.Size(152, 22);
             this.itmClearOutput.Text = "&Clear output";
@@ -132,7 +131,6 @@ namespace SolutionControlPanel.App
             // 
             // itmRestoreOutput
             // 
-            this.itmRestoreOutput.Image = global::SolutionControlPanel.App.Properties.Resources.Restart_16x;
             this.itmRestoreOutput.Name = "itmRestoreOutput";
             this.itmRestoreOutput.Size = new System.Drawing.Size(152, 22);
             this.itmRestoreOutput.Text = "&Restore output";

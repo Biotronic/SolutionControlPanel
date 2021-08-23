@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
-using SolutionControlPanel.App.Win32;
 using SolutionControlPanel.App.Win32.Enums;
 
 namespace SolutionControlPanel.App.Utils
 {
-    public abstract class PersistentForm : Form
+    public class PersistentForm : Form
     {
         private bool _initialized;
         private bool _updating;
@@ -17,9 +16,13 @@ namespace SolutionControlPanel.App.Utils
             OnPersistentChanged();
         }
 
-        protected abstract void OnPersistentChanged();
+        protected virtual void OnPersistentChanged()
+        {
+        }
 
-        protected abstract void LoadPersistent();
+        protected virtual void LoadPersistent()
+        {
+        }
 
         protected override void OnShown(EventArgs e)
         {

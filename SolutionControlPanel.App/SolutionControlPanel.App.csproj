@@ -6,7 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <PublishTrimmed>true</PublishTrimmed>
-    <ApplicationIcon>Resources\Linx.ico</ApplicationIcon>
+    <ApplicationIcon>Project.ico</ApplicationIcon>
     <AssemblyName>SolutionControlPanel.App</AssemblyName>
     <RootNamespace>SolutionControlPanel.App</RootNamespace>
   </PropertyGroup>
