@@ -127,7 +127,7 @@ namespace SolutionControlPanel.App
             // 
             this.lblStatusIcon.AutoSize = true;
             this.lblStatusIcon.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblStatusIcon.Image = global::SolutionControlPanel.App.Properties.Resources.StatusOffline_16x;
+            this.lblStatusIcon.Image = global::SolutionControlPanel.App.Properties.Resources.Offline_16x;
             this.lblStatusIcon.Location = new System.Drawing.Point(426, 0);
             this.lblStatusIcon.Name = "lblStatusIcon";
             this.lblStatusIcon.Size = new System.Drawing.Size(10, 28);
@@ -209,7 +209,7 @@ namespace SolutionControlPanel.App
             // 
             // itmStart
             // 
-            this.itmStart.Image = global::SolutionControlPanel.App.Properties.Resources.StatusRunOutline_16x;
+            this.itmStart.Image = global::SolutionControlPanel.App.Properties.Resources.Run_16x;
             this.itmStart.Name = "itmStart";
             this.itmStart.Size = new System.Drawing.Size(161, 22);
             this.itmStart.Text = "&Start";
@@ -217,7 +217,7 @@ namespace SolutionControlPanel.App
             // 
             // itmStop
             // 
-            this.itmStop.Image = global::SolutionControlPanel.App.Properties.Resources.StatusStopOutline_16x;
+            this.itmStop.Image = global::SolutionControlPanel.App.Properties.Resources.Stop_16x;
             this.itmStop.Name = "itmStop";
             this.itmStop.Size = new System.Drawing.Size(161, 22);
             this.itmStop.Text = "&Stop";
@@ -225,7 +225,7 @@ namespace SolutionControlPanel.App
             // 
             // itmDebug
             // 
-            this.itmDebug.Image = global::SolutionControlPanel.App.Properties.Resources.StatusDebug_16x;
+            this.itmDebug.Image = global::SolutionControlPanel.App.Properties.Resources.Debug_16x;
             this.itmDebug.Name = "itmDebug";
             this.itmDebug.Size = new System.Drawing.Size(161, 22);
             this.itmDebug.Text = "&Debug";

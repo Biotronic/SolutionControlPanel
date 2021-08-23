@@ -9,6 +9,9 @@
 //------------------------------------------------------------------------------
 
 namespace SolutionControlPanel.App.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -58,6 +61,16 @@ namespace SolutionControlPanel.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Alert_16x {
+            get {
+                object obj = ResourceManager.GetObject("Alert_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Solution Control Panel.
         /// </summary>
         internal static string AppName {
@@ -88,6 +101,16 @@ namespace SolutionControlPanel.App.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Debug_16x {
+            get {
+                object obj = ResourceManager.GetObject("Debug_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Hide_16x {
             get {
                 object obj = ResourceManager.GetObject("Hide_16x", resourceCulture);
@@ -108,9 +131,39 @@ namespace SolutionControlPanel.App.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Offline_16x {
+            get {
+                object obj = ResourceManager.GetObject("Offline_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap OK_16x {
+            get {
+                object obj = ResourceManager.GetObject("OK_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Restart_16x {
             get {
                 object obj = ResourceManager.GetObject("Restart_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Run_16x {
+            get {
+                object obj = ResourceManager.GetObject("Run_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -128,9 +181,9 @@ namespace SolutionControlPanel.App.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap StatusAlert_16x {
+        internal static System.Drawing.Bitmap Stop_16x {
             get {
-                object obj = ResourceManager.GetObject("StatusAlert_16x", resourceCulture);
+                object obj = ResourceManager.GetObject("Stop_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -138,59 +191,9 @@ namespace SolutionControlPanel.App.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap StatusDebug_16x {
+        internal static System.Drawing.Bitmap Warning_16x {
             get {
-                object obj = ResourceManager.GetObject("StatusDebug_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap StatusOffline_16x {
-            get {
-                object obj = ResourceManager.GetObject("StatusOffline_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap StatusOK_16x {
-            get {
-                object obj = ResourceManager.GetObject("StatusOK_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap StatusRunOutline_16x {
-            get {
-                object obj = ResourceManager.GetObject("StatusRunOutline_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap StatusStopOutline_16x {
-            get {
-                object obj = ResourceManager.GetObject("StatusStopOutline_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap StatusWarning_16x {
-            get {
-                object obj = ResourceManager.GetObject("StatusWarning_16x", resourceCulture);
+                object obj = ResourceManager.GetObject("Warning_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

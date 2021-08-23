@@ -2,15 +2,15 @@
 {
     public enum SolutionStatus
     {
-        [Mark("Stopped", "StatusOffline_16x")]
+        [Mark("Stopped", "Offline_16x")]
         Stopped,
-        [Mark("Running", "StatusOK_16x")]
+        [Mark("Running", "OK_16x")]
         Running,
-        [Mark("Unresponsive", "StatusWarning_16x")]
+        [Mark("Unresponsive", "Warning_16x")]
         Unresponsive,
-        [Mark("Partial", "StatusAlert_16x")]
+        [Mark("Partial", "Alert_16x")]
         Partial,
-        [Mark("Debugged", "StatusDebug_16x")]
+        [Mark("Debugged", "Debug_16x")]
         Debugged
     }
 }

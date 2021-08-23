@@ -124,7 +124,7 @@ namespace SolutionControlPanel.App
             // 
             // itmClearOutput
             // 
-            this.itmClearOutput.Image = global::SolutionControlPanel.App.Properties.Resources.StatusOffline_16x;
+            this.itmClearOutput.Image = global::SolutionControlPanel.App.Properties.Resources.Offline_16x;
             this.itmClearOutput.Name = "itmClearOutput";
             this.itmClearOutput.Size = new System.Drawing.Size(152, 22);
             this.itmClearOutput.Text = "&Clear output";
