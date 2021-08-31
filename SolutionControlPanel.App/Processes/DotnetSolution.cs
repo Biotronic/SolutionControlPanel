@@ -75,7 +75,7 @@ namespace SolutionControlPanel.App.Processes
 
         public static IEnumerable<Solution> GetDotnetSolutions(Config.Config config)
         {
-            var solutions = Directory.EnumerateFiles(config.Basepath, "*.sln", SearchOption.AllDirectories);
+            var solutions = Directory.EnumerateFiles(config.Basepath, "*.sln", SearchOption.AllDirectories).ToList();
 
             foreach (var solution in solutions)
             {

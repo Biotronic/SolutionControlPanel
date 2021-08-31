@@ -9,16 +9,25 @@ namespace SolutionControlPanel.App.Utils
     {
         private readonly List<WeakReference<T>> _references = new List<WeakReference<T>>();
 
+        private List<T> AsList
+        {
+            get
+            {
+                return _references.SelectMany(a =>
+                {
+                    if (a.TryGetTarget(out var x))
+                    {
+                        return new[] { x };
+                    }
+
+                    return null;
+                }).ToList();
+            }
+        }
+
         public IEnumerator<T> GetEnumerator()
         {
-            return _references.SelectMany(a =>
-            {
-                if (a.TryGetTarget(out var x))
-                {
-                    return new[] { x };
-                }
-                return null;
-            }).GetEnumerator();
+            return AsList.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -61,7 +70,7 @@ namespace SolutionControlPanel.App.Utils
 
         }
 
-        public int Count => this.Count();
+        public int Count => AsList.Count;
         public bool IsReadOnly => false;
 
         private int RawIndexOf(T item)

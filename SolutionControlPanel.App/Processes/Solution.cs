@@ -200,9 +200,12 @@ namespace SolutionControlPanel.App.Processes
             while (!_exited)
             {
                 Thread.Sleep(TimeSpan.FromSeconds(3));
-                foreach (var solution in AllSolutions)
+                lock (AllSolutions)
                 {
-                    solution.DoUpdate();
+                    foreach (var solution in AllSolutions.ToList())
+                    {
+                        solution.DoUpdate();
+                    }
                 }
             }
         }
@@ -491,14 +494,17 @@ namespace SolutionControlPanel.App.Processes
 
         public static IEnumerable<Solution> GetSolutions(Config.Config config)
         {
-            foreach (var solution in DotnetSolution.GetDotnetSolutions(config))
+            lock (AllSolutions)
             {
-                yield return solution;
-            }
+                foreach (var solution in DotnetSolution.GetDotnetSolutions(config))
+                {
+                    yield return solution;
+                }
 
-            foreach (var solution in YarnSolution.GetYarnSolutions(config))
-            {
-                yield return solution;
+                foreach (var solution in YarnSolution.GetYarnSolutions(config))
+                {
+                    yield return solution;
+                }
             }
         }
 
