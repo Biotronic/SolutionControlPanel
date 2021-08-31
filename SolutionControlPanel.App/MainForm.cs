@@ -42,37 +42,46 @@ namespace SolutionControlPanel.App
 
         private void UpdateLists()
         {
-            Text = @$"{Resources.AppName} - {Config.Basepath}";
-            if (_groupControl != null)
+            SuspendLayout();
+            try
             {
-                tableLayoutPanel1.Controls.Remove(_groupControl);
-                _groupControl.Start -= _groupControl_Start;
-                _groupControl.Stop -= _groupControl_Stop;
-            }
-
-            Solutions = Solution.GetSolutions(Config).ToList();
-            tableLayoutPanel1.RowCount = Solutions.Count + 1;
-            foreach (var solution in Solutions)
-            {
-                var c = new SolutionControl
+                Text = @$"{Resources.AppName} - {Config.Basepath}";
+                if (_groupControl != null)
                 {
-                    Solution = solution,
-                    Dock = DockStyle.Top,
-                    Textbox = richTextBox1
-                };
-                c.CheckedChanged += Solution_CheckedChanged;
+                    tableLayoutPanel1.Controls.Remove(_groupControl);
+                    _groupControl.Start -= _groupControl_Start;
+                    _groupControl.Stop -= _groupControl_Stop;
+                }
+
+                Solutions = Solution.GetSolutions(Config).ToList();
+                tableLayoutPanel1.RowCount = Solutions.Count + 1;
+                foreach (var solution in Solutions)
+                {
+                    var c = new SolutionControl
+                    {
+                        Solution = solution,
+                        Dock = DockStyle.Top,
+                        Textbox = richTextBox1
+                    };
+                    c.CheckedChanged += Solution_CheckedChanged;
+                    tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+                    tableLayoutPanel1.Controls.Add(c);
+                }
+
                 tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-                tableLayoutPanel1.Controls.Add(c);
+                _groupControl = new GroupControl
+                {
+                    Dock = DockStyle.Top
+                };
+                tableLayoutPanel1.Controls.Add(_groupControl);
+                _groupControl.Start += _groupControl_Start;
+                _groupControl.Stop += _groupControl_Stop;
+                Solution_CheckedChanged(this, EventArgs.Empty);
             }
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-            _groupControl = new GroupControl
+            finally
             {
-                Dock = DockStyle.Top
-            };
-            tableLayoutPanel1.Controls.Add(_groupControl);
-            _groupControl.Start += _groupControl_Start;
-            _groupControl.Stop += _groupControl_Stop;
-            Solution_CheckedChanged(this, EventArgs.Empty);
+                ResumeLayout();
+            }
         }
 
         protected override void LoadPersistent()
@@ -133,9 +142,17 @@ namespace SolutionControlPanel.App
 
         private void ShowAllSolutions()
         {
-            foreach (var control in SolutionControls)
+            SuspendLayout();
+            try
             {
-                control.Visible = true;
+                foreach (var control in SolutionControls)
+                {
+                    control.Visible = true;
+                }
+            }
+            finally
+            {
+                ResumeLayout();
             }
         }
 
@@ -196,7 +213,7 @@ namespace SolutionControlPanel.App
         {
             Close();
         }
-        
+
         private void itmStartAtBoot_Click(object sender, EventArgs e)
         {
             RunAtStartup.Registered = itmStartAtBoot.Checked;
