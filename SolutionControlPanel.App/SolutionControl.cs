@@ -24,6 +24,7 @@ namespace SolutionControlPanel.App
 
         public event EventHandler CheckedChanged;
         public event EventHandler HiddenChanged;
+        public event EventHandler CheckAllClicked;
 
         internal Solution Solution
         {
@@ -237,6 +238,11 @@ namespace SolutionControlPanel.App
         private void itmOpenInBrowser_Click(object sender, EventArgs e)
         {
             Solution.OpenInBrowser();
+        }
+
+        private void checkallToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckAllClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

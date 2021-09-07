@@ -64,6 +64,7 @@ namespace SolutionControlPanel.App
                         Textbox = richTextBox1
                     };
                     c.CheckedChanged += Solution_CheckedChanged;
+                    c.CheckAllClicked += Solution_CheckAll;
                     tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.AutoSize));
                     tableLayoutPanel1.Controls.Add(c);
                 }
@@ -81,6 +82,15 @@ namespace SolutionControlPanel.App
             finally
             {
                 ResumeLayout();
+            }
+        }
+
+        private void Solution_CheckAll(object sender, EventArgs e)
+        {
+            var newValue = !Solutions.All(a => a.Checked);
+            foreach (var control in SolutionControls)
+            {
+                control.Checked = newValue;
             }
         }
 
