@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Management;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using SolutionControlPanel.App.Config;
+using SolutionControlPanel.App.Properties;
 using SolutionControlPanel.App.Utils;
 
 namespace SolutionControlPanel.App.Processes
@@ -145,6 +148,26 @@ namespace SolutionControlPanel.App.Processes
             public string WorkingDirectory => ProcessUtilities.GetCurrentDirectory(ProcessId);
         }
 
+
+        [DllImport("gdi32.dll")]
+        private static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont,
+            IntPtr pdv, [In] ref uint pcFonts);
+
+        private static readonly PrivateFontCollection Fonts = new PrivateFontCollection();
+        private static Font Cascadia { get; } = LoadFont(Resources.Cascadia);
+
+        private static Font LoadFont(byte[] fontData, float size = 16.0f)
+        {
+            var fontPtr = Marshal.AllocCoTaskMem(fontData.Length);
+            Marshal.Copy(fontData, 0, fontPtr, fontData.Length);
+            uint dummy = 0;
+            Fonts.AddMemoryFont(fontPtr, fontData.Length);
+            AddFontMemResourceEx(fontPtr, (uint)fontData.Length, IntPtr.Zero, ref dummy);
+            Marshal.FreeCoTaskMem(fontPtr);
+
+            return new Font(Fonts.Families[0], size);
+        }
+
         static Solution()
         {
             var startQuery = new WqlEventQuery(
@@ -226,6 +249,8 @@ namespace SolutionControlPanel.App.Processes
             GetExistingProcesses();
             StartListener.EventArrived += StartListenerOnEventArrived;
             AllSolutions.Add(this);
+
+            _richText.Fonts[0] = Cascadia;
         }
 
         private void StartListenerOnEventArrived(object sender, EventArrivedEventArgs e)
