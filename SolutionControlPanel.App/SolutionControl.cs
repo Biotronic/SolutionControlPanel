@@ -95,6 +95,7 @@ namespace SolutionControlPanel.App
                    if (Textbox != null && Current)
                    {
                        Textbox.Rtf = Solution.RichText;
+                       Textbox.SelectionStart = Textbox.Text.Length;
                    }
                }));
         }
