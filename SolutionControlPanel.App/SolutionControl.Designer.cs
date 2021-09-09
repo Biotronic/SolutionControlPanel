@@ -53,6 +53,7 @@ namespace SolutionControlPanel.App
             this.itmOpenInBrowser = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.itmHide = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -194,28 +195,29 @@ namespace SolutionControlPanel.App
             this.itmOpenSolution,
             this.itmOpenInBrowser,
             this.toolStripSeparator2,
-            this.itmHide});
+            this.itmHide,
+            this.checkallToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 192);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 236);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // itmName
             // 
             this.itmName.Enabled = false;
             this.itmName.Name = "itmName";
-            this.itmName.Size = new System.Drawing.Size(161, 22);
+            this.itmName.Size = new System.Drawing.Size(180, 22);
             this.itmName.Text = "Name";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(158, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // itmStart
             // 
             this.itmStart.Image = global::SolutionControlPanel.App.Properties.Resources.Run_16x;
             this.itmStart.Name = "itmStart";
-            this.itmStart.Size = new System.Drawing.Size(161, 22);
+            this.itmStart.Size = new System.Drawing.Size(180, 22);
             this.itmStart.Text = "&Start";
             this.itmStart.Click += new System.EventHandler(this.itmStart_Click);
             // 
@@ -223,7 +225,7 @@ namespace SolutionControlPanel.App
             // 
             this.itmStop.Image = global::SolutionControlPanel.App.Properties.Resources.Stop_16x;
             this.itmStop.Name = "itmStop";
-            this.itmStop.Size = new System.Drawing.Size(161, 22);
+            this.itmStop.Size = new System.Drawing.Size(180, 22);
             this.itmStop.Text = "&Stop";
             this.itmStop.Click += new System.EventHandler(this.itmStop_Click);
             // 
@@ -231,7 +233,7 @@ namespace SolutionControlPanel.App
             // 
             this.itmDebug.Image = global::SolutionControlPanel.App.Properties.Resources.Debug_16x;
             this.itmDebug.Name = "itmDebug";
-            this.itmDebug.Size = new System.Drawing.Size(161, 22);
+            this.itmDebug.Size = new System.Drawing.Size(180, 22);
             this.itmDebug.Text = "&Debug";
             this.itmDebug.Click += new System.EventHandler(this.itmDebug_Click);
             // 
@@ -239,36 +241,43 @@ namespace SolutionControlPanel.App
             // 
             this.itmRestart.Image = global::SolutionControlPanel.App.Properties.Resources.Restart_16x;
             this.itmRestart.Name = "itmRestart";
-            this.itmRestart.Size = new System.Drawing.Size(161, 22);
+            this.itmRestart.Size = new System.Drawing.Size(180, 22);
             this.itmRestart.Text = "&Restart";
             this.itmRestart.Click += new System.EventHandler(this.itmRestart_Click);
             // 
             // itmOpenSolution
             // 
             this.itmOpenSolution.Name = "itmOpenSolution";
-            this.itmOpenSolution.Size = new System.Drawing.Size(161, 22);
+            this.itmOpenSolution.Size = new System.Drawing.Size(180, 22);
             this.itmOpenSolution.Text = "&Open solution";
             this.itmOpenSolution.Click += new System.EventHandler(this.itmOpenSolution_Click);
             // 
             // itmOpenInBrowser
             // 
             this.itmOpenInBrowser.Name = "itmOpenInBrowser";
-            this.itmOpenInBrowser.Size = new System.Drawing.Size(161, 22);
+            this.itmOpenInBrowser.Size = new System.Drawing.Size(180, 22);
             this.itmOpenInBrowser.Text = "Open in &browser";
             this.itmOpenInBrowser.Click += new System.EventHandler(this.itmOpenInBrowser_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(158, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // itmHide
             // 
             this.itmHide.Image = global::SolutionControlPanel.App.Properties.Resources.Hide_16x;
             this.itmHide.Name = "itmHide";
-            this.itmHide.Size = new System.Drawing.Size(161, 22);
+            this.itmHide.Size = new System.Drawing.Size(180, 22);
             this.itmHide.Text = "&Hide";
             this.itmHide.Click += new System.EventHandler(this.itmHide_Click);
+            // 
+            // checkallToolStripMenuItem
+            // 
+            this.checkallToolStripMenuItem.Name = "checkallToolStripMenuItem";
+            this.checkallToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.checkallToolStripMenuItem.Text = "Check &all";
+            this.checkallToolStripMenuItem.Click += new System.EventHandler(this.checkallToolStripMenuItem_Click);
             // 
             // SolutionControl
             // 
@@ -308,5 +317,6 @@ namespace SolutionControlPanel.App
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripMenuItem itmOpenSolution;
         private ToolStripMenuItem itmOpenInBrowser;
+        private ToolStripMenuItem checkallToolStripMenuItem;
     }
 }
