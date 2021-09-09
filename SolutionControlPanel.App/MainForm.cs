@@ -168,10 +168,7 @@ namespace SolutionControlPanel.App
 
         private void Solution_CheckedChanged(object sender, EventArgs e)
         {
-            if (_groupControl != null)
-            {
-                _groupControl.SelectedCount = SelectedSolutionControls.Count();
-            }
+            _groupControl?.SetSelected(SelectedSolutionControls.Count(), SelectedSolutionControls.All(a => a.Solution.Status != SolutionStatus.Stopped));
         }
 
         private void ItmClearOutput_Click(object sender, EventArgs e)

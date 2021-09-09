@@ -39,8 +39,8 @@ namespace SolutionControlPanel.App
             // 
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 81F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 97F));
             this.tableLayoutPanel1.Controls.Add(this.btnStop, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnRestart, 1, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -53,23 +53,29 @@ namespace SolutionControlPanel.App
             // 
             // btnStop
             // 
+            this.btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStop.Enabled = false;
-            this.btnStop.Location = new System.Drawing.Point(623, 3);
+            this.btnStop.Image = global::SolutionControlPanel.App.Properties.Resources.Stop_16x;
+            this.btnStop.Location = new System.Drawing.Point(607, 3);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 22);
+            this.btnStop.Size = new System.Drawing.Size(91, 22);
             this.btnStop.TabIndex = 2;
-            this.btnStop.Text = "Stop (0)";
+            this.btnStop.Text = "Stop (22)";
+            this.btnStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnRestart
             // 
+            this.btnRestart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRestart.Enabled = false;
-            this.btnRestart.Location = new System.Drawing.Point(542, 3);
+            this.btnRestart.Image = global::SolutionControlPanel.App.Properties.Resources.Run_16x;
+            this.btnRestart.Location = new System.Drawing.Point(510, 3);
             this.btnRestart.Name = "btnRestart";
-            this.btnRestart.Size = new System.Drawing.Size(75, 22);
+            this.btnRestart.Size = new System.Drawing.Size(91, 22);
             this.btnRestart.TabIndex = 1;
-            this.btnRestart.Text = "Start (0)";
+            this.btnRestart.Text = "Start (22)";
+            this.btnRestart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRestart.UseVisualStyleBackColor = true;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
             // 

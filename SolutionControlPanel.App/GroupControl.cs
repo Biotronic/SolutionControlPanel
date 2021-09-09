@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using SolutionControlPanel.App.Properties;
 
 namespace SolutionControlPanel.App
 {
@@ -12,10 +13,10 @@ namespace SolutionControlPanel.App
             set
             {
                 _selectedCount = value;
-                btnRestart.Text = @$"Start ({SelectedCount})";
-                btnStop.Text = $@"Stop ({SelectedCount})";
-                btnRestart.Enabled = SelectedCount > 0;
-                btnStop.Enabled = SelectedCount > 0;
+                btnRestart.Text = @$"Start ({_selectedCount})";
+                btnStop.Text = $@"Stop ({_selectedCount})";
+                btnRestart.Enabled = _selectedCount > 0;
+                btnStop.Enabled = _selectedCount > 0;
             }
         }
 
@@ -35,6 +36,16 @@ namespace SolutionControlPanel.App
         private void btnStop_Click(object sender, EventArgs e)
         {
             Stop?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetSelected(int count, bool allRunning)
+        {
+            _selectedCount = count;
+            btnRestart.Text = allRunning ? $@"Restart ({_selectedCount})" : @$"Start ({_selectedCount})";
+            btnRestart.Image = allRunning ? Resources.Restart_16x : Resources.Run_16x;
+            btnStop.Text = $@"Stop ({_selectedCount})";
+            btnRestart.Enabled = _selectedCount > 0;
+            btnStop.Enabled = _selectedCount > 0;
         }
     }
 }

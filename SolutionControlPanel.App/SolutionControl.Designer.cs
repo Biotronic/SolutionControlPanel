@@ -114,7 +114,7 @@ namespace SolutionControlPanel.App
             // 
             this.lblStatusText.AutoSize = true;
             this.lblStatusText.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblStatusText.Location = new System.Drawing.Point(442, 0);
+            this.lblStatusText.Location = new System.Drawing.Point(410, 0);
             this.lblStatusText.Name = "lblStatusText";
             this.lblStatusText.Size = new System.Drawing.Size(78, 28);
             this.lblStatusText.TabIndex = 1;
@@ -128,7 +128,7 @@ namespace SolutionControlPanel.App
             this.lblStatusIcon.AutoSize = true;
             this.lblStatusIcon.Dock = System.Windows.Forms.DockStyle.Left;
             this.lblStatusIcon.Image = global::SolutionControlPanel.App.Properties.Resources.Offline_16x;
-            this.lblStatusIcon.Location = new System.Drawing.Point(426, 0);
+            this.lblStatusIcon.Location = new System.Drawing.Point(394, 0);
             this.lblStatusIcon.Name = "lblStatusIcon";
             this.lblStatusIcon.Size = new System.Drawing.Size(10, 28);
             this.lblStatusIcon.TabIndex = 5;
@@ -140,28 +140,32 @@ namespace SolutionControlPanel.App
             // 
             this.cmbProfiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProfiles.FormattingEnabled = true;
-            this.cmbProfiles.Location = new System.Drawing.Point(140, 3);
+            this.cmbProfiles.Location = new System.Drawing.Point(108, 3);
             this.cmbProfiles.Name = "cmbProfiles";
             this.cmbProfiles.Size = new System.Drawing.Size(280, 23);
             this.cmbProfiles.TabIndex = 0;
             // 
             // btnStop
             // 
-            this.btnStop.Location = new System.Drawing.Point(623, 3);
+            this.btnStop.Image = global::SolutionControlPanel.App.Properties.Resources.Stop_16x;
+            this.btnStop.Location = new System.Drawing.Point(607, 3);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(75, 22);
+            this.btnStop.Size = new System.Drawing.Size(91, 22);
             this.btnStop.TabIndex = 2;
             this.btnStop.Text = "Stop";
+            this.btnStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // btnRestart
             // 
-            this.btnRestart.Location = new System.Drawing.Point(542, 3);
+            this.btnRestart.Image = global::SolutionControlPanel.App.Properties.Resources.Run_16x;
+            this.btnRestart.Location = new System.Drawing.Point(510, 3);
             this.btnRestart.Name = "btnRestart";
-            this.btnRestart.Size = new System.Drawing.Size(75, 22);
+            this.btnRestart.Size = new System.Drawing.Size(91, 22);
             this.btnRestart.TabIndex = 1;
             this.btnRestart.Text = "Start";
+            this.btnRestart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnRestart.UseVisualStyleBackColor = true;
             this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
             // 

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using SolutionControlPanel.App.Processes;
+using SolutionControlPanel.App.Properties;
 using SolutionControlPanel.App.Utils;
 
 namespace SolutionControlPanel.App
@@ -158,6 +159,9 @@ namespace SolutionControlPanel.App
 
                 btnStop.Enabled = Solution.Status != SolutionStatus.Stopped;
                 btnRestart.Text = Solution.Status == SolutionStatus.Stopped ? @"Start" : @"Restart";
+                btnRestart.Image = Solution.Status == SolutionStatus.Stopped
+                    ? Resources.Run_16x
+                    : Resources.Restart_16x;
             }
 
             if (InvokeRequired)
