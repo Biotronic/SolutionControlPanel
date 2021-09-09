@@ -55,7 +55,6 @@ namespace SolutionControlPanel.App
             // 
             this.btnStop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnStop.Enabled = false;
-            this.btnStop.Image = global::SolutionControlPanel.App.Properties.Resources.Stop_16x;
             this.btnStop.Location = new System.Drawing.Point(607, 3);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(91, 22);
@@ -69,7 +68,6 @@ namespace SolutionControlPanel.App
             // 
             this.btnRestart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnRestart.Enabled = false;
-            this.btnRestart.Image = global::SolutionControlPanel.App.Properties.Resources.Run_16x;
             this.btnRestart.Location = new System.Drawing.Point(510, 3);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(91, 22);

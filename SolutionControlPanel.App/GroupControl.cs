@@ -42,7 +42,6 @@ namespace SolutionControlPanel.App
         {
             _selectedCount = count;
             btnRestart.Text = allRunning ? $@"Restart ({_selectedCount})" : @$"Start ({_selectedCount})";
-            btnRestart.Image = allRunning ? Resources.Restart_16x : Resources.Run_16x;
             btnStop.Text = $@"Stop ({_selectedCount})";
             btnRestart.Enabled = _selectedCount > 0;
             btnStop.Enabled = _selectedCount > 0;
