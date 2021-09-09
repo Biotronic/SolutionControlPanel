@@ -91,13 +91,16 @@ namespace SolutionControlPanel.App
         private void Solution_OutputAdded(object sender, TextEventArgs e)
         {
             Invoke((Action)(() =>
-               {
-                   if (Textbox != null && Current)
-                   {
-                       Textbox.Rtf = Solution.RichText;
-                       Textbox.SelectionStart = Textbox.Text.Length;
-                   }
-               }));
+            {
+                if (Textbox == null || !Current) return;
+
+
+                Textbox.SuspendLayout();
+                Textbox.Rtf = Solution.RichText;
+                Textbox.SelectionStart = Textbox.Text.Length;
+                Textbox.ScrollToCaret();
+                Textbox.ResumeLayout();
+            }));
         }
 
         public SolutionControl()
