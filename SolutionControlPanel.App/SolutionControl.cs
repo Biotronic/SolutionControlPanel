@@ -18,8 +18,8 @@ namespace SolutionControlPanel.App
             get => Solution.Checked && Visible;
             set
             {
-                checkBox1.Checked = value;
-                Solution.Checked = value;
+                checkBox1.Checked = Solution.Checked = value;
+                CheckedChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -109,6 +109,13 @@ namespace SolutionControlPanel.App
         {
             Control_ControlAdded(this, new ControlEventArgs(this));
             InitializeComponent();
+            this.ParentChanged += SolutionControl_ParentChanged;
+        }
+
+        private bool _hasNewParent;
+        private void SolutionControl_ParentChanged(object sender, EventArgs e)
+        {
+            _hasNewParent = true;
         }
 
         private void Control_ControlAdded(object sender, ControlEventArgs e)
@@ -213,9 +220,21 @@ namespace SolutionControlPanel.App
 
         private void SolutionControl_VisibleChanged(object sender, EventArgs e)
         {
+            if (_hasNewParent)
+            {
+                _hasNewParent = false;
+                return;
+            }
             Solution.Hidden = !Visible;
             HiddenChanged?.Invoke(this, e);
-            CheckedChanged?.Invoke(this, e);
+            if (!Visible)
+            {
+                Checked = false;
+            }
+            else
+            {
+                CheckedChanged?.Invoke(this, e);
+            }
         }
 
         private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
