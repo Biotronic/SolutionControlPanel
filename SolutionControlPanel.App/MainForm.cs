@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
@@ -189,6 +190,27 @@ namespace SolutionControlPanel.App
         private void ItmRestoreOutput_Click(object sender, EventArgs e)
         {
             CurrentSolutionControl?.RestoreOutput();
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            if (Solutions.All(a => a.Status == SolutionStatus.Stopped)) return;
+
+            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
+            switch (MessageBox.Show(@"Do you want to stop running processes?", @"Closing",
+                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+            {
+                case DialogResult.Yes:
+                    StopAllSolutions();
+                    break;
+                case DialogResult.No:
+                    break;
+                case DialogResult.Cancel:
+                    e.Cancel = true;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
 
         internal List<Solution> Solutions { get; set; }
