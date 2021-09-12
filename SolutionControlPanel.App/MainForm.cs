@@ -196,9 +196,17 @@ namespace SolutionControlPanel.App
         {
             if (Solutions.All(a => a.Status == SolutionStatus.Stopped)) return;
 
-            // ReSharper disable once SwitchStatementHandlesSomeKnownEnumValuesWithDefault
-            switch (MessageBox.Show(@"Do you want to stop running processes?", @"Closing",
-                MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+            var neverAgain = Config.StopRunningOnExit.HasValue;
+            var result = Config.StopRunningOnExit ?? DialogBox.Show(@"Do you want to stop running processes?", @"Closing",
+                new Dictionary<DialogResult, string>
+                {
+                    { DialogResult.Yes, "&Yes" },
+                    { DialogResult.No, "&No" },
+                    { DialogResult.Cancel, "&Cancel" }
+                }, DialogResult.Cancel, "Don't show again",
+                ref neverAgain);
+
+            switch (result)
             {
                 case DialogResult.Yes:
                     StopAllSolutions();
@@ -210,6 +218,11 @@ namespace SolutionControlPanel.App
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
+            }
+
+            if (neverAgain)
+            {
+                Config.StopRunningOnExit = result;
             }
         }
 

@@ -45,6 +45,7 @@ namespace SolutionControlPanel.App.Config
         public bool StartProjectsAutomatically { get; set; }
         public string DefaultProfilePattern { get; set; } = "\\.DevDb$";
         public MainFormConfig MainForm { get; set; }
+        public DialogResult? StopRunningOnExit { get; set; }
 
         public void Update()
         {
