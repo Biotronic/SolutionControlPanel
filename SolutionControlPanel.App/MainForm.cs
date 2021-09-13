@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using SolutionControlPanel.App.Config;
@@ -197,14 +198,13 @@ namespace SolutionControlPanel.App
             if (Solutions.All(a => a.Status == SolutionStatus.Stopped)) return;
 
             var neverAgain = Config.StopRunningOnExit.HasValue;
-            var result = Config.StopRunningOnExit ?? DialogBox.Show(@"Do you want to stop running processes?", @"Closing",
-                new Dictionary<DialogResult, string>
-                {
-                    { DialogResult.Yes, "&Yes" },
-                    { DialogResult.No, "&No" },
-                    { DialogResult.Cancel, "&Cancel" }
-                }, DialogResult.Cancel, "Don't show again",
-                ref neverAgain);
+            var result = Config.StopRunningOnExit ?? DialogBox.Show(
+                @"Do you want to stop running processes?",
+                @"Closing",
+                MessageBoxButtons.YesNoCancel,
+                "Don't show again",
+                ref neverAgain,
+                SystemIcons.Question.ToBitmap());
 
             switch (result)
             {
