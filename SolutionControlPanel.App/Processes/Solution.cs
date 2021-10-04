@@ -454,8 +454,8 @@ namespace SolutionControlPanel.App.Processes
             {
                 lock (_richText)
                 {
-                    return RedirectedOutput && _outputBuilder.Length != 0
-                        ? _richText.ToString()
+                    return RedirectedOutput && _outputBuilder.Length != 0 ? _richText.ToString()
+                        : RedirectedOutput ? "{\\rtf1\\ansi\\pard\n\\par\n}"
                         : "{\\rtf1\\ansi\\pard\n[No output redirected for this process]\\par\n}";
                 }
             }
