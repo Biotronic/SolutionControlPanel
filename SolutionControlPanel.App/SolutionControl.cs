@@ -92,17 +92,7 @@ namespace SolutionControlPanel.App
 
         private void Solution_OutputAdded(object sender, TextEventArgs e)
         {
-            Invoke((Action)(() =>
-            {
-                if (Textbox == null || !Current) return;
-
-
-                Textbox.SuspendLayout();
-                Textbox.Rtf = Solution.RichText;
-                Textbox.SelectionStart = Textbox.Text.Length;
-                Textbox.ScrollToCaret();
-                Textbox.ResumeLayout();
-            }));
+            timer1.Start();
         }
 
         public SolutionControl()
@@ -270,6 +260,18 @@ namespace SolutionControlPanel.App
         private void checkallToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CheckAllClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (Textbox == null || !Current) return;
+
+            Textbox.SuspendLayout();
+            Textbox.Rtf = Solution.RichText;
+            Textbox.SelectionStart = Textbox.Text.Length;
+            Textbox.ScrollToCaret();
+            Textbox.ResumeLayout();
+            timer1.Stop();
         }
     }
 }

@@ -205,7 +205,7 @@ namespace SolutionControlPanel.App.Processes
                 lock (AllProcesses)
                 {
                     AllProcesses.RemoveAll(x =>
-                        x.ProcessId == new ProcessInfo((ManagementBaseObject)e.NewEvent["TargetInstance"]).ProcessId);
+                        x.ProcessId == int.Parse(((ManagementBaseObject)e.NewEvent["TargetInstance"])["ProcessId"].ToString() ?? "-1"));
                 }
             };
 
