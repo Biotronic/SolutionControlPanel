@@ -54,7 +54,6 @@ namespace SolutionControlPanel.App
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.itmHide = new System.Windows.Forms.ToolStripMenuItem();
             this.checkallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -280,11 +279,6 @@ namespace SolutionControlPanel.App
             this.checkallToolStripMenuItem.Text = "Check &all";
             this.checkallToolStripMenuItem.Click += new System.EventHandler(this.checkallToolStripMenuItem_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // SolutionControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -311,7 +305,6 @@ namespace SolutionControlPanel.App
         private System.Windows.Forms.ComboBox cmbProfiles;
         private System.Windows.Forms.Label lblSelected;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.Timer timer1;
         private ToolTip toolTip1;
         private CheckBox checkBox1;
         private ToolStripMenuItem itmHide;

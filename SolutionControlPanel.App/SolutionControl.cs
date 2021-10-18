@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using SolutionControlPanel.App.Processes;
 using SolutionControlPanel.App.Properties;
 using SolutionControlPanel.App.Utils;
+using Timer = System.Timers.Timer;
 
 namespace SolutionControlPanel.App
 {
@@ -90,9 +92,12 @@ namespace SolutionControlPanel.App
             }
         }
 
+        
+        private readonly Timer _outputTimer;
         private void Solution_OutputAdded(object sender, TextEventArgs e)
         {
-            timer1.Start();
+            _outputTimer.Stop();
+            _outputTimer.Start();
         }
 
         public SolutionControl()
@@ -100,9 +105,15 @@ namespace SolutionControlPanel.App
             Control_ControlAdded(this, new ControlEventArgs(this));
             InitializeComponent();
             this.ParentChanged += SolutionControl_ParentChanged;
+            _outputTimer = new Timer(250) {AutoReset = false };
+            _outputTimer.Elapsed += (o, args) =>
+            {
+                Invoke(new Action(() => { timer1_Tick(o, EventArgs.Empty); }));
+            };
         }
 
         private bool _hasNewParent;
+
         private void SolutionControl_ParentChanged(object sender, EventArgs e)
         {
             _hasNewParent = true;
@@ -264,14 +275,13 @@ namespace SolutionControlPanel.App
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            if (Textbox == null || !Current) return;
+            if (Textbox == null || !Current) { return; }
 
             Textbox.SuspendLayout();
             Textbox.Rtf = Solution.RichText;
             Textbox.SelectionStart = Textbox.Text.Length;
             Textbox.ScrollToCaret();
             Textbox.ResumeLayout();
-            timer1.Stop();
         }
     }
 }
