@@ -59,7 +59,7 @@ namespace SolutionControlPanel.App.Processes
                 return ProcessKind.Irrelevant;
             }
 
-            if (!Regex.IsMatch(processInfo.CommandLine, $"^\"dotnet\" run -p {Name}\\.csproj")) return ProcessKind.Irrelevant;
+            if (!Regex.IsMatch(processInfo.CommandLine, $"^\"dotnet\" run -p {Name}\\.csproj") && !Regex.IsMatch(processInfo.CommandLine, $"^\"dotnet\" run --project {Name}\\.csproj")) return ProcessKind.Irrelevant;
 
             AddMainProcess(processInfo.Process);
 
@@ -70,7 +70,7 @@ namespace SolutionControlPanel.App.Processes
 
         protected override void DoStart(string profile)
         {
-            StartProcess("dotnet", $"run -p {Path.GetFileNameWithoutExtension(SolutionPath)}.csproj --launch-profile {profile}");
+            StartProcess("dotnet", $"run --project {Path.GetFileNameWithoutExtension(SolutionPath)}.csproj --launch-profile {profile}");
         }
 
         public static IEnumerable<Solution> GetDotnetSolutions(Config.Config config)
