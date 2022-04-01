@@ -5,7 +5,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <PublishTrimmed>true</PublishTrimmed>
+    <PublishTrimmed>false</PublishTrimmed>
     <ApplicationIcon>Project.ico</ApplicationIcon>
     <AssemblyName>SolutionControlPanel.App</AssemblyName>
     <RootNamespace>SolutionControlPanel.App</RootNamespace>
