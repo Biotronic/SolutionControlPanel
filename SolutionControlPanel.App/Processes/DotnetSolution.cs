@@ -59,6 +59,11 @@ namespace SolutionControlPanel.App.Processes
                 return ProcessKind.Irrelevant;
             }
 
+            if (string.IsNullOrWhiteSpace(processInfo.CommandLine))
+            {
+                return ProcessKind.Irrelevant;
+            }
+
             if (!Regex.IsMatch(processInfo.CommandLine, $"^\"dotnet\" run -p {Name}\\.csproj") && !Regex.IsMatch(processInfo.CommandLine, $"^\"dotnet\" run --project {Name}\\.csproj")) return ProcessKind.Irrelevant;
 
             AddMainProcess(processInfo.Process);

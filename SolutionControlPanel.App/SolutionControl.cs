@@ -92,7 +92,7 @@ namespace SolutionControlPanel.App
             }
         }
 
-        
+
         private readonly Timer _outputTimer;
         private void Solution_OutputAdded(object sender, TextEventArgs e)
         {
@@ -105,7 +105,7 @@ namespace SolutionControlPanel.App
             Control_ControlAdded(this, new ControlEventArgs(this));
             InitializeComponent();
             this.ParentChanged += SolutionControl_ParentChanged;
-            _outputTimer = new Timer(250) {AutoReset = false };
+            _outputTimer = new Timer(250) { AutoReset = false };
             _outputTimer.Elapsed += (o, args) =>
             {
                 Invoke(new Action(() => { timer1_Tick(o, EventArgs.Empty); }));
@@ -155,6 +155,11 @@ namespace SolutionControlPanel.App
             toolTip1.SetToolTip(lblSolutionName, Solution.ProjectPath);
         }
 
+        private void label1_MouseHover(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(lblGitStatus, Solution.GitStatus);
+        }
+
         private void UpdateSolution(object sender, EventArgs args)
         {
             void Action()
@@ -171,6 +176,8 @@ namespace SolutionControlPanel.App
                 btnRestart.Image = Solution.Status == SolutionStatus.Stopped
                     ? Resources.Run_16x
                     : Resources.Restart_16x;
+
+                lblGitStatus.Text = Solution.GitShortStatus;
             }
 
             if (InvokeRequired)
@@ -282,6 +289,11 @@ namespace SolutionControlPanel.App
             Textbox.SelectionStart = Textbox.Text.Length;
             Textbox.ScrollToCaret();
             Textbox.ResumeLayout();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Solution.GitPull();
         }
     }
 }

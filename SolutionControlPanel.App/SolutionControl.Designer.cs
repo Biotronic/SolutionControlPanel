@@ -33,6 +33,7 @@ namespace SolutionControlPanel.App
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblGitStatus = new System.Windows.Forms.Label();
             this.lblSelected = new System.Windows.Forms.Label();
             this.lblSolutionName = new System.Windows.Forms.Label();
             this.lblStatusText = new System.Windows.Forms.Label();
@@ -41,6 +42,7 @@ namespace SolutionControlPanel.App
             this.btnStop = new System.Windows.Forms.Button();
             this.btnRestart = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.itmName = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +62,7 @@ namespace SolutionControlPanel.App
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 8;
+            this.tableLayoutPanel1.ColumnCount = 10;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -69,6 +71,9 @@ namespace SolutionControlPanel.App
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.Controls.Add(this.lblGitStatus, 8, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblSelected, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblSolutionName, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.lblStatusText, 4, 0);
@@ -77,20 +82,33 @@ namespace SolutionControlPanel.App
             this.tableLayoutPanel1.Controls.Add(this.btnStop, 7, 0);
             this.tableLayoutPanel1.Controls.Add(this.btnRestart, 6, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 9, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(701, 28);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1225, 28);
             this.tableLayoutPanel1.TabIndex = 0;
             this.tableLayoutPanel1.Click += new System.EventHandler(this.ClickOutside);
+            // 
+            // lblGitStatus
+            // 
+            this.lblGitStatus.AutoSize = true;
+            this.lblGitStatus.Dock = System.Windows.Forms.DockStyle.Left;
+            this.lblGitStatus.Location = new System.Drawing.Point(1101, 0);
+            this.lblGitStatus.Name = "lblGitStatus";
+            this.lblGitStatus.Size = new System.Drawing.Size(62, 28);
+            this.lblGitStatus.TabIndex = 9;
+            this.lblGitStatus.Text = "Up to date";
+            this.lblGitStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblGitStatus.MouseHover += new System.EventHandler(this.label1_MouseHover);
             // 
             // lblSelected
             // 
             this.lblSelected.AutoSize = true;
             this.lblSelected.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblSelected.Location = new System.Drawing.Point(23, 0);
+            this.lblSelected.Location = new System.Drawing.Point(43, 0);
             this.lblSelected.Name = "lblSelected";
             this.lblSelected.Size = new System.Drawing.Size(10, 28);
             this.lblSelected.TabIndex = 7;
@@ -102,7 +120,7 @@ namespace SolutionControlPanel.App
             // 
             this.lblSolutionName.AutoSize = true;
             this.lblSolutionName.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblSolutionName.Location = new System.Drawing.Point(43, 0);
+            this.lblSolutionName.Location = new System.Drawing.Point(23, 0);
             this.lblSolutionName.Name = "lblSolutionName";
             this.lblSolutionName.Size = new System.Drawing.Size(10, 28);
             this.lblSolutionName.TabIndex = 0;
@@ -115,7 +133,7 @@ namespace SolutionControlPanel.App
             // 
             this.lblStatusText.AutoSize = true;
             this.lblStatusText.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblStatusText.Location = new System.Drawing.Point(410, 0);
+            this.lblStatusText.Location = new System.Drawing.Point(807, 0);
             this.lblStatusText.Name = "lblStatusText";
             this.lblStatusText.Size = new System.Drawing.Size(78, 28);
             this.lblStatusText.TabIndex = 1;
@@ -129,7 +147,7 @@ namespace SolutionControlPanel.App
             this.lblStatusIcon.AutoSize = true;
             this.lblStatusIcon.Dock = System.Windows.Forms.DockStyle.Left;
             this.lblStatusIcon.Image = global::SolutionControlPanel.App.Properties.Resources.Offline_16x;
-            this.lblStatusIcon.Location = new System.Drawing.Point(394, 0);
+            this.lblStatusIcon.Location = new System.Drawing.Point(791, 0);
             this.lblStatusIcon.Name = "lblStatusIcon";
             this.lblStatusIcon.Size = new System.Drawing.Size(10, 28);
             this.lblStatusIcon.TabIndex = 5;
@@ -141,7 +159,7 @@ namespace SolutionControlPanel.App
             // 
             this.cmbProfiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProfiles.FormattingEnabled = true;
-            this.cmbProfiles.Location = new System.Drawing.Point(108, 3);
+            this.cmbProfiles.Location = new System.Drawing.Point(505, 3);
             this.cmbProfiles.Name = "cmbProfiles";
             this.cmbProfiles.Size = new System.Drawing.Size(280, 23);
             this.cmbProfiles.TabIndex = 0;
@@ -149,7 +167,7 @@ namespace SolutionControlPanel.App
             // btnStop
             // 
             this.btnStop.Image = global::SolutionControlPanel.App.Properties.Resources.Stop_16x;
-            this.btnStop.Location = new System.Drawing.Point(607, 3);
+            this.btnStop.Location = new System.Drawing.Point(1004, 3);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(91, 22);
             this.btnStop.TabIndex = 2;
@@ -161,7 +179,7 @@ namespace SolutionControlPanel.App
             // btnRestart
             // 
             this.btnRestart.Image = global::SolutionControlPanel.App.Properties.Resources.Run_16x;
-            this.btnRestart.Location = new System.Drawing.Point(510, 3);
+            this.btnRestart.Location = new System.Drawing.Point(907, 3);
             this.btnRestart.Name = "btnRestart";
             this.btnRestart.Size = new System.Drawing.Size(91, 22);
             this.btnRestart.TabIndex = 1;
@@ -182,6 +200,16 @@ namespace SolutionControlPanel.App
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             this.checkBox1.Click += new System.EventHandler(this.ClickOutside);
+            // 
+            // button1
+            // 
+            this.button1.Image = global::SolutionControlPanel.App.Properties.Resources.Pull_16x;
+            this.button1.Location = new System.Drawing.Point(1201, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(21, 22);
+            this.button1.TabIndex = 10;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // contextMenuStrip1
             // 
@@ -285,7 +313,7 @@ namespace SolutionControlPanel.App
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "SolutionControl";
-            this.Size = new System.Drawing.Size(701, 28);
+            this.Size = new System.Drawing.Size(1225, 28);
             this.VisibleChanged += new System.EventHandler(this.SolutionControl_VisibleChanged);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
@@ -318,5 +346,7 @@ namespace SolutionControlPanel.App
         private ToolStripMenuItem itmOpenSolution;
         private ToolStripMenuItem itmOpenInBrowser;
         private ToolStripMenuItem checkallToolStripMenuItem;
+        private Label lblGitStatus;
+        private Button button1;
     }
 }

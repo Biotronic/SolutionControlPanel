@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO;
 using System.Linq;
 using System.Management;
 using System.Runtime.InteropServices;
@@ -10,6 +11,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+using LibGit2Sharp;
+using LibGit2Sharp.Handlers;
 using SolutionControlPanel.App.Config;
 using SolutionControlPanel.App.Properties;
 using SolutionControlPanel.App.Utils;
@@ -128,6 +131,7 @@ namespace SolutionControlPanel.App.Processes
         private static readonly ManagementEventWatcher StartListener;
         private static readonly ManagementEventWatcher StopListener;
         private static readonly List<ProcessInfo> AllProcesses = new List<ProcessInfo>();
+
         protected class ProcessInfo
         {
             public ProcessInfo(ManagementBaseObject obj)
@@ -554,5 +558,124 @@ namespace SolutionControlPanel.App.Processes
         public abstract void Open();
 
         public abstract void OpenInBrowser();
+
+        public string GitShortStatus
+        {
+            get
+            {
+                using var repo = new Repository(Path.GetDirectoryName(SolutionPath));
+
+                var tracking = repo.Head.TrackingDetails;
+                if (!repo.Head.IsTracking) return "DETACHED";
+                if (!repo.Diff.Compare<TreeChanges>().Any()) return "Up to date";
+                if (tracking.AheadBy == 0 && tracking.BehindBy == 0) return $"{repo.Diff.Compare<TreeChanges>().Count} changes";
+                return $"{tracking.AheadBy}^ | v{tracking.BehindBy}";
+            }
+        }
+
+        public string GitStatus
+        {
+            get
+            {
+                var result = new StringBuilder();
+                using var repo = new Repository(Path.GetDirectoryName(SolutionPath));
+
+                result.AppendLine(repo.Head.FriendlyName);
+                result.AppendLine();
+
+                foreach (var change in repo.Diff.Compare<TreeChanges>())
+                {
+                    switch (change.Status)
+                    {
+                        case ChangeKind.Unmodified:
+                            continue;
+                        case ChangeKind.Added:
+                            result.Append("A");
+                            break;
+                        case ChangeKind.Deleted:
+                            result.Append("D");
+                            break;
+                        case ChangeKind.Modified:
+                            result.Append("M");
+                            break;
+                        case ChangeKind.Renamed:
+                            result.Append("R");
+                            break;
+                        case ChangeKind.Copied:
+                            result.Append("C");
+                            break;
+                        case ChangeKind.Ignored:
+                            result.Append("I");
+                            break;
+                        case ChangeKind.Untracked:
+                            result.Append("U");
+                            break;
+                        case ChangeKind.TypeChanged:
+                            result.Append("T");
+                            break;
+                        case ChangeKind.Unreadable:
+                            result.Append("#");
+                            break;
+                        case ChangeKind.Conflicted:
+                            result.Append("X");
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                    result.Append(" ");
+                    result.AppendLine(change.Path);
+                }
+
+                return result.ToString();
+            }
+        }
+
+        public void GitPull()
+        {
+            using var repo = new Repository(Path.GetDirectoryName(SolutionPath));
+            var options = new FetchOptions
+            {
+                CredentialsProvider = (url, usernameFromUrl, types) =>
+                {
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = "git.exe",
+                        Arguments = "credential fill",
+                        UseShellExecute = false,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        CreateNoWindow = true,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    };
+
+                    var process = new Process
+                    {
+                        StartInfo = startInfo
+                    };
+
+                    process.Start();
+
+                    var uri = new Uri(url);
+                    process.StandardInput.Write($"protocol={uri.Scheme}\nhost={uri.Host}\npath={uri.AbsolutePath}\n\n");
+                    var output = process.StandardOutput.ReadToEnd();
+                    return new UsernamePasswordCredentials
+                    {
+                        Username = Regex.Match(output, "username=(?<username>.*)").Groups["username"].Value,
+                        Password = Regex.Match(output, "password=(?<password>.*)").Groups["password"].Value
+                    };
+                }
+            };
+
+            Commands.Pull(repo, repo.Config.BuildSignature(DateTimeOffset.UtcNow), new PullOptions
+            {
+                FetchOptions = options,
+                MergeOptions = new MergeOptions
+                {
+                    FastForwardStrategy = FastForwardStrategy.Default
+                }
+            });
+
+        }
     }
 }
