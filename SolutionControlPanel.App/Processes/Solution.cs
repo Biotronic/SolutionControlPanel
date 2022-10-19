@@ -565,11 +565,18 @@ namespace SolutionControlPanel.App.Processes
             {
                 using var repo = new Repository(Path.GetDirectoryName(SolutionPath));
 
+                var fr = repo.Network.Remotes.First().FetchRefSpecs;
+
+                var diff = repo.Diff.Compare<TreeChanges>().Count;
+
+                var suffix = diff == 0 ? "" : $", {diff} changes";
+
                 var tracking = repo.Head.TrackingDetails;
-                if (!repo.Head.IsTracking) return "DETACHED";
-                if (!repo.Diff.Compare<TreeChanges>().Any()) return "Up to date";
-                if (tracking.AheadBy == 0 && tracking.BehindBy == 0) return $"{repo.Diff.Compare<TreeChanges>().Count} changes";
-                return $"{tracking.AheadBy}^ | v{tracking.BehindBy}";
+                if (!repo.Head.IsTracking) return "DETACHED"+suffix;
+                if (tracking.AheadBy != 0 && tracking.BehindBy != 0) return $"{tracking.AheadBy}^ | v{tracking.BehindBy}"+suffix;
+                if (tracking.AheadBy != 0) return $"{tracking.AheadBy}^"+suffix;
+                if (tracking.BehindBy != 0) return $"v{tracking.BehindBy}"+suffix;
+                return diff == 0 ? "Up to date" : $"{diff} changes";
             }
         }
 
@@ -667,15 +674,21 @@ namespace SolutionControlPanel.App.Processes
                 }
             };
 
-            Commands.Pull(repo, repo.Config.BuildSignature(DateTimeOffset.UtcNow), new PullOptions
+            try
             {
-                FetchOptions = options,
-                MergeOptions = new MergeOptions
+                Commands.Pull(repo, repo.Config.BuildSignature(DateTimeOffset.UtcNow), new PullOptions
                 {
-                    FastForwardStrategy = FastForwardStrategy.Default
-                }
-            });
-
+                    FetchOptions = options,
+                    MergeOptions = new MergeOptions
+                    {
+                        FastForwardStrategy = FastForwardStrategy.Default
+                    }
+                });
+            }
+            catch
+            {
+                //
+            }
         }
     }
 }

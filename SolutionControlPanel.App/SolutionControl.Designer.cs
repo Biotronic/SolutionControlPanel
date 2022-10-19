@@ -64,7 +64,7 @@ namespace SolutionControlPanel.App
             // 
             this.tableLayoutPanel1.ColumnCount = 10;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -108,7 +108,7 @@ namespace SolutionControlPanel.App
             // 
             this.lblSelected.AutoSize = true;
             this.lblSelected.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblSelected.Location = new System.Drawing.Point(43, 0);
+            this.lblSelected.Location = new System.Drawing.Point(39, 0);
             this.lblSelected.Name = "lblSelected";
             this.lblSelected.Size = new System.Drawing.Size(10, 28);
             this.lblSelected.TabIndex = 7;
@@ -208,6 +208,7 @@ namespace SolutionControlPanel.App
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(21, 22);
             this.button1.TabIndex = 10;
+            this.toolTip1.SetToolTip(this.button1, "Pull");
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
