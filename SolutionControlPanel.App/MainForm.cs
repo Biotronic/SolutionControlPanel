@@ -39,7 +39,7 @@ namespace SolutionControlPanel.App
             itmStartAtBoot.Checked = RunAtStartup.Registered;
             itmStartProjects.Checked = Config.StartProjectsAutomatically;
             UpdateLists();
-            timer1.Enabled = true;
+            autoStartTimer.Enabled = Config.StartProjectsAutomatically;
         }
 
         private void UpdateLists()
@@ -274,7 +274,7 @@ namespace SolutionControlPanel.App
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Enabled = false;
+            autoStartTimer.Enabled = false;
             if (!Config.StartProjectsAutomatically) return;
 
             StartAllSolutions();

@@ -95,7 +95,14 @@ namespace SolutionControlPanel.App.Processes
                     var launchSettings = Path.Combine(projectDir, @"Properties\launchSettings.json");
                     if (!File.Exists(launchSettings)) continue;
 
-                    var settings = JsonConvert.DeserializeObject<LaunchSettings>(File.ReadAllText(launchSettings));
+                    LaunchSettings settings = null;
+                    try
+                    {
+                        settings = JsonConvert.DeserializeObject<LaunchSettings>(File.ReadAllText(launchSettings));
+                    }
+                    catch (JsonReaderException)
+                    {
+                    }
                     if (settings == null) continue;
 
                     if (settings.Profiles.Any(a => !string.IsNullOrWhiteSpace(a.Value.CommandLineArgs))) continue;
