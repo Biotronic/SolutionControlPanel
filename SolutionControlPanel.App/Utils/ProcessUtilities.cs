@@ -229,11 +229,11 @@ namespace SolutionControlPanel.App.Utils
                     return Data;
                 }
 
-                var netStatRows = Regex.Split(netStatContent, "\r\n");
+                var netStatRows = netStatContent.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
                 foreach (var netStatRow in netStatRows)
                 {
-                    var tokens = Regex.Split(netStatRow, "\\s+");
+                    var tokens = netStatRow.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
                     if (tokens.Length <= 4 || !tokens[1].Equals("UDP") && !tokens[1].Equals("TCP")) continue;
 
                     var ipAddress = Regex.Replace(tokens[2], @"\[(.*?)\]", "1.1.1.1");
