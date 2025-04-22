@@ -295,5 +295,10 @@ namespace SolutionControlPanel.App
         {
             Solution.GitPull();
         }
+
+        private void openInExplorerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Solution.OpenInExplorer();
+        }
     }
 }

@@ -31,296 +31,292 @@ namespace SolutionControlPanel.App
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lblGitStatus = new System.Windows.Forms.Label();
-            this.lblSelected = new System.Windows.Forms.Label();
-            this.lblSolutionName = new System.Windows.Forms.Label();
-            this.lblStatusText = new System.Windows.Forms.Label();
-            this.lblStatusIcon = new System.Windows.Forms.Label();
-            this.cmbProfiles = new System.Windows.Forms.ComboBox();
-            this.btnStop = new System.Windows.Forms.Button();
-            this.btnRestart = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.itmName = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.itmStart = new System.Windows.Forms.ToolStripMenuItem();
-            this.itmStop = new System.Windows.Forms.ToolStripMenuItem();
-            this.itmDebug = new System.Windows.Forms.ToolStripMenuItem();
-            this.itmRestart = new System.Windows.Forms.ToolStripMenuItem();
-            this.itmOpenSolution = new System.Windows.Forms.ToolStripMenuItem();
-            this.itmOpenInBrowser = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.itmHide = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.contextMenuStrip1.SuspendLayout();
-            this.SuspendLayout();
+            components = new System.ComponentModel.Container();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            lblGitStatus = new Label();
+            lblSelected = new Label();
+            lblSolutionName = new Label();
+            lblStatusText = new Label();
+            lblStatusIcon = new Label();
+            cmbProfiles = new ComboBox();
+            btnStop = new Button();
+            btnRestart = new Button();
+            checkBox1 = new CheckBox();
+            button1 = new Button();
+            toolTip1 = new ToolTip(components);
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            itmName = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
+            itmStart = new ToolStripMenuItem();
+            itmStop = new ToolStripMenuItem();
+            itmDebug = new ToolStripMenuItem();
+            itmRestart = new ToolStripMenuItem();
+            itmOpenSolution = new ToolStripMenuItem();
+            itmOpenInBrowser = new ToolStripMenuItem();
+            openInExplorerToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            itmHide = new ToolStripMenuItem();
+            checkallToolStripMenuItem = new ToolStripMenuItem();
+            tableLayoutPanel1.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.ColumnCount = 10;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 286F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel1.Controls.Add(this.lblGitStatus, 8, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblSelected, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblSolutionName, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblStatusText, 4, 0);
-            this.tableLayoutPanel1.Controls.Add(this.lblStatusIcon, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.cmbProfiles, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnStop, 7, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnRestart, 6, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBox1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.button1, 9, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1225, 28);
-            this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Click += new System.EventHandler(this.ClickOutside);
+            tableLayoutPanel1.ColumnCount = 10;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 286F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.Controls.Add(lblGitStatus, 8, 0);
+            tableLayoutPanel1.Controls.Add(lblSelected, 1, 0);
+            tableLayoutPanel1.Controls.Add(lblSolutionName, 1, 0);
+            tableLayoutPanel1.Controls.Add(lblStatusText, 4, 0);
+            tableLayoutPanel1.Controls.Add(lblStatusIcon, 3, 0);
+            tableLayoutPanel1.Controls.Add(cmbProfiles, 2, 0);
+            tableLayoutPanel1.Controls.Add(btnStop, 7, 0);
+            tableLayoutPanel1.Controls.Add(btnRestart, 6, 0);
+            tableLayoutPanel1.Controls.Add(checkBox1, 0, 0);
+            tableLayoutPanel1.Controls.Add(button1, 9, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new System.Drawing.Size(1225, 28);
+            tableLayoutPanel1.TabIndex = 0;
+            tableLayoutPanel1.Click += ClickOutside;
             // 
             // lblGitStatus
             // 
-            this.lblGitStatus.AutoSize = true;
-            this.lblGitStatus.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblGitStatus.Location = new System.Drawing.Point(1101, 0);
-            this.lblGitStatus.Name = "lblGitStatus";
-            this.lblGitStatus.Size = new System.Drawing.Size(62, 28);
-            this.lblGitStatus.TabIndex = 9;
-            this.lblGitStatus.Text = "Up to date";
-            this.lblGitStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblGitStatus.MouseHover += new System.EventHandler(this.label1_MouseHover);
+            lblGitStatus.AutoSize = true;
+            lblGitStatus.Dock = DockStyle.Left;
+            lblGitStatus.Location = new System.Drawing.Point(1101, 0);
+            lblGitStatus.Name = "lblGitStatus";
+            lblGitStatus.Size = new System.Drawing.Size(62, 28);
+            lblGitStatus.TabIndex = 9;
+            lblGitStatus.Text = "Up to date";
+            lblGitStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblGitStatus.MouseHover += label1_MouseHover;
             // 
             // lblSelected
             // 
-            this.lblSelected.AutoSize = true;
-            this.lblSelected.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblSelected.Location = new System.Drawing.Point(39, 0);
-            this.lblSelected.Name = "lblSelected";
-            this.lblSelected.Size = new System.Drawing.Size(10, 28);
-            this.lblSelected.TabIndex = 7;
-            this.lblSelected.Text = " ";
-            this.lblSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblSelected.Click += new System.EventHandler(this.ClickOutside);
+            lblSelected.AutoSize = true;
+            lblSelected.Dock = DockStyle.Left;
+            lblSelected.Location = new System.Drawing.Point(39, 0);
+            lblSelected.Name = "lblSelected";
+            lblSelected.Size = new System.Drawing.Size(10, 28);
+            lblSelected.TabIndex = 7;
+            lblSelected.Text = " ";
+            lblSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblSelected.Click += ClickOutside;
             // 
             // lblSolutionName
             // 
-            this.lblSolutionName.AutoSize = true;
-            this.lblSolutionName.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblSolutionName.Location = new System.Drawing.Point(23, 0);
-            this.lblSolutionName.Name = "lblSolutionName";
-            this.lblSolutionName.Size = new System.Drawing.Size(10, 28);
-            this.lblSolutionName.TabIndex = 0;
-            this.lblSolutionName.Text = " ";
-            this.lblSolutionName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblSolutionName.Click += new System.EventHandler(this.ClickOutside);
-            this.lblSolutionName.MouseHover += new System.EventHandler(this.lblSolutionName_MouseHover);
+            lblSolutionName.AutoSize = true;
+            lblSolutionName.Dock = DockStyle.Left;
+            lblSolutionName.Location = new System.Drawing.Point(23, 0);
+            lblSolutionName.Name = "lblSolutionName";
+            lblSolutionName.Size = new System.Drawing.Size(10, 28);
+            lblSolutionName.TabIndex = 0;
+            lblSolutionName.Text = " ";
+            lblSolutionName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblSolutionName.Click += ClickOutside;
+            lblSolutionName.MouseHover += lblSolutionName_MouseHover;
             // 
             // lblStatusText
             // 
-            this.lblStatusText.AutoSize = true;
-            this.lblStatusText.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblStatusText.Location = new System.Drawing.Point(807, 0);
-            this.lblStatusText.Name = "lblStatusText";
-            this.lblStatusText.Size = new System.Drawing.Size(78, 28);
-            this.lblStatusText.TabIndex = 1;
-            this.lblStatusText.Text = "Unresponsive";
-            this.lblStatusText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblStatusText.Click += new System.EventHandler(this.ClickOutside);
-            this.lblStatusText.MouseHover += new System.EventHandler(this.lblStatusText_MouseHover);
+            lblStatusText.AutoSize = true;
+            lblStatusText.Dock = DockStyle.Left;
+            lblStatusText.Location = new System.Drawing.Point(807, 0);
+            lblStatusText.Name = "lblStatusText";
+            lblStatusText.Size = new System.Drawing.Size(78, 28);
+            lblStatusText.TabIndex = 1;
+            lblStatusText.Text = "Unresponsive";
+            lblStatusText.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblStatusText.Click += ClickOutside;
+            lblStatusText.MouseHover += lblStatusText_MouseHover;
             // 
             // lblStatusIcon
             // 
-            this.lblStatusIcon.AutoSize = true;
-            this.lblStatusIcon.Dock = System.Windows.Forms.DockStyle.Left;
-            this.lblStatusIcon.Image = global::SolutionControlPanel.App.Properties.Resources.Offline_16x;
-            this.lblStatusIcon.Location = new System.Drawing.Point(791, 0);
-            this.lblStatusIcon.Name = "lblStatusIcon";
-            this.lblStatusIcon.Size = new System.Drawing.Size(10, 28);
-            this.lblStatusIcon.TabIndex = 5;
-            this.lblStatusIcon.Text = " ";
-            this.lblStatusIcon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.lblStatusIcon.Click += new System.EventHandler(this.ClickOutside);
+            lblStatusIcon.AutoSize = true;
+            lblStatusIcon.Dock = DockStyle.Left;
+            lblStatusIcon.Image = Properties.Resources.Offline_16x;
+            lblStatusIcon.Location = new System.Drawing.Point(791, 0);
+            lblStatusIcon.Name = "lblStatusIcon";
+            lblStatusIcon.Size = new System.Drawing.Size(10, 28);
+            lblStatusIcon.TabIndex = 5;
+            lblStatusIcon.Text = " ";
+            lblStatusIcon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            lblStatusIcon.Click += ClickOutside;
             // 
             // cmbProfiles
             // 
-            this.cmbProfiles.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbProfiles.FormattingEnabled = true;
-            this.cmbProfiles.Location = new System.Drawing.Point(505, 3);
-            this.cmbProfiles.Name = "cmbProfiles";
-            this.cmbProfiles.Size = new System.Drawing.Size(280, 23);
-            this.cmbProfiles.TabIndex = 0;
+            cmbProfiles.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbProfiles.FormattingEnabled = true;
+            cmbProfiles.Location = new System.Drawing.Point(505, 3);
+            cmbProfiles.Name = "cmbProfiles";
+            cmbProfiles.Size = new System.Drawing.Size(280, 23);
+            cmbProfiles.TabIndex = 0;
             // 
             // btnStop
             // 
-            this.btnStop.Image = global::SolutionControlPanel.App.Properties.Resources.Stop_16x;
-            this.btnStop.Location = new System.Drawing.Point(1004, 3);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(91, 22);
-            this.btnStop.TabIndex = 2;
-            this.btnStop.Text = "Stop";
-            this.btnStop.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnStop.UseVisualStyleBackColor = true;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            btnStop.Image = Properties.Resources.Stop_16x;
+            btnStop.Location = new System.Drawing.Point(1004, 3);
+            btnStop.Name = "btnStop";
+            btnStop.Size = new System.Drawing.Size(91, 22);
+            btnStop.TabIndex = 2;
+            btnStop.Text = "Stop";
+            btnStop.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnStop.UseVisualStyleBackColor = true;
+            btnStop.Click += btnStop_Click;
             // 
             // btnRestart
             // 
-            this.btnRestart.Image = global::SolutionControlPanel.App.Properties.Resources.Run_16x;
-            this.btnRestart.Location = new System.Drawing.Point(907, 3);
-            this.btnRestart.Name = "btnRestart";
-            this.btnRestart.Size = new System.Drawing.Size(91, 22);
-            this.btnRestart.TabIndex = 1;
-            this.btnRestart.Text = "Start";
-            this.btnRestart.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnRestart.UseVisualStyleBackColor = true;
-            this.btnRestart.Click += new System.EventHandler(this.btnRestart_Click);
+            btnRestart.Image = Properties.Resources.Run_16x;
+            btnRestart.Location = new System.Drawing.Point(907, 3);
+            btnRestart.Name = "btnRestart";
+            btnRestart.Size = new System.Drawing.Size(91, 22);
+            btnRestart.TabIndex = 1;
+            btnRestart.Text = "Start";
+            btnRestart.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnRestart.UseVisualStyleBackColor = true;
+            btnRestart.Click += btnRestart_Click;
             // 
             // checkBox1
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.checkBox1.Location = new System.Drawing.Point(3, 3);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(14, 22);
-            this.checkBox1.TabIndex = 8;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            this.checkBox1.Click += new System.EventHandler(this.ClickOutside);
+            checkBox1.AutoSize = true;
+            checkBox1.Dock = DockStyle.Left;
+            checkBox1.Location = new System.Drawing.Point(3, 3);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new System.Drawing.Size(14, 22);
+            checkBox1.TabIndex = 8;
+            checkBox1.Text = "checkBox1";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            checkBox1.Click += ClickOutside;
             // 
             // button1
             // 
-            this.button1.Image = global::SolutionControlPanel.App.Properties.Resources.Pull_16x;
-            this.button1.Location = new System.Drawing.Point(1201, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(21, 22);
-            this.button1.TabIndex = 10;
-            this.toolTip1.SetToolTip(this.button1, "Pull");
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            button1.Image = Properties.Resources.Pull_16x;
+            button1.Location = new System.Drawing.Point(1201, 3);
+            button1.Name = "button1";
+            button1.Size = new System.Drawing.Size(21, 22);
+            button1.TabIndex = 10;
+            toolTip1.SetToolTip(button1, "Pull");
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // contextMenuStrip1
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itmName,
-            this.toolStripSeparator1,
-            this.itmStart,
-            this.itmStop,
-            this.itmDebug,
-            this.itmRestart,
-            this.itmOpenSolution,
-            this.itmOpenInBrowser,
-            this.toolStripSeparator2,
-            this.itmHide,
-            this.checkallToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(162, 214);
-            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { itmName, toolStripSeparator1, itmStart, itmStop, itmDebug, itmRestart, itmOpenSolution, itmOpenInBrowser, openInExplorerToolStripMenuItem, toolStripSeparator2, itmHide, checkallToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new System.Drawing.Size(163, 236);
+            contextMenuStrip1.Opening += contextMenuStrip1_Opening;
             // 
             // itmName
             // 
-            this.itmName.Enabled = false;
-            this.itmName.Name = "itmName";
-            this.itmName.Size = new System.Drawing.Size(161, 22);
-            this.itmName.Text = "Name";
+            itmName.Enabled = false;
+            itmName.Name = "itmName";
+            itmName.Size = new System.Drawing.Size(162, 22);
+            itmName.Text = "Name";
             // 
             // toolStripSeparator1
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(158, 6);
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new System.Drawing.Size(159, 6);
             // 
             // itmStart
             // 
-            this.itmStart.Image = global::SolutionControlPanel.App.Properties.Resources.Run_16x;
-            this.itmStart.Name = "itmStart";
-            this.itmStart.Size = new System.Drawing.Size(161, 22);
-            this.itmStart.Text = "&Start";
-            this.itmStart.Click += new System.EventHandler(this.itmStart_Click);
+            itmStart.Image = Properties.Resources.Run_16x;
+            itmStart.Name = "itmStart";
+            itmStart.Size = new System.Drawing.Size(162, 22);
+            itmStart.Text = "&Start";
+            itmStart.Click += itmStart_Click;
             // 
             // itmStop
             // 
-            this.itmStop.Image = global::SolutionControlPanel.App.Properties.Resources.Stop_16x;
-            this.itmStop.Name = "itmStop";
-            this.itmStop.Size = new System.Drawing.Size(161, 22);
-            this.itmStop.Text = "&Stop";
-            this.itmStop.Click += new System.EventHandler(this.itmStop_Click);
+            itmStop.Image = Properties.Resources.Stop_16x;
+            itmStop.Name = "itmStop";
+            itmStop.Size = new System.Drawing.Size(162, 22);
+            itmStop.Text = "&Stop";
+            itmStop.Click += itmStop_Click;
             // 
             // itmDebug
             // 
-            this.itmDebug.Image = global::SolutionControlPanel.App.Properties.Resources.Debug_16x;
-            this.itmDebug.Name = "itmDebug";
-            this.itmDebug.Size = new System.Drawing.Size(161, 22);
-            this.itmDebug.Text = "&Debug";
-            this.itmDebug.Click += new System.EventHandler(this.itmDebug_Click);
+            itmDebug.Image = Properties.Resources.Debug_16x;
+            itmDebug.Name = "itmDebug";
+            itmDebug.Size = new System.Drawing.Size(162, 22);
+            itmDebug.Text = "&Debug";
+            itmDebug.Click += itmDebug_Click;
             // 
             // itmRestart
             // 
-            this.itmRestart.Image = global::SolutionControlPanel.App.Properties.Resources.Restart_16x;
-            this.itmRestart.Name = "itmRestart";
-            this.itmRestart.Size = new System.Drawing.Size(161, 22);
-            this.itmRestart.Text = "&Restart";
-            this.itmRestart.Click += new System.EventHandler(this.itmRestart_Click);
+            itmRestart.Image = Properties.Resources.Restart_16x;
+            itmRestart.Name = "itmRestart";
+            itmRestart.Size = new System.Drawing.Size(162, 22);
+            itmRestart.Text = "&Restart";
+            itmRestart.Click += itmRestart_Click;
             // 
             // itmOpenSolution
             // 
-            this.itmOpenSolution.Name = "itmOpenSolution";
-            this.itmOpenSolution.Size = new System.Drawing.Size(161, 22);
-            this.itmOpenSolution.Text = "&Open solution";
-            this.itmOpenSolution.Click += new System.EventHandler(this.itmOpenSolution_Click);
+            itmOpenSolution.Name = "itmOpenSolution";
+            itmOpenSolution.Size = new System.Drawing.Size(162, 22);
+            itmOpenSolution.Text = "&Open solution";
+            itmOpenSolution.Click += itmOpenSolution_Click;
             // 
             // itmOpenInBrowser
             // 
-            this.itmOpenInBrowser.Name = "itmOpenInBrowser";
-            this.itmOpenInBrowser.Size = new System.Drawing.Size(161, 22);
-            this.itmOpenInBrowser.Text = "Open in &browser";
-            this.itmOpenInBrowser.Click += new System.EventHandler(this.itmOpenInBrowser_Click);
+            itmOpenInBrowser.Name = "itmOpenInBrowser";
+            itmOpenInBrowser.Size = new System.Drawing.Size(162, 22);
+            itmOpenInBrowser.Text = "Open in &browser";
+            itmOpenInBrowser.Click += itmOpenInBrowser_Click;
+            // 
+            // openInExplorerToolStripMenuItem
+            // 
+            openInExplorerToolStripMenuItem.Name = "openInExplorerToolStripMenuItem";
+            openInExplorerToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            openInExplorerToolStripMenuItem.Text = "Open in E&xplorer";
+            openInExplorerToolStripMenuItem.Click += openInExplorerToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(158, 6);
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new System.Drawing.Size(159, 6);
             // 
             // itmHide
             // 
-            this.itmHide.Image = global::SolutionControlPanel.App.Properties.Resources.Hide_16x;
-            this.itmHide.Name = "itmHide";
-            this.itmHide.Size = new System.Drawing.Size(161, 22);
-            this.itmHide.Text = "&Hide";
-            this.itmHide.Click += new System.EventHandler(this.itmHide_Click);
+            itmHide.Image = Properties.Resources.Hide_16x;
+            itmHide.Name = "itmHide";
+            itmHide.Size = new System.Drawing.Size(162, 22);
+            itmHide.Text = "&Hide";
+            itmHide.Click += itmHide_Click;
             // 
             // checkallToolStripMenuItem
             // 
-            this.checkallToolStripMenuItem.Name = "checkallToolStripMenuItem";
-            this.checkallToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.checkallToolStripMenuItem.Text = "Check &all";
-            this.checkallToolStripMenuItem.Click += new System.EventHandler(this.checkallToolStripMenuItem_Click);
+            checkallToolStripMenuItem.Name = "checkallToolStripMenuItem";
+            checkallToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            checkallToolStripMenuItem.Text = "Check &all";
+            checkallToolStripMenuItem.Click += checkallToolStripMenuItem_Click;
             // 
             // SolutionControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "SolutionControl";
-            this.Size = new System.Drawing.Size(1225, 28);
-            this.VisibleChanged += new System.EventHandler(this.SolutionControl_VisibleChanged);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
-            this.contextMenuStrip1.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(tableLayoutPanel1);
+            Name = "SolutionControl";
+            Size = new System.Drawing.Size(1225, 28);
+            VisibleChanged += SolutionControl_VisibleChanged;
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
+            contextMenuStrip1.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
@@ -349,5 +345,6 @@ namespace SolutionControlPanel.App
         private ToolStripMenuItem checkallToolStripMenuItem;
         private Label lblGitStatus;
         private Button button1;
+        private ToolStripMenuItem openInExplorerToolStripMenuItem;
     }
 }

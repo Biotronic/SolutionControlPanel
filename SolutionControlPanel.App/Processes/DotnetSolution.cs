@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
@@ -28,14 +29,16 @@ namespace SolutionControlPanel.App.Processes
 
         public override void Open()
         {
-            using var fileopener = new Process
+            using var fileOpener = new Process();
+            fileOpener.StartInfo.FileName = SolutionPath;
+            try
             {
-                StartInfo =
-                {
-                    FileName = SolutionPath
-                }
-            };
-            fileopener.Start();
+                fileOpener.Start();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, @"Failed to open", MessageBoxButtons.OK);
+            }
         }
 
         public override void OpenInBrowser()
@@ -49,6 +52,21 @@ namespace SolutionControlPanel.App.Processes
 
             var url = $"http://localhost:{port}/swagger/index.html";
             Process.Start("explorer.exe", $"\"{url}\"");
+        }
+
+        public override void OpenInExplorer()
+        {
+            using var fileOpener = new Process();
+            fileOpener.StartInfo.FileName = "explorer.exe";
+            fileOpener.StartInfo.Arguments = $"/select,\"{SolutionPath}\"";
+            try
+            {
+                fileOpener.Start();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, @"Failed to open", MessageBoxButtons.OK);
+            }
         }
 
         protected override ProcessKind IsRelevantProcess(ProcessInfo processInfo)
