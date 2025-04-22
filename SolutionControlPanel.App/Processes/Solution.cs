@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 using LibGit2Sharp;
-using LibGit2Sharp.Handlers;
 using SolutionControlPanel.App.Config;
 using SolutionControlPanel.App.Properties;
 using SolutionControlPanel.App.Utils;
@@ -248,6 +247,8 @@ namespace SolutionControlPanel.App.Processes
             SetName();
             SolutionConfig = Config.GetSolution(Name);
             Hidden = SolutionConfig.Hidden;
+            _gitShortStatus = new Cached<string>(GetGitShortStatus);
+            _gitStatus = new Cached<string>(GetGitStatus);
             Checked = SolutionConfig.Checked && !Hidden;
 
             GetExistingProcesses();
@@ -541,7 +542,11 @@ namespace SolutionControlPanel.App.Processes
 
         public void ClearOutput()
         {
-            _richText.Clear();
+            lock (_richText)
+            {
+                _richText.Clear();
+            }
+
             Update?.Invoke(this, EventArgs.Empty);
         }
 
@@ -559,9 +564,11 @@ namespace SolutionControlPanel.App.Processes
 
         public abstract void OpenInBrowser();
 
-        public string GitShortStatus
+        public abstract void OpenInExplorer();
+
+        private string GetGitShortStatus()
         {
-            get
+            try
             {
                 using var repo = new Repository(Path.GetDirectoryName(SolutionPath));
 
@@ -572,70 +579,88 @@ namespace SolutionControlPanel.App.Processes
                 var suffix = diff == 0 ? "" : $", {diff} changes";
 
                 var tracking = repo.Head.TrackingDetails;
-                if (!repo.Head.IsTracking) return "DETACHED"+suffix;
-                if (tracking.AheadBy != 0 && tracking.BehindBy != 0) return $"{tracking.AheadBy}^ | v{tracking.BehindBy}"+suffix;
-                if (tracking.AheadBy != 0) return $"{tracking.AheadBy}^"+suffix;
-                if (tracking.BehindBy != 0) return $"v{tracking.BehindBy}"+suffix;
-                return diff == 0 ? "Up to date" : $"{diff} changes";
-            }
-        }
-
-        public string GitStatus
-        {
-            get
-            {
-                var result = new StringBuilder();
-                using var repo = new Repository(Path.GetDirectoryName(SolutionPath));
-
-                result.AppendLine(repo.Head.FriendlyName);
-                result.AppendLine();
-
-                foreach (var change in repo.Diff.Compare<TreeChanges>())
+                if (!repo.Head.IsTracking) return "DETACHED" + suffix;
+                if (tracking.AheadBy != 0 && tracking.BehindBy != 0)
                 {
-                    switch (change.Status)
-                    {
-                        case ChangeKind.Unmodified:
-                            continue;
-                        case ChangeKind.Added:
-                            result.Append("A");
-                            break;
-                        case ChangeKind.Deleted:
-                            result.Append("D");
-                            break;
-                        case ChangeKind.Modified:
-                            result.Append("M");
-                            break;
-                        case ChangeKind.Renamed:
-                            result.Append("R");
-                            break;
-                        case ChangeKind.Copied:
-                            result.Append("C");
-                            break;
-                        case ChangeKind.Ignored:
-                            result.Append("I");
-                            break;
-                        case ChangeKind.Untracked:
-                            result.Append("U");
-                            break;
-                        case ChangeKind.TypeChanged:
-                            result.Append("T");
-                            break;
-                        case ChangeKind.Unreadable:
-                            result.Append("#");
-                            break;
-                        case ChangeKind.Conflicted:
-                            result.Append("X");
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
-                    }
-                    result.Append(" ");
-                    result.AppendLine(change.Path);
+                    return $"{tracking.AheadBy}^ | v{tracking.BehindBy}" + suffix;
                 }
 
-                return result.ToString();
+                if (tracking.AheadBy != 0)
+                {
+                    return $"{tracking.AheadBy}^" + suffix;
+                }
+                if (tracking.BehindBy != 0)
+                {
+                    return $"v{tracking.BehindBy}" + suffix;
+                }
+                return diff == 0 ? "Up to date" : $"{diff} changes";
+            }
+            catch
+            {
+                return "No git";
             }
         }
+
+        private string GetGitStatus()
+        {
+
+            var result = new StringBuilder();
+            using var repo = new Repository(Path.GetDirectoryName(SolutionPath));
+
+            result.AppendLine(repo.Head.FriendlyName);
+            result.AppendLine();
+
+            foreach (var change in repo.Diff.Compare<TreeChanges>())
+            {
+                switch (change.Status)
+                {
+                    case ChangeKind.Unmodified:
+                        continue;
+                    case ChangeKind.Added:
+                        result.Append("A");
+                        break;
+                    case ChangeKind.Deleted:
+                        result.Append("D");
+                        break;
+                    case ChangeKind.Modified:
+                        result.Append("M");
+                        break;
+                    case ChangeKind.Renamed:
+                        result.Append("R");
+                        break;
+                    case ChangeKind.Copied:
+                        result.Append("C");
+                        break;
+                    case ChangeKind.Ignored:
+                        result.Append("I");
+                        break;
+                    case ChangeKind.Untracked:
+                        result.Append("U");
+                        break;
+                    case ChangeKind.TypeChanged:
+                        result.Append("T");
+                        break;
+                    case ChangeKind.Unreadable:
+                        result.Append("#");
+                        break;
+                    case ChangeKind.Conflicted:
+                        result.Append("X");
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                result.Append(" ");
+                result.AppendLine(change.Path);
+            }
+
+            return result.ToString();
+        }
+
+        private readonly Cached<string> _gitShortStatus;
+        public string GitShortStatus => _gitShortStatus;
+        private readonly Cached<string> _gitStatus;
+
+        public string GitStatus => _gitStatus;
 
         public void GitPull()
         {

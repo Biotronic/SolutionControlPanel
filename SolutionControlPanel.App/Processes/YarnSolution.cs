@@ -55,6 +55,21 @@ namespace SolutionControlPanel.App.Processes
             Process.Start("explorer.exe", $"\"{url}\"");
         }
 
+        public override void OpenInExplorer()
+        {
+            using var fileOpener = new Process();
+            fileOpener.StartInfo.FileName = "explorer.exe";
+            fileOpener.StartInfo.Arguments = $"/select,\"{SolutionPath}\"";
+            try
+            {
+                fileOpener.Start();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, @"Failed to open", MessageBoxButtons.OK);
+            }
+        }
+
         protected override ProcessKind IsRelevantProcess(ProcessInfo processInfo)
         {
             if (processInfo.CommandLine == null) return ProcessKind.Irrelevant;
